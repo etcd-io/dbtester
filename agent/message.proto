@@ -19,8 +19,8 @@ message Request {
 		Restart = 2;
 	}
 	enum Database {
-		etcd      = 0;
-		etcd2     = 1;
+		etcdv3    = 0;
+		etcdv2    = 1;
 		ZooKeeper = 2;
 		Consul    = 3;
 	}

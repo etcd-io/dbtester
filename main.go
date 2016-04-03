@@ -41,6 +41,7 @@ import (
 	"github.com/coreos/dbtester/analyze"
 	"github.com/coreos/dbtester/bench"
 	"github.com/coreos/dbtester/control"
+	"github.com/coreos/dbtester/script"
 	"github.com/coreos/dbtester/upload"
 
 	"github.com/spf13/cobra"
@@ -65,6 +66,7 @@ func init() {
 	rootCommand.AddCommand(control.StartCommand)
 	rootCommand.AddCommand(control.StopCommand)
 	rootCommand.AddCommand(control.RestartCommand)
+	rootCommand.AddCommand(script.Command)
 	rootCommand.AddCommand(upload.Command)
 }
 

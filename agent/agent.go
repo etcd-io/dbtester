@@ -107,9 +107,9 @@ maxClientCnxns={{.MaxClientCnxns}}
 		PreAllocSize:   65536 * 1024,
 		MaxClientCnxns: 60,
 		Peers: []ZookeeperPeer{
-			{MyID: 1, IP: "10.240.0.12"},
-			{MyID: 2, IP: "10.240.0.13"},
-			{MyID: 3, IP: "10.240.0.14"},
+			{MyID: 1, IP: ""},
+			{MyID: 2, IP: ""},
+			{MyID: 3, IP: ""},
 		},
 	}
 
@@ -219,68 +219,7 @@ func (t *transporterServer) Transfer(ctx context.Context, r *Request) (*Response
 	switch r.Operation {
 	case Request_Start:
 		switch t.req.Database {
-		case Request_etcd:
-			_, err := os.Stat(etcdBinaryPath)
-			if err != nil {
-				return nil, err
-			}
-			if err := os.RemoveAll(etcdDataDir); err != nil {
-				return nil, err
-			}
-			f, err := openToAppend(t.req.DatabaseLogPath)
-			if err != nil {
-				return nil, err
-			}
-			t.logfile = f
-
-			clusterN := len(peerIPs)
-			names := make([]string, clusterN)
-			clientURLs := make([]string, clusterN)
-			peerURLs := make([]string, clusterN)
-			members := make([]string, clusterN)
-			for i, u := range peerIPs {
-				names[i] = fmt.Sprintf("etcd-%d", i+1)
-				clientURLs[i] = fmt.Sprintf("http://%s:2379", u)
-				peerURLs[i] = fmt.Sprintf("http://%s:2380", u)
-				members[i] = fmt.Sprintf("%s=%s", names[i], peerURLs[i])
-			}
-			clusterStr := strings.Join(members, ",")
-			flags := []string{
-				"--name", names[t.req.ServerIndex],
-				"--data-dir", etcdDataDir,
-
-				"--listen-client-urls", clientURLs[t.req.ServerIndex],
-				"--advertise-client-urls", clientURLs[t.req.ServerIndex],
-
-				"--listen-peer-urls", peerURLs[t.req.ServerIndex],
-				"--initial-advertise-peer-urls", peerURLs[t.req.ServerIndex],
-
-				"--initial-cluster-token", etcdToken,
-				"--initial-cluster", clusterStr,
-				"--initial-cluster-state", "new",
-			}
-			flagString := strings.Join(flags, " ")
-
-			cmd := exec.Command(etcdBinaryPath, flags...)
-			cmd.Stdout = f
-			cmd.Stderr = f
-			log.Printf("Starting: %s %s", cmd.Path, flagString)
-			if err := cmd.Start(); err != nil {
-				return nil, err
-			}
-			t.cmd = cmd
-			t.pid = cmd.Process.Pid
-			log.Printf("Started: %s [PID: %d]", cmd.Path, t.pid)
-			processPID = t.pid
-			go func() {
-				if err := cmd.Wait(); err != nil {
-					log.Printf("%s cmd.Wait returned %v", cmd.Path, err)
-					return
-				}
-				log.Printf("Exiting %s", cmd.Path)
-			}()
-
-		case Request_etcd2: // TODO: combine with etcd3
+		case Request_etcdv2, Request_etcdv3:
 			_, err := os.Stat(etcdBinaryPath)
 			if err != nil {
 				return nil, err

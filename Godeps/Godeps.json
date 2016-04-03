@@ -25,38 +25,43 @@
 		},
 		{
 			"ImportPath": "github.com/coreos/etcd/client",
-			"Comment": "v2.3.0-191-g307cb51",
-			"Rev": "307cb5167c936f65714d30da33b22157c4d011e7"
+			"Comment": "v2.3.0-227-ge8a4ed0",
+			"Rev": "e8a4ed01e20fc5fbb09e2a00b9a31ef30c6e25e5"
 		},
 		{
 			"ImportPath": "github.com/coreos/etcd/clientv3",
-			"Comment": "v2.3.0-191-g307cb51",
-			"Rev": "307cb5167c936f65714d30da33b22157c4d011e7"
+			"Comment": "v2.3.0-227-ge8a4ed0",
+			"Rev": "e8a4ed01e20fc5fbb09e2a00b9a31ef30c6e25e5"
 		},
 		{
 			"ImportPath": "github.com/coreos/etcd/etcdserver/api/v3rpc/rpctypes",
-			"Comment": "v2.3.0-191-g307cb51",
-			"Rev": "307cb5167c936f65714d30da33b22157c4d011e7"
+			"Comment": "v2.3.0-227-ge8a4ed0",
+			"Rev": "e8a4ed01e20fc5fbb09e2a00b9a31ef30c6e25e5"
 		},
 		{
 			"ImportPath": "github.com/coreos/etcd/etcdserver/etcdserverpb",
-			"Comment": "v2.3.0-191-g307cb51",
-			"Rev": "307cb5167c936f65714d30da33b22157c4d011e7"
+			"Comment": "v2.3.0-227-ge8a4ed0",
+			"Rev": "e8a4ed01e20fc5fbb09e2a00b9a31ef30c6e25e5"
 		},
 		{
 			"ImportPath": "github.com/coreos/etcd/pkg/pathutil",
-			"Comment": "v2.3.0-191-g307cb51",
-			"Rev": "307cb5167c936f65714d30da33b22157c4d011e7"
+			"Comment": "v2.3.0-227-ge8a4ed0",
+			"Rev": "e8a4ed01e20fc5fbb09e2a00b9a31ef30c6e25e5"
+		},
+		{
+			"ImportPath": "github.com/coreos/etcd/pkg/tlsutil",
+			"Comment": "v2.3.0-227-ge8a4ed0",
+			"Rev": "e8a4ed01e20fc5fbb09e2a00b9a31ef30c6e25e5"
 		},
 		{
 			"ImportPath": "github.com/coreos/etcd/pkg/types",
-			"Comment": "v2.3.0-191-g307cb51",
-			"Rev": "307cb5167c936f65714d30da33b22157c4d011e7"
+			"Comment": "v2.3.0-227-ge8a4ed0",
+			"Rev": "e8a4ed01e20fc5fbb09e2a00b9a31ef30c6e25e5"
 		},
 		{
 			"ImportPath": "github.com/coreos/etcd/storage/storagepb",
-			"Comment": "v2.3.0-191-g307cb51",
-			"Rev": "307cb5167c936f65714d30da33b22157c4d011e7"
+			"Comment": "v2.3.0-227-ge8a4ed0",
+			"Rev": "e8a4ed01e20fc5fbb09e2a00b9a31ef30c6e25e5"
 		},
 		{
 			"ImportPath": "github.com/dustin/go-humanize",
@@ -68,19 +73,23 @@
 			"Rev": "533cd7fd8a85905f67a1753afb4deddc85ea174f"
 		},
 		{
+			"ImportPath": "github.com/ghodss/yaml",
+			"Rev": "73d445a93680fa1a78ae23a5839bad48f32ba1ee"
+		},
+		{
 			"ImportPath": "github.com/gogo/protobuf/gogoproto",
-			"Comment": "v0.2",
-			"Rev": "4168943e65a2802828518e95310aeeed6d84c4e5"
+			"Comment": "v0.2-5-g5b7453b",
+			"Rev": "5b7453b208470fdb0141985c2cfdcf1471686693"
 		},
 		{
 			"ImportPath": "github.com/gogo/protobuf/proto",
-			"Comment": "v0.2",
-			"Rev": "4168943e65a2802828518e95310aeeed6d84c4e5"
+			"Comment": "v0.2-5-g5b7453b",
+			"Rev": "5b7453b208470fdb0141985c2cfdcf1471686693"
 		},
 		{
 			"ImportPath": "github.com/gogo/protobuf/protoc-gen-gogo/descriptor",
-			"Comment": "v0.2",
-			"Rev": "4168943e65a2802828518e95310aeeed6d84c4e5"
+			"Comment": "v0.2-5-g5b7453b",
+			"Rev": "5b7453b208470fdb0141985c2cfdcf1471686693"
 		},
 		{
 			"ImportPath": "github.com/golang/freetype",
