@@ -52,8 +52,12 @@ type Config struct {
 	Step4 struct {
 		Preface string `yaml:"preface"`
 		Results []struct {
-			Title  string   `yaml:"title"`
-			Images []string `yaml:"images"`
+			Title  string `yaml:"title"`
+			Images []struct {
+				ImageTitle string `yaml:"image_title"`
+				ImagePath  string `yaml:"image_path"`
+				ImageType  string `yaml:"image_type"`
+			} `yaml:"images"`
 		} `yaml:"results"`
 		OutputPath string `yaml:"output_path"`
 	} `yaml:"step4"`

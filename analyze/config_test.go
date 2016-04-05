@@ -36,10 +36,16 @@ func TestReadConfig(t *testing.T) {
 	if c.Step3[0].PlotList[0].OutputPathList[1] != "bench-20160330/bench-01-avg-latency-ms.png" {
 		t.Fatalf("unexpected %s", c.Step3[0].PlotList[0].OutputPathList[1])
 	}
-	if c.Step4.Results[0].Images[2] != "bench-20160330/bench-01-avg-cpu.png" {
-		t.Fatalf("unexpected %s", c.Step4.Results[0].Images[2])
-	}
 	if c.Step4.OutputPath != "bench-20160330/README.md" {
 		t.Fatalf("unexpected %s", c.Step4.OutputPath)
+	}
+	if c.Step4.Results[0].Images[0].ImageTitle != "bench-01-avg-latency-ms" {
+		t.Fatalf("unexpected %s", c.Step4.Results[0].Images[0].ImageTitle)
+	}
+	if c.Step4.Results[0].Images[0].ImagePath != "bench-20160330/bench-01-avg-latency-ms.png" {
+		t.Fatalf("unexpected %s", c.Step4.Results[0].Images[0].ImagePath)
+	}
+	if c.Step4.Results[0].Images[0].ImageType != "local" {
+		t.Fatalf("unexpected %s", c.Step4.Results[0].Images[0].ImageType)
 	}
 }

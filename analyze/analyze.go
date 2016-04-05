@@ -449,9 +449,17 @@ func CommandFunc(cmd *cobra.Command, args []string) error {
 	for _, result := range cfg.Step4.Results {
 		rdBuf.WriteString(fmt.Sprintf("<br><br><hr>\n##### %s", result.Title))
 		rdBuf.WriteString("\n\n")
-		for _, imagePath := range result.Images {
-			ipath := filepath.Base(imagePath)
-			rdBuf.WriteString(fmt.Sprintf("![%s](./%s)\n\n", ipath, ipath))
+		for _, img := range result.Images {
+			imgPath := ""
+			switch img.ImageType {
+			case "local":
+				imgPath = "./" + filepath.Base(img.ImagePath)
+				rdBuf.WriteString(fmt.Sprintf("![%s](%s)\n\n", img.ImageTitle, imgPath))
+			case "remote":
+				rdBuf.WriteString(fmt.Sprintf(`<img src="%s" alt="%s">`, img.ImagePath, img.ImageTitle))
+			default:
+				return fmt.Errorf("%s is not supported", img.ImageType)
+			}
 		}
 		rdBuf.WriteString("\n\n")
 	}
