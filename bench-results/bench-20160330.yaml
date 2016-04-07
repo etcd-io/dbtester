@@ -139,6 +139,7 @@ step4:
   preface: |
     - Google Cloud Compute Engine
     - 8 vCPUs + 16GB Memory + 375GB local SSD (SCSI)
+    - 1 machine(client) of 16 vCPUs + 30GB Memory + 50GB SSD
     - Ubuntu 15.10
     - Go 1.6 with etcd master branch as of testing date
     - Java 8 with Zookeeper 3.4.8(current)

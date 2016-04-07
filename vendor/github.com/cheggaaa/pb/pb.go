@@ -13,7 +13,7 @@ import (
 )
 
 // Current version
-const Version = "1.0.1"
+const Version = "1.0.2"
 
 const (
 	// Default refresh rate - 200ms
@@ -285,7 +285,7 @@ func (pb *ProgressBar) write(current int64) {
 			} else {
 				left = (time.Duration(currentFromStart) / time.Second) * time.Second
 			}
-			timeLeftBox = left.String()
+			timeLeftBox = fmt.Sprintf(" %s", left.String())
 		}
 	default:
 		if pb.ShowTimeLeft && currentFromStart > 0 {
