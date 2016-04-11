@@ -49,27 +49,12 @@ type (
 		ClientPort     string
 		InitLimit      int
 		SyncLimit      int
-		PreAllocSize   int64
 		MaxClientCnxns int64
 		Peers          []ZookeeperPeer
 	}
 	ZookeeperPeer struct {
 		MyID int
 		IP   string
-	}
-
-	ConsulConfig struct {
-		Bootstrap     bool     `json:"bootstrap"`
-		Server        bool     `json:"server,omitempty"`
-		AdvertiseAddr string   `json:"advertise_addr,omitempty"`
-		DataCenter    string   `json:"datacenter,omitempty"`
-		DataDir       string   `json:"data_dir,omitempty"`
-		Encrypt       string   `json:"encrypt,omitempty"`
-		LogLevel      string   `json:"log_level,omitempty"`
-		EnableSyslog  bool     `json:"enable_syslog,omitempty"`
-		StartJoin     []string `json:"start_join,omitempty"`
-		RetryJoin     []string `json:"retry_join,omitempty"`
-		RetryInterval string   `json:"retry_interval,omitempty"`
 	}
 )
 
@@ -94,7 +79,6 @@ dataDir={{.DataDir}}
 clientPort={{.ClientPort}}
 initLimit={{.InitLimit}}
 syncLimit={{.SyncLimit}}
-preAllocSize={{.PreAllocSize}}
 maxClientCnxns={{.MaxClientCnxns}}
 {{range .Peers}}server.{{.MyID}}={{.IP}}:2888:3888
 {{end}}
@@ -104,7 +88,6 @@ maxClientCnxns={{.MaxClientCnxns}}
 		ClientPort:     "2181",
 		InitLimit:      5,
 		SyncLimit:      5,
-		PreAllocSize:   65536 * 1024,
 		MaxClientCnxns: 60,
 		Peers: []ZookeeperPeer{
 			{MyID: 1, IP: ""},
@@ -160,10 +143,7 @@ func CommandFunc(cmd *cobra.Command, args []string) error {
 
 	RegisterTransporterServer(grpcServer, sender)
 
-	if err := grpcServer.Serve(ln); err != nil {
-		return err
-	}
-	return nil
+	return grpcServer.Serve(ln)
 }
 
 type transporterServer struct { // satisfy TransporterServer
@@ -176,7 +156,7 @@ type transporterServer struct { // satisfy TransporterServer
 var databaseStopped = make(chan struct{})
 
 func (t *transporterServer) Transfer(ctx context.Context, r *Request) (*Response, error) {
-	peerIPs := strings.Split(r.PeerIPs, "___")
+	peerIPs := strings.Split(r.PeerIPString, "___")
 	if r.Operation == Request_Start || r.Operation == Request_Restart {
 		if !filepath.HasPrefix(etcdDataDir, globalFlags.WorkingDirectory) {
 			etcdDataDir = filepath.Join(globalFlags.WorkingDirectory, etcdDataDir)
@@ -193,8 +173,8 @@ func (t *transporterServer) Transfer(ctx context.Context, r *Request) (*Response
 		if !filepath.HasPrefix(r.DatabaseLogPath, globalFlags.WorkingDirectory) {
 			r.DatabaseLogPath = filepath.Join(globalFlags.WorkingDirectory, r.DatabaseLogPath)
 		}
-		if !filepath.HasPrefix(r.MonitorResultPath, globalFlags.WorkingDirectory) {
-			r.MonitorResultPath = filepath.Join(globalFlags.WorkingDirectory, r.MonitorResultPath)
+		if !filepath.HasPrefix(r.MonitorLogPath, globalFlags.WorkingDirectory) {
+			r.MonitorLogPath = filepath.Join(globalFlags.WorkingDirectory, r.MonitorLogPath)
 		}
 
 		log.Printf("Working directory: %s", globalFlags.WorkingDirectory)
@@ -203,14 +183,14 @@ func (t *transporterServer) Transfer(ctx context.Context, r *Request) (*Response
 		log.Printf("Zookeeper working directory: %s", zkWorkingDir)
 		log.Printf("Zookeeper data directory: %s", zkDataDir)
 		log.Printf("Database log path: %s", r.DatabaseLogPath)
-		log.Printf("Monitor result path: %s", r.MonitorResultPath)
+		log.Printf("Monitor result path: %s", r.MonitorLogPath)
 	}
 	if r.Operation == Request_Start {
 		t.req = *r
 	}
 
-	if t.req.StorageKey != "" {
-		if err := toFile(t.req.StorageKey, filepath.Join(globalFlags.WorkingDirectory, "key.json")); err != nil {
+	if t.req.GoogleCloudStorageKey != "" {
+		if err := toFile(t.req.GoogleCloudStorageKey, filepath.Join(globalFlags.WorkingDirectory, "key.json")); err != nil {
 			return nil, err
 		}
 	}
@@ -310,7 +290,6 @@ func (t *transporterServer) Transfer(ctx context.Context, r *Request) (*Response
 				peers = append(peers, ZookeeperPeer{MyID: i + 1, IP: peerIPs[i]})
 			}
 			zkCfg.Peers = peers
-			zkCfg.PreAllocSize = t.req.ZookeeperPreAllocSize
 			zkCfg.MaxClientCnxns = t.req.ZookeeperMaxClientCnxns
 			tpl := template.Must(template.New("zkTemplate").Parse(zkTemplate))
 			buf := new(bytes.Buffer)
@@ -369,7 +348,8 @@ func (t *transporterServer) Transfer(ctx context.Context, r *Request) (*Response
 			t.logfile = f
 
 			var flags []string
-			if t.req.ServerIndex == 0 { // leader
+			switch t.req.ServerIndex {
+			case 0: // leader
 				flags = []string{
 					"agent",
 					"-server",
@@ -378,7 +358,8 @@ func (t *transporterServer) Transfer(ctx context.Context, r *Request) (*Response
 					"-client", peerIPs[t.req.ServerIndex],
 					"-bootstrap-expect", "3",
 				}
-			} else {
+
+			default:
 				flags = []string{
 					"agent",
 					"-server",
@@ -480,7 +461,7 @@ func (t *transporterServer) Transfer(ctx context.Context, r *Request) (*Response
 					return err
 				}
 
-				f, err := openToAppend(t.req.MonitorResultPath)
+				f, err := openToAppend(t.req.MonitorLogPath)
 				if err != nil {
 					return err
 				}
@@ -489,7 +470,7 @@ func (t *transporterServer) Transfer(ctx context.Context, r *Request) (*Response
 				return ps.WriteToCSV(f, pss...)
 			}
 
-			log.Printf("%s monitor saved at %s", t.req.Database, t.req.MonitorResultPath)
+			log.Printf("%s monitor saved at %s", t.req.Database, t.req.MonitorLogPath)
 			var err error
 			if err = rFunc(); err != nil {
 				log.Warningln("error:", err)
@@ -504,12 +485,14 @@ func (t *transporterServer) Transfer(ctx context.Context, r *Request) (*Response
 						log.Warnf("Monitoring error %v", err)
 						break escape
 					}
+
 				case sig := <-notifier:
 					log.Printf("Received %v", sig)
 					return
+
 				case <-databaseStopped:
 					log.Println("Monitoring stopped. Uploading data to cloud storage...")
-					u, err := remotestorage.NewGoogleCloudStorage([]byte(t.req.StorageKey), t.req.GoogleCloudProjectName)
+					u, err := remotestorage.NewGoogleCloudStorage([]byte(t.req.GoogleCloudStorageKey), t.req.GoogleCloudProjectName)
 					if err != nil {
 						log.Warnf("error (%v)", err)
 						return
@@ -518,13 +501,13 @@ func (t *transporterServer) Transfer(ctx context.Context, r *Request) (*Response
 					// set up file names
 					srcDatabaseLogPath := t.req.DatabaseLogPath
 					dstDatabaseLogPath := filepath.Base(t.req.DatabaseLogPath)
-					if !strings.HasPrefix(filepath.Base(t.req.DatabaseLogPath), t.req.LogPrefix) {
-						dstDatabaseLogPath = fmt.Sprintf("%s-%d-%s", t.req.LogPrefix, t.req.ServerIndex+1, filepath.Base(t.req.DatabaseLogPath))
+					if !strings.HasPrefix(filepath.Base(t.req.DatabaseLogPath), t.req.TestName) {
+						dstDatabaseLogPath = fmt.Sprintf("%s-%d-%s", t.req.TestName, t.req.ServerIndex+1, filepath.Base(t.req.DatabaseLogPath))
 					}
 					log.Printf("Uploading %s to %s", srcDatabaseLogPath, dstDatabaseLogPath)
 					var uerr error
 					for k := 0; k < 5; k++ {
-						if uerr = u.UploadFile(t.req.Bucket, srcDatabaseLogPath, dstDatabaseLogPath); uerr != nil {
+						if uerr = u.UploadFile(t.req.GoogleCloudStorageBucketName, srcDatabaseLogPath, dstDatabaseLogPath); uerr != nil {
 							log.Println(uerr)
 							continue
 						} else {
@@ -532,14 +515,14 @@ func (t *transporterServer) Transfer(ctx context.Context, r *Request) (*Response
 						}
 					}
 
-					srcMonitorResultPath := t.req.MonitorResultPath
-					dstMonitorResultPath := filepath.Base(t.req.MonitorResultPath)
-					if !strings.HasPrefix(filepath.Base(t.req.MonitorResultPath), t.req.LogPrefix) {
-						dstMonitorResultPath = fmt.Sprintf("%s-%d-%s", t.req.LogPrefix, t.req.ServerIndex+1, filepath.Base(t.req.MonitorResultPath))
+					srcMonitorResultPath := t.req.MonitorLogPath
+					dstMonitorResultPath := filepath.Base(t.req.MonitorLogPath)
+					if !strings.HasPrefix(filepath.Base(t.req.MonitorLogPath), t.req.TestName) {
+						dstMonitorResultPath = fmt.Sprintf("%s-%d-%s", t.req.TestName, t.req.ServerIndex+1, filepath.Base(t.req.MonitorLogPath))
 					}
 					log.Printf("Uploading %s to %s", srcMonitorResultPath, dstMonitorResultPath)
 					for k := 0; k < 5; k++ {
-						if uerr = u.UploadFile(t.req.Bucket, srcMonitorResultPath, dstMonitorResultPath); uerr != nil {
+						if uerr = u.UploadFile(t.req.GoogleCloudStorageBucketName, srcMonitorResultPath, dstMonitorResultPath); uerr != nil {
 							log.Println(uerr)
 							continue
 						} else {
@@ -549,12 +532,12 @@ func (t *transporterServer) Transfer(ctx context.Context, r *Request) (*Response
 
 					srcAgentLogPath := agentLogPath
 					dstAgentLogPath := filepath.Base(agentLogPath)
-					if !strings.HasPrefix(filepath.Base(agentLogPath), t.req.LogPrefix) {
-						dstAgentLogPath = fmt.Sprintf("%s-%d-%s", t.req.LogPrefix, t.req.ServerIndex+1, filepath.Base(agentLogPath))
+					if !strings.HasPrefix(filepath.Base(agentLogPath), t.req.TestName) {
+						dstAgentLogPath = fmt.Sprintf("%s-%d-%s", t.req.TestName, t.req.ServerIndex+1, filepath.Base(agentLogPath))
 					}
 					log.Printf("Uploading %s to %s", srcAgentLogPath, dstAgentLogPath)
 					for k := 0; k < 5; k++ {
-						if uerr = u.UploadFile(t.req.Bucket, srcAgentLogPath, dstAgentLogPath); uerr != nil {
+						if uerr = u.UploadFile(t.req.GoogleCloudStorageBucketName, srcAgentLogPath, dstAgentLogPath); uerr != nil {
 							log.Println(uerr)
 							continue
 						} else {

@@ -1,0 +1,40 @@
+database: etcdv3
+test_name: bench-01-etcdv3
+
+google_cloud_project_name: etcd-development
+google_cloud_storage_key_path: $HOME/gcloud-key.json
+google_cloud_storage_bucket_name: bench-20160411
+
+peer_ips:
+    - 10.240.0.13
+    - 10.240.0.14
+    - 10.240.0.15
+
+agent_port: 3500
+database_port: 2379
+
+# start database by sending RPC calls to agents
+step1:
+    skip: false
+    database_log_path: database.log
+    monitor_log_path: monitor.csv
+
+    zookeeper_max_client_connections: 5000
+
+# start benchmark
+step2:
+    skip: false
+    bench_type: write
+    local_read: true
+    result_path: bench-01-etcdv3-timeseries.csv
+    connections: 100
+    clients: 100
+    key_size: 64
+    value_size: 256
+    total_requests: 3000000
+    etcdv3_compaction_cycle: 0
+
+# after benchmark
+step3:
+    skip: false
+

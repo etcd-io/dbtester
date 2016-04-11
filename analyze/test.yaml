@@ -1,3 +1,4 @@
+# aggregate the data from each machine
 step1:
   - data_path_list:
     - bench-20160330/bench-01-etcd-1-monitor.csv
@@ -24,6 +25,7 @@ step1:
     data_benchmark_path: bench-20160330/bench-02-zk-timeseries.csv
     output_path: bench-20160330/bench-02-zk-aggregated.csv
 
+# aggregate the data of each aggregated from step1
 step2:
   - data_list:
       - path: bench-20160330/bench-01-etcd-aggregated.csv
@@ -38,6 +40,7 @@ step2:
         name: zookeeper_3.4.8
     output_path: bench-20160330/bench-02-all-aggregated.csv
 
+# plot graphs
 step3:
   - data_path: bench-20160330/bench-01-all-aggregated.csv
     title: Write 300K keys, 1 client, key 64 bytes, value 256 bytes

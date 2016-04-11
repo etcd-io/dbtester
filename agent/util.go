@@ -19,14 +19,6 @@ import (
 	"runtime"
 )
 
-func openToRead(fpath string) (*os.File, error) {
-	f, err := os.OpenFile(fpath, os.O_RDONLY, 0444)
-	if err != nil {
-		return f, err
-	}
-	return f, nil
-}
-
 func openToAppend(fpath string) (*os.File, error) {
 	f, err := os.OpenFile(fpath, os.O_RDWR|os.O_APPEND, 0777)
 	if err != nil {
@@ -47,10 +39,8 @@ func toFile(txt, fpath string) error {
 		}
 	}
 	defer f.Close()
-	if _, err := f.WriteString(txt); err != nil {
-		return err
-	}
-	return nil
+	_, err = f.WriteString(txt)
+	return err
 }
 
 func homeDir() string {

@@ -18,134 +18,154 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"os"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/coreos/dbtester/agent"
 	"github.com/spf13/cobra"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
-)
 
-type (
-	Flags struct {
-		Database                string
-		AgentEndpoints          []string
-		ZookeeperPreAllocSize   int64
-		ZookeeperMaxClientCnxns int64
-
-		LogPrefix              string
-		DatabaseLogPath        string
-		MonitorResultPath      string
-		GoogleCloudProjectName string
-		KeyPath                string
-		Bucket                 string
-	}
+	"github.com/cheggaaa/pb"
+	"github.com/coreos/etcd/clientv3"
+	consulapi "github.com/hashicorp/consul/api"
 )
 
 var (
-	StartCommand = &cobra.Command{
-		Use:   "start",
-		Short: "Starts database through RPC calls.",
+	Command = &cobra.Command{
+		Use:   "control",
+		Short: "Controls tests.",
 		RunE:  CommandFunc,
 	}
-	StopCommand = &cobra.Command{
-		Use:   "stop",
-		Short: "Stops database through RPC calls.",
-		RunE:  CommandFunc,
-	}
-	RestartCommand = &cobra.Command{
-		Use:   "restart",
-		Short: "Restarts database through RPC calls.",
-		RunE:  CommandFunc,
-	}
-	globalFlags = Flags{}
+	configPath string
 )
 
 func init() {
-	StartCommand.PersistentFlags().StringVar(&globalFlags.Database, "database", "", "etcdv2, etcdv3, zookeeper, zk, consul.")
-	StartCommand.PersistentFlags().StringSliceVar(&globalFlags.AgentEndpoints, "agent-endpoints", []string{""}, "Endpoints to send client requests to, then it automatically configures.")
-	StartCommand.PersistentFlags().Int64Var(&globalFlags.ZookeeperPreAllocSize, "zk-pre-alloc-size", 65536*1024, "Disk pre-allocation size in bytes.")
-	StartCommand.PersistentFlags().Int64Var(&globalFlags.ZookeeperMaxClientCnxns, "zk-max-client-conns", 5000, "Maximum number of concurrent Zookeeper connection.")
-
-	StartCommand.PersistentFlags().StringVar(&globalFlags.LogPrefix, "log-prefix", "", "Prefix to all logs to be generated in agents.")
-	StartCommand.PersistentFlags().StringVar(&globalFlags.DatabaseLogPath, "database-log-path", "database.log", "Path of database log.")
-	StartCommand.PersistentFlags().StringVar(&globalFlags.MonitorResultPath, "monitor-result-path", "monitor.csv", "CSV file path of monitoring results.")
-	StartCommand.PersistentFlags().StringVar(&globalFlags.GoogleCloudProjectName, "google-cloud-project-name", "", "Google cloud project name.")
-	StartCommand.PersistentFlags().StringVar(&globalFlags.KeyPath, "key-path", "", "Path of key file.")
-	StartCommand.PersistentFlags().StringVar(&globalFlags.Bucket, "bucket", "", "Bucket name in cloud storage.")
-
-	StopCommand.PersistentFlags().StringSliceVar(&globalFlags.AgentEndpoints, "agent-endpoints", []string{""}, "Endpoints to send client requests to, then it automatically configures.")
-
-	RestartCommand.PersistentFlags().StringSliceVar(&globalFlags.AgentEndpoints, "agent-endpoints", []string{""}, "Endpoints to send client requests to, then it automatically configures.")
+	Command.PersistentFlags().StringVarP(&configPath, "config", "c", "", "YAML configuration file path.")
 }
 
 func CommandFunc(cmd *cobra.Command, args []string) error {
-	if globalFlags.Database == "zk" {
-		globalFlags.Database = "zookeeper"
+	cfg, err := ReadConfig(configPath)
+	if err != nil {
+		return err
 	}
-	req := agent.Request{}
-
-	switch cmd.Use {
-	case "start":
-		req.Operation = agent.Request_Start
-	case "stop":
-		req.Operation = agent.Request_Stop
-	case "restart":
-		req.Operation = agent.Request_Restart
-	default:
-		return fmt.Errorf("Operation '%s' is not supported!\n", cmd.Use)
-	}
-
-	switch globalFlags.Database {
+	switch cfg.Database {
 	case "etcdv2":
-		req.Database = agent.Request_etcdv2
 	case "etcdv3":
-		req.Database = agent.Request_etcdv3
-	case "zookeeper":
-		req.Database = agent.Request_ZooKeeper
+	case "zk", "zookeeper":
 	case "consul":
-		req.Database = agent.Request_Consul
 	default:
-		if req.Operation != agent.Request_Stop {
-			return fmt.Errorf("'%s' is not supported!\n", globalFlags.Database)
+		return fmt.Errorf("%q is not supported", cfg.Database)
+	}
+	if !cfg.Step2.Skip {
+		switch cfg.Step2.BenchType {
+		case "write":
+		case "read":
+		default:
+			return fmt.Errorf("%q is not supported", cfg.Step2.BenchType)
 		}
 	}
-	peerIPs := extractIPs(globalFlags.AgentEndpoints)
-	req.PeerIPs = strings.Join(peerIPs, "___") // because protoc mixes the order of 'repeated' type data
 
-	if cmd.Use == "start" {
-		req.ZookeeperPreAllocSize = globalFlags.ZookeeperPreAllocSize
-		req.ZookeeperMaxClientCnxns = globalFlags.ZookeeperMaxClientCnxns
+	bts, err := ioutil.ReadFile(cfg.GoogleCloudStorageKeyPath)
+	if err != nil {
+		return err
+	}
+	cfg.GoogleCloudStorageKey = string(bts)
 
-		req.LogPrefix = globalFlags.LogPrefix
-		req.DatabaseLogPath = globalFlags.DatabaseLogPath
-		req.MonitorResultPath = globalFlags.MonitorResultPath
-		req.GoogleCloudProjectName = globalFlags.GoogleCloudProjectName
-		bts, err := ioutil.ReadFile(globalFlags.KeyPath)
-		if err != nil {
+	cfg.PeerIPString = strings.Join(cfg.PeerIPs, "___") // protoc sorts the 'repeated' type data
+	cfg.AgentEndpoints = make([]string, len(cfg.PeerIPs))
+	cfg.DatabaseEndpoints = make([]string, len(cfg.PeerIPs))
+	for i := range cfg.PeerIPs {
+		cfg.AgentEndpoints[i] = fmt.Sprintf("%s:%d", cfg.PeerIPs[i], cfg.AgentPort)
+	}
+	for i := range cfg.PeerIPs {
+		cfg.DatabaseEndpoints[i] = fmt.Sprintf("%s:%d", cfg.DatabaseEndpoints[i], cfg.DatabasePort)
+	}
+
+	println()
+	if !cfg.Step1.Skip {
+		log.Println("Step 1: starting databases...")
+
+		if err = step1(cfg); err != nil {
 			return err
 		}
-		req.StorageKey = string(bts)
-		req.Bucket = globalFlags.Bucket
 	}
 
+	println()
+	if !cfg.Step2.Skip {
+		log.Println("Step 2: starting tests...")
+
+		if err = step2(cfg); err != nil {
+			return err
+		}
+	}
+
+	println()
+	if !cfg.Step3.Skip {
+		log.Println("Step 3: stopping databases...")
+
+		if err = step3(cfg); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func step1(cfg Config) error {
+	req := agent.Request{}
+
+	req.Operation = agent.Request_Start
+	req.TestName = cfg.TestName
+	req.GoogleCloudProjectName = cfg.GoogleCloudProjectName
+	req.GoogleCloudStorageKey = cfg.GoogleCloudStorageKey
+	req.GoogleCloudStorageBucketName = cfg.GoogleCloudStorageBucketName
+
+	switch cfg.Database {
+	case "etcdv2":
+		req.Database = agent.Request_etcdv2
+
+	case "etcdv3":
+		req.Database = agent.Request_etcdv3
+
+	case "zk":
+		cfg.Database = "zookeeper"
+		req.Database = agent.Request_ZooKeeper
+
+	case "zookeeper":
+		req.Database = agent.Request_ZooKeeper
+
+	case "consul":
+		req.Database = agent.Request_Consul
+	}
+
+	req.DatabaseLogPath = cfg.Step1.DatabaseLogPath
+	req.MonitorLogPath = cfg.Step1.MonitorLogPath
+	req.PeerIPString = cfg.PeerIPString
+
+	req.ZookeeperMaxClientCnxns = cfg.Step1.ZookeeperMaxClientCnxns
+
 	donec, errc := make(chan struct{}), make(chan error)
-	for i := range peerIPs {
+	for i := range cfg.PeerIPs {
+
 		go func(i int) {
 			nreq := req
 
 			nreq.ServerIndex = uint32(i)
 			nreq.ZookeeperMyID = uint32(i + 1)
-			ep := globalFlags.AgentEndpoints[nreq.ServerIndex]
+			ep := cfg.AgentEndpoints[nreq.ServerIndex]
 
-			log.Printf("[%d] %s %s at %s\n", i, req.Operation, req.Database, ep)
+			log.Printf("[%d] %s %s at %s", i, req.Operation, req.Database, ep)
+
 			conn, err := grpc.Dial(ep, grpc.WithInsecure())
 			if err != nil {
-				log.Printf("[%d] error %v when connecting to %s\n", i, err, ep)
+				log.Printf("[%d] error %v when connecting to %s", i, err, ep)
 				errc <- err
 				return
 			}
+
 			defer conn.Close()
 
 			cli := agent.NewTransporterClient(conn)
@@ -153,18 +173,20 @@ func CommandFunc(cmd *cobra.Command, args []string) error {
 			resp, err := cli.Transfer(ctx, &nreq)
 			cancel()
 			if err != nil {
-				log.Printf("[%d] error %v when transferring to %s\n", i, err, ep)
+				log.Printf("[%d] error %v when transferring to %s", i, err, ep)
 				errc <- err
 				return
 			}
-			log.Printf("[%d] Response from %s (%+v)\n", i, ep, resp)
+
+			log.Printf("[%d] Response from %s (%+v)", i, ep, resp)
 			donec <- struct{}{}
 		}(i)
 
 		time.Sleep(time.Second)
 	}
+
 	cnt := 0
-	for cnt != len(peerIPs) {
+	for cnt != len(cfg.PeerIPs) {
 		select {
 		case <-donec:
 		case err := <-errc:
@@ -172,14 +194,360 @@ func CommandFunc(cmd *cobra.Command, args []string) error {
 		}
 		cnt++
 	}
+
 	return nil
 }
 
-func extractIPs(es []string) []string {
-	var rs []string
-	for _, v := range es {
-		sl := strings.Split(v, ":")
-		rs = append(rs, sl[0])
+var (
+	bar     *pb.ProgressBar
+	results chan result
+	wg      sync.WaitGroup
+)
+
+func step2(cfg Config) error {
+	valueBts := mustRandBytes(cfg.Step2.ValueSize)
+	value := string(valueBts)
+
+	switch cfg.Step2.BenchType {
+	case "write":
+		log.Printf("generating %d keys", cfg.Step2.TotalRequests)
+		keys := multiRandStrings(cfg.Step2.KeySize, cfg.Step2.TotalRequests)
+
+		results = make(chan result)
+		requests := make(chan request, cfg.Step2.Clients)
+		bar = pb.New(cfg.Step2.TotalRequests)
+
+		bar.Format("Bom !")
+		bar.Start()
+
+		var etcdClients []*clientv3.Client
+		switch cfg.Database {
+		case "etcdv2":
+			conns := mustCreateClientsEtcdv2(cfg.DatabaseEndpoints, cfg.Step2.Connections)
+			for i := range conns {
+				wg.Add(1)
+				go doPutEtcdv2(context.Background(), conns[i], requests)
+			}
+
+		case "etcdv3":
+			etcdClients = mustCreateClientsEtcdv3(cfg.DatabaseEndpoints, cfg.Step2.Clients, cfg.Step2.Connections)
+			for i := range etcdClients {
+				wg.Add(1)
+				go doPutEtcdv3(context.Background(), etcdClients[i], requests)
+			}
+			defer func() {
+				for i := range etcdClients {
+					etcdClients[i].Close()
+				}
+			}()
+
+		case "zk", "zookeeper":
+			conns := mustCreateConnsZk(cfg.DatabaseEndpoints, cfg.Step2.Connections)
+			defer func() {
+				for i := range conns {
+					conns[i].Close()
+				}
+			}()
+			for i := range conns {
+				wg.Add(1)
+				go doPutZk(conns[i], requests)
+			}
+
+		case "consul":
+			conns := mustCreateConnsConsul(cfg.DatabaseEndpoints, cfg.Step2.Connections)
+			for i := range conns {
+				wg.Add(1)
+				go doPutConsul(conns[i], requests)
+			}
+		}
+
+		pdoneC := printReport(results, cfg)
+		go func() {
+			for i := 0; i < cfg.Step2.TotalRequests; i++ {
+				if cfg.Database == "etcdv3" && cfg.Step2.Etcdv3CompactionCycle > 0 && i%cfg.Step2.Etcdv3CompactionCycle == 0 {
+					log.Printf("etcdv3 starting compaction at %d put request", i)
+					go func() {
+						compactKV(etcdClients)
+					}()
+				}
+				key := keys[i]
+				switch cfg.Database {
+				case "etcdv2":
+					requests <- request{etcdv2Op: etcdv2Op{key: key, value: value}}
+
+				case "etcdv3":
+					requests <- request{etcdv3Op: clientv3.OpPut(key, value)}
+
+				case "zk", "zookeeper":
+					requests <- request{zkOp: zkOp{key: "/" + key, value: []byte(value)}}
+
+				case "consul":
+					requests <- request{consulOp: consulOp{key: key, value: []byte(value)}}
+				}
+			}
+			close(requests)
+		}()
+
+		wg.Wait()
+
+		bar.Finish()
+
+		close(results)
+		<-pdoneC
+
+		log.Println("Expected Write Total:", cfg.Step2.TotalRequests)
+		switch cfg.Database {
+		case "etcdv2":
+			for k, v := range getTotalKeysEtcdv2(cfg.DatabaseEndpoints) {
+				fmt.Println("Endpoint      :", k)
+				fmt.Println("Number of Keys:", v)
+				fmt.Println()
+			}
+
+		case "etcdv3":
+			for k, v := range getTotalKeysEtcdv3(cfg.DatabaseEndpoints) {
+				fmt.Println("Endpoint      :", k)
+				fmt.Println("Number of Keys:", v)
+				fmt.Println()
+			}
+
+		case "zk", "zookeeper":
+			for k, v := range getTotalKeysZk(cfg.DatabaseEndpoints) {
+				fmt.Println("Endpoint      :", k)
+				fmt.Println("Number of Keys:", v)
+				fmt.Println()
+			}
+
+		case "consul":
+			for k, v := range getTotalKeysConsul(cfg.DatabaseEndpoints) {
+				fmt.Println("Endpoint      :", k)
+				fmt.Println("Number of Keys:", v)
+				fmt.Println()
+			}
+		}
+
+	case "read":
+		key := string(randBytes(cfg.Step2.KeySize))
+
+		switch cfg.Database {
+		case "etcdv2":
+			log.Printf("PUT '%s' to etcdv2", key)
+			var err error
+			for i := 0; i < 5; i++ {
+				clients := mustCreateClientsEtcdv2(cfg.DatabaseEndpoints, cfg.Step2.Connections)
+				_, err = clients[0].Set(context.Background(), key, value, nil)
+				if err != nil {
+					continue
+				}
+				log.Printf("Done with PUT '%s' to etcdv2", key)
+				break
+			}
+			if err != nil {
+				fmt.Fprintln(os.Stderr, err)
+				os.Exit(1)
+			}
+
+		case "etcdv3":
+			log.Printf("PUT '%s' to etcd", key)
+			var err error
+			for i := 0; i < 5; i++ {
+				clients := mustCreateClientsEtcdv3(cfg.DatabaseEndpoints, 1, 1)
+				_, err = clients[0].Do(context.Background(), clientv3.OpPut(key, value))
+				if err != nil {
+					continue
+				}
+				log.Printf("Done with PUT '%s' to etcd", key)
+				break
+			}
+			if err != nil {
+				fmt.Fprintln(os.Stderr, err)
+				os.Exit(1)
+			}
+
+		case "zk", "zookeeper":
+			log.Printf("PUT '/%s' to Zookeeper", key)
+			var err error
+			for i := 0; i < 5; i++ {
+				conns := mustCreateConnsZk(cfg.DatabaseEndpoints, cfg.Step2.Connections)
+				_, err = conns[0].Create("/"+key, valueBts, zkCreateFlags, zkCreateAcl)
+				if err != nil {
+					continue
+				}
+				log.Printf("Done with PUT '/%s' to Zookeeper", key)
+				break
+			}
+			if err != nil {
+				fmt.Fprintln(os.Stderr, err)
+				os.Exit(1)
+			}
+
+		case "consul":
+			log.Printf("PUT '%s' to Consul", key)
+			var err error
+			for i := 0; i < 5; i++ {
+				clients := mustCreateConnsConsul(cfg.DatabaseEndpoints, cfg.Step2.Connections)
+				_, err = clients[0].Put(&consulapi.KVPair{Key: key, Value: valueBts}, nil)
+				if err != nil {
+					continue
+				}
+				log.Printf("Done with PUT '%s' to Consul", key)
+				break
+			}
+			if err != nil {
+				fmt.Fprintln(os.Stderr, err)
+				os.Exit(1)
+			}
+		}
+
+		results = make(chan result)
+		requests := make(chan request, cfg.Step2.Clients)
+		bar = pb.New(cfg.Step2.TotalRequests)
+
+		bar.Format("Bom !")
+		bar.Start()
+
+		switch cfg.Database {
+		case "etcdv2":
+			conns := mustCreateClientsEtcdv2(cfg.DatabaseEndpoints, cfg.Step2.Connections)
+			for i := range conns {
+				wg.Add(1)
+				go doRangeEtcdv2(conns[i], requests)
+			}
+
+		case "etcdv3":
+			clients := mustCreateClientsEtcdv3(cfg.DatabaseEndpoints, cfg.Step2.Clients, cfg.Step2.Connections)
+			for i := range clients {
+				wg.Add(1)
+				go doRangeEtcdv3(clients[i].KV, requests)
+			}
+			defer func() {
+				for i := range clients {
+					clients[i].Close()
+				}
+			}()
+
+		case "zk", "zookeeper":
+			conns := mustCreateConnsZk(cfg.DatabaseEndpoints, cfg.Step2.Connections)
+			defer func() {
+				for i := range conns {
+					conns[i].Close()
+				}
+			}()
+			for i := range conns {
+				wg.Add(1)
+				go doRangeZk(conns[i], requests)
+			}
+
+		case "consul":
+			conns := mustCreateConnsConsul(cfg.DatabaseEndpoints, cfg.Step2.Connections)
+			for i := range conns {
+				wg.Add(1)
+				go doRangeConsul(conns[i], requests)
+			}
+		}
+
+		pdoneC := printReport(results, cfg)
+		go func() {
+			for i := 0; i < cfg.Step2.TotalRequests; i++ {
+				switch cfg.Database {
+				case "etcdv2":
+					// serializable read by default
+					requests <- request{etcdv2Op: etcdv2Op{key: key}}
+
+				case "etcdv3":
+					opts := []clientv3.OpOption{clientv3.WithRange("")}
+					if cfg.Step2.LocalRead {
+						opts = append(opts, clientv3.WithSerializable())
+					}
+					requests <- request{etcdv3Op: clientv3.OpGet(key, opts...)}
+
+				case "zk", "zookeeper":
+					// serializable read by default
+					requests <- request{zkOp: zkOp{key: key}}
+
+				case "consul":
+					// serializable read by default
+					requests <- request{consulOp: consulOp{key: key}}
+				}
+			}
+			close(requests)
+		}()
+
+		wg.Wait()
+
+		bar.Finish()
+
+		close(results)
+		<-pdoneC
 	}
-	return rs
+
+	return nil
+}
+
+func step3(cfg Config) error {
+	req := agent.Request{}
+	req.Operation = agent.Request_Stop
+
+	switch cfg.Database {
+	case "etcdv2":
+		req.Database = agent.Request_etcdv2
+
+	case "etcdv3":
+		req.Database = agent.Request_etcdv3
+
+	case "zk":
+		cfg.Database = "zookeeper"
+		req.Database = agent.Request_ZooKeeper
+
+	case "zookeeper":
+		req.Database = agent.Request_ZooKeeper
+
+	case "consul":
+		req.Database = agent.Request_Consul
+	}
+
+	donec, errc := make(chan struct{}), make(chan error)
+	for i := range cfg.PeerIPs {
+
+		go func(i int) {
+			ep := cfg.AgentEndpoints[req.ServerIndex]
+			log.Printf("[%d] %s %s at %s", i, req.Operation, req.Database, ep)
+
+			conn, err := grpc.Dial(ep, grpc.WithInsecure())
+			if err != nil {
+				log.Printf("[%d] error %v when connecting to %s", i, err, ep)
+				errc <- err
+				return
+			}
+
+			defer conn.Close()
+
+			cli := agent.NewTransporterClient(conn)
+			ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second) // Consul takes longer
+			resp, err := cli.Transfer(ctx, &req)
+			cancel()
+			if err != nil {
+				log.Printf("[%d] error %v when transferring to %s", i, err, ep)
+				errc <- err
+				return
+			}
+
+			log.Printf("[%d] Response from %s (%+v)", i, ep, resp)
+			donec <- struct{}{}
+		}(i)
+
+		time.Sleep(time.Second)
+	}
+
+	cnt := 0
+	for cnt != len(cfg.PeerIPs) {
+		select {
+		case <-donec:
+		case err := <-errc:
+			return err
+		}
+		cnt++
+	}
+
+	return nil
 }

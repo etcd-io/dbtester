@@ -29,48 +29,48 @@
 		},
 		{
 			"ImportPath": "github.com/coreos/etcd/auth/authpb",
-			"Comment": "v2.3.0-320-g6c8428c",
-			"Rev": "6c8428c3939a7fa224ac8e97005b1967f3fd87f1"
+			"Comment": "v2.3.0-322-gaf1b3f0",
+			"Rev": "af1b3f061ae8073610a1af285b4b088743eedbe0"
 		},
 		{
 			"ImportPath": "github.com/coreos/etcd/client",
-			"Comment": "v2.3.0-320-g6c8428c",
-			"Rev": "6c8428c3939a7fa224ac8e97005b1967f3fd87f1"
+			"Comment": "v2.3.0-322-gaf1b3f0",
+			"Rev": "af1b3f061ae8073610a1af285b4b088743eedbe0"
 		},
 		{
 			"ImportPath": "github.com/coreos/etcd/clientv3",
-			"Comment": "v2.3.0-320-g6c8428c",
-			"Rev": "6c8428c3939a7fa224ac8e97005b1967f3fd87f1"
+			"Comment": "v2.3.0-322-gaf1b3f0",
+			"Rev": "af1b3f061ae8073610a1af285b4b088743eedbe0"
 		},
 		{
 			"ImportPath": "github.com/coreos/etcd/etcdserver/api/v3rpc/rpctypes",
-			"Comment": "v2.3.0-320-g6c8428c",
-			"Rev": "6c8428c3939a7fa224ac8e97005b1967f3fd87f1"
+			"Comment": "v2.3.0-322-gaf1b3f0",
+			"Rev": "af1b3f061ae8073610a1af285b4b088743eedbe0"
 		},
 		{
 			"ImportPath": "github.com/coreos/etcd/etcdserver/etcdserverpb",
-			"Comment": "v2.3.0-320-g6c8428c",
-			"Rev": "6c8428c3939a7fa224ac8e97005b1967f3fd87f1"
+			"Comment": "v2.3.0-322-gaf1b3f0",
+			"Rev": "af1b3f061ae8073610a1af285b4b088743eedbe0"
 		},
 		{
 			"ImportPath": "github.com/coreos/etcd/pkg/pathutil",
-			"Comment": "v2.3.0-320-g6c8428c",
-			"Rev": "6c8428c3939a7fa224ac8e97005b1967f3fd87f1"
+			"Comment": "v2.3.0-322-gaf1b3f0",
+			"Rev": "af1b3f061ae8073610a1af285b4b088743eedbe0"
 		},
 		{
 			"ImportPath": "github.com/coreos/etcd/pkg/tlsutil",
-			"Comment": "v2.3.0-320-g6c8428c",
-			"Rev": "6c8428c3939a7fa224ac8e97005b1967f3fd87f1"
+			"Comment": "v2.3.0-322-gaf1b3f0",
+			"Rev": "af1b3f061ae8073610a1af285b4b088743eedbe0"
 		},
 		{
 			"ImportPath": "github.com/coreos/etcd/pkg/types",
-			"Comment": "v2.3.0-320-g6c8428c",
-			"Rev": "6c8428c3939a7fa224ac8e97005b1967f3fd87f1"
+			"Comment": "v2.3.0-322-gaf1b3f0",
+			"Rev": "af1b3f061ae8073610a1af285b4b088743eedbe0"
 		},
 		{
 			"ImportPath": "github.com/coreos/etcd/storage/storagepb",
-			"Comment": "v2.3.0-320-g6c8428c",
-			"Rev": "6c8428c3939a7fa224ac8e97005b1967f3fd87f1"
+			"Comment": "v2.3.0-322-gaf1b3f0",
+			"Rev": "af1b3f061ae8073610a1af285b4b088743eedbe0"
 		},
 		{
 			"ImportPath": "github.com/dustin/go-humanize",
@@ -87,18 +87,18 @@
 		},
 		{
 			"ImportPath": "github.com/gogo/protobuf/gogoproto",
-			"Comment": "v0.2-9-g4365f75",
-			"Rev": "4365f750fe246471f2a03ef5da5231c3565c5628"
+			"Comment": "v0.2-10-g74b6e9d",
+			"Rev": "74b6e9deaff6ba6da1389ec97351d337f0d08b06"
 		},
 		{
 			"ImportPath": "github.com/gogo/protobuf/proto",
-			"Comment": "v0.2-9-g4365f75",
-			"Rev": "4365f750fe246471f2a03ef5da5231c3565c5628"
+			"Comment": "v0.2-10-g74b6e9d",
+			"Rev": "74b6e9deaff6ba6da1389ec97351d337f0d08b06"
 		},
 		{
 			"ImportPath": "github.com/gogo/protobuf/protoc-gen-gogo/descriptor",
-			"Comment": "v0.2-9-g4365f75",
-			"Rev": "4365f750fe246471f2a03ef5da5231c3565c5628"
+			"Comment": "v0.2-10-g74b6e9d",
+			"Rev": "74b6e9deaff6ba6da1389ec97351d337f0d08b06"
 		},
 		{
 			"ImportPath": "github.com/golang/freetype",
@@ -387,43 +387,43 @@
 		},
 		{
 			"ImportPath": "google.golang.org/grpc",
-			"Rev": "ecd00d52ac82a2cd37e17bf91d9c6ca228b71745"
+			"Rev": "7834b974e55fbf85a5b01afb5821391c71084efd"
 		},
 		{
 			"ImportPath": "google.golang.org/grpc/codes",
-			"Rev": "ecd00d52ac82a2cd37e17bf91d9c6ca228b71745"
+			"Rev": "7834b974e55fbf85a5b01afb5821391c71084efd"
 		},
 		{
 			"ImportPath": "google.golang.org/grpc/credentials",
-			"Rev": "ecd00d52ac82a2cd37e17bf91d9c6ca228b71745"
+			"Rev": "7834b974e55fbf85a5b01afb5821391c71084efd"
 		},
 		{
 			"ImportPath": "google.golang.org/grpc/credentials/oauth",
-			"Rev": "ecd00d52ac82a2cd37e17bf91d9c6ca228b71745"
+			"Rev": "7834b974e55fbf85a5b01afb5821391c71084efd"
 		},
 		{
 			"ImportPath": "google.golang.org/grpc/grpclog",
-			"Rev": "ecd00d52ac82a2cd37e17bf91d9c6ca228b71745"
+			"Rev": "7834b974e55fbf85a5b01afb5821391c71084efd"
 		},
 		{
 			"ImportPath": "google.golang.org/grpc/internal",
-			"Rev": "ecd00d52ac82a2cd37e17bf91d9c6ca228b71745"
+			"Rev": "7834b974e55fbf85a5b01afb5821391c71084efd"
 		},
 		{
 			"ImportPath": "google.golang.org/grpc/metadata",
-			"Rev": "ecd00d52ac82a2cd37e17bf91d9c6ca228b71745"
+			"Rev": "7834b974e55fbf85a5b01afb5821391c71084efd"
 		},
 		{
 			"ImportPath": "google.golang.org/grpc/naming",
-			"Rev": "ecd00d52ac82a2cd37e17bf91d9c6ca228b71745"
+			"Rev": "7834b974e55fbf85a5b01afb5821391c71084efd"
 		},
 		{
 			"ImportPath": "google.golang.org/grpc/peer",
-			"Rev": "ecd00d52ac82a2cd37e17bf91d9c6ca228b71745"
+			"Rev": "7834b974e55fbf85a5b01afb5821391c71084efd"
 		},
 		{
 			"ImportPath": "google.golang.org/grpc/transport",
-			"Rev": "ecd00d52ac82a2cd37e17bf91d9c6ca228b71745"
+			"Rev": "7834b974e55fbf85a5b01afb5821391c71084efd"
 		},
 		{
 			"ImportPath": "gopkg.in/yaml.v2",

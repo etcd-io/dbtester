@@ -27,43 +27,38 @@ message Request {
 
 	Operation operation   = 1;
 	Database database     = 2;
-	string peerIPs        = 3;
+	string peerIPString   = 3;
 
 	// ServerIPIndex is the index in peerIPs that points to the
 	// corresponding remote IP.
 	uint32 serverIndex = 4;
 
-	// LogPrefix prefixes all logs to be generated in agent.
-	string logPrefix = 5;
+	// TestName prefixes all logs to be generated in agent.
+	string testName = 5;
 
 	// DatabaseLogPath is the file path to store the database logs.
 	string databaseLogPath = 6;
 
-	// MonitorResultPath is the file path to store monitoring results.
-	string monitorResultPath = 7;
+	// MonitorLogPath is the file path to store monitoring results.
+	string monitorLogPath = 7;
 
 	// GoogleCloudProjectName is the project name to use
 	// to upload logs.
 	string googleCloudProjectName = 8;
 
-	// StorageKey is the key to be used to upload
+	// GoogleCloudStorageKey is the key to be used to upload
 	// data and logs to Google Cloud Storage and others.
-	string storageKey = 9;
+	string googleCloudStorageKey = 9;
 
-	// Bucket is the bucket name to store all data and logs.
-	string bucket = 10;
+	// GoogleCloudStorageBucketName is the bucket name to store all data and logs.
+	string googleCloudStorageBucketName = 10;
 
 	// ZookeeperMyID is myid that needs to be stored as a file in the remote machine.
 	uint32 zookeeperMyID   = 11;
 
-	// ZookeeperPreAllocSize avoid seeks ZooKeeper allocates space
-	// in the transaction log file in blocks of PreAllocSize kilobytes.
-	// Default value is 65536 * 1024.
-	int64 zookeeperPreAllocSize = 12;
-
 	// ZookeeperMaxClientCnxns limits the number of concurrent connections
 	// (at the socket level) that a single client, identified by IP address.
-	int64 zookeeperMaxClientCnxns = 13;
+	int64 zookeeperMaxClientCnxns = 12;
 }
 
 message Response {
