@@ -1,17 +1,17 @@
-database: etcdv3
-test_name: bench-01-etcdv3
+database: consul
+test_name: bench-03-consul
 
 google_cloud_project_name: etcd-development
-google_cloud_storage_key_path: $HOME/gcloud-key.json
-google_cloud_storage_bucket_name: bench-20160411
+google_cloud_storage_key_path: /home/gyuho/gcloud-key.json
+google_cloud_storage_bucket_name: bench-2016041201
 
 peer_ips:
-    - 10.240.0.13
-    - 10.240.0.14
-    - 10.240.0.15
+    - 10.240.0.25
+    - 10.240.0.26
+    - 10.240.0.27
 
 agent_port: 3500
-database_port: 2379
+database_port: 8500
 
 # start database by sending RPC calls to agents
 step1:
@@ -27,12 +27,12 @@ step2:
     skip: false
     bench_type: write
     local_read: true
-    result_path: bench-01-etcdv3-timeseries.csv
-    connections: 100
-    clients: 100
-    key_size: 64
+    result_path: bench-03-consul-timeseries.csv
+    connections: 1000
+    clients: 1000
+    key_size: 8
     value_size: 256
-    total_requests: 3000000
+    total_requests: 1000000
     etcdv3_compaction_cycle: 0
 
 # after benchmark

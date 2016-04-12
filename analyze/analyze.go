@@ -28,6 +28,7 @@ import (
 	"github.com/gonum/plot/plotutil"
 	"github.com/gonum/plot/vg"
 	"github.com/gyuho/dataframe"
+	"github.com/gyuho/psn/ps"
 	"github.com/spf13/cobra"
 )
 
@@ -60,7 +61,19 @@ func CommandFunc(cmd *cobra.Command, args []string) error {
 		)
 		for i, monitorPath := range elem.DataPathList {
 			log.Printf("Step 1-%d-%d: creating dataframe from %s", step1Idx, i, monitorPath)
-			fr, err := dataframe.NewFromCSV(nil, monitorPath)
+
+			// fill in missing timestamps
+			tb, err := ps.ReadCSVFillIn(monitorPath)
+			if err != nil {
+				return err
+			}
+			ext := filepath.Ext(monitorPath)
+			cPath := strings.Replace(monitorPath, ext, "-filled-in"+ext, -1)
+			if err := tb.ToCSV(cPath); err != nil {
+				return err
+			}
+
+			fr, err := dataframe.NewFromCSV(nil, cPath)
 			if err != nil {
 				return err
 			}
@@ -69,18 +82,18 @@ func CommandFunc(cmd *cobra.Command, args []string) error {
 			if err != nil {
 				return err
 			}
-			if err = nf.AddColumn(c1); err != nil {
-				return err
-			}
 			c2, err := fr.GetColumn("CpuUsageFloat64")
 			if err != nil {
 				return err
 			}
-			if err = nf.AddColumn(c2); err != nil {
-				return err
-			}
 			c3, err := fr.GetColumn("VmRSSBytes")
 			if err != nil {
+				return err
+			}
+			if err = nf.AddColumn(c1); err != nil {
+				return err
+			}
+			if err = nf.AddColumn(c2); err != nil {
 				return err
 			}
 			if err = nf.AddColumn(c3); err != nil {
@@ -411,7 +424,7 @@ func CommandFunc(cmd *cobra.Command, args []string) error {
 			if err != nil {
 				return err
 			}
-			pl.Title.Text = fmt.Sprintf("%s, %s", elem.Title, pelem.YAxis)
+			pl.Title.Text = fmt.Sprintf("%s, %s", cfg.Titles[step3Idx], pelem.YAxis)
 			pl.X.Label.Text = pelem.XAxis
 			pl.Y.Label.Text = pelem.YAxis
 			pl.Legend.Top = true
@@ -446,8 +459,8 @@ func CommandFunc(cmd *cobra.Command, args []string) error {
 	rdBuf.WriteString("\n\n")
 	rdBuf.WriteString(cfg.Step4.Preface)
 	rdBuf.WriteString("\n\n\n")
-	for _, result := range cfg.Step4.Results {
-		rdBuf.WriteString(fmt.Sprintf("<br><br><hr>\n##### %s", result.Title))
+	for i, result := range cfg.Step4.Results {
+		rdBuf.WriteString(fmt.Sprintf("<br><br><hr>\n##### %s", cfg.Titles[i]))
 		rdBuf.WriteString("\n\n")
 		for _, img := range result.Images {
 			imgPath := ""

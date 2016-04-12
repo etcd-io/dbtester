@@ -48,7 +48,7 @@ func List(filter *Process) ([]Process, error) {
 			filter.Stat.Pid = filter.Status.Pid
 		}
 	}
-	if filter != nil && filter.Stat.Pid != 0 && filter.Status.Pid != 0 {
+	if filter != nil && filter.Stat.Pid != 0 && filter.Status.Pid != 0 { // no need to scan all 'proc'
 		stat, err := GetStat(filter.Stat.Pid)
 		if err != nil {
 			return nil, err
@@ -60,6 +60,7 @@ func List(filter *Process) ([]Process, error) {
 		return []Process{Process{Stat: stat, Status: status}}, err
 	}
 
+	// scan all 'proc's
 	ds, err := ioutil.ReadDir("/proc")
 	if err != nil {
 		return nil, err

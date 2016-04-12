@@ -50,6 +50,7 @@ type (
 		InitLimit      int
 		SyncLimit      int
 		MaxClientCnxns int64
+		SnapCount      int64
 		Peers          []ZookeeperPeer
 	}
 	ZookeeperPeer struct {
@@ -80,6 +81,7 @@ clientPort={{.ClientPort}}
 initLimit={{.InitLimit}}
 syncLimit={{.SyncLimit}}
 maxClientCnxns={{.MaxClientCnxns}}
+snapCount={{.SnapCount}}
 {{range .Peers}}server.{{.MyID}}={{.IP}}:2888:3888
 {{end}}
 `
@@ -291,6 +293,7 @@ func (t *transporterServer) Transfer(ctx context.Context, r *Request) (*Response
 			}
 			zkCfg.Peers = peers
 			zkCfg.MaxClientCnxns = t.req.ZookeeperMaxClientCnxns
+			zkCfg.SnapCount = t.req.ZookeeperSnapCount
 			tpl := template.Must(template.New("zkTemplate").Parse(zkTemplate))
 			buf := new(bytes.Buffer)
 			if err := tpl.Execute(buf, zkCfg); err != nil {

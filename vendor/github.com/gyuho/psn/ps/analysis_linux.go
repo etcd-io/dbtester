@@ -3,9 +3,12 @@ package ps
 import (
 	"encoding/csv"
 	"fmt"
+	"math"
 	"os"
 	"strconv"
 	"strings"
+
+	"github.com/dustin/go-humanize"
 )
 
 // Table represents CSV tables.
@@ -78,18 +81,17 @@ func ReadCSV(columns map[string]int, fpath string) (Table, error) {
 // CPU usage, and VmRSS in MB. It assumes the results from one single program.
 func ReadCSVs(columns map[string]int, fpaths ...string) (Table, error) {
 	tbs := []Table{}
-	var minTS, maxTS int64
-	for i, fpath := range fpaths {
+	var (
+		minTS int64 = math.MaxInt64
+		maxTS int64 = -1
+	)
+	for _, fpath := range fpaths {
 		tb, err := ReadCSV(columns, fpath)
 		if err != nil {
 			return Table{}, err
 		}
 		tbs = append(tbs, tb)
 
-		if i == 0 {
-			minTS = tb.MinTS
-			maxTS = tb.MaxTS
-		}
 		if minTS > tb.MinTS {
 			minTS = tb.MinTS
 		}
@@ -188,4 +190,115 @@ func (t Table) ToCSV(fpath string) error {
 
 	wr.Flush()
 	return wr.Error()
+}
+
+func ReadCSVFillIn(fpath string) (Table, error) {
+	tb, err := ReadCSV(ColumnsPS, fpath)
+	if err != nil {
+		return Table{}, err
+	}
+	var (
+		uidx    = tb.Columns["unix_ts"]
+		tsToRow = make(map[int64][]string)
+	)
+	for _, row := range tb.Rows {
+		num, err := strconv.ParseInt(row[uidx], 10, 64)
+		if err != nil {
+			return Table{}, err
+		}
+		tsToRow[num] = row
+	}
+
+	var nrows [][]string
+	for i := tb.MinTS; i < tb.MaxTS; i++ {
+		r, ok := tsToRow[i]
+		if !ok {
+			row, err := getEstimate(i, tb.MinTS, tb.MaxTS, tsToRow)
+			if err != nil {
+				return tb, err
+			}
+			tsToRow[i] = row
+			nrows = append(nrows, row)
+			continue
+		}
+		nrows = append(nrows, r)
+	}
+	tb.Rows = nrows
+
+	return tb, nil
+}
+
+// getEstimate estimates the row when ts does not exist in table.
+func getEstimate(ts, min, max int64, tsToRow map[int64][]string) ([]string, error) {
+	// get the nearest lower value
+	var lower []string
+	for i := ts - 1; i >= min; i-- {
+		row, ok := tsToRow[i]
+		if !ok {
+			continue
+		}
+		lower = row
+		break
+	}
+
+	// get the nearest upper value
+	var upper []string
+	for i := ts + 1; i <= max; i++ {
+		row, ok := tsToRow[i]
+		if !ok {
+			continue
+		}
+		upper = row
+		break
+	}
+
+	nrow := make([]string, len(lower))
+	copy(nrow, lower)
+	nrow[0] = fmt.Sprintf("%d", ts)
+
+	lowerCPU, err := strconv.ParseFloat(lower[ColumnsPS["CpuUsageFloat64"]], 64)
+	if err != nil {
+		return nil, err
+	}
+	lowerVmRSS, err := strconv.ParseUint(lower[ColumnsPS["VmRSSBytes"]], 10, 64)
+	if err != nil {
+		return nil, err
+	}
+	lowerVmSize, err := strconv.ParseUint(lower[ColumnsPS["VmSizeBytes"]], 10, 64)
+	if err != nil {
+		return nil, err
+	}
+
+	upperCPU, err := strconv.ParseFloat(upper[ColumnsPS["CpuUsageFloat64"]], 64)
+	if err != nil {
+		return nil, err
+	}
+	upperVmRSS, err := strconv.ParseUint(upper[ColumnsPS["VmRSSBytes"]], 10, 64)
+	if err != nil {
+		return nil, err
+	}
+	upperVmSize, err := strconv.ParseUint(upper[ColumnsPS["VmSizeBytes"]], 10, 64)
+	if err != nil {
+		return nil, err
+	}
+
+	cpuUsageFloat64 := (lowerCPU + upperCPU) / float64(2)
+	cpu := fmt.Sprintf("%3.2f %%", cpuUsageFloat64)
+
+	avgVmRSS := (lowerVmRSS + upperVmRSS) / 2
+	vmRSS := humanize.Bytes(avgVmRSS)
+
+	avgVmSize := (lowerVmSize + upperVmSize) / 2
+	vmSize := humanize.Bytes(avgVmSize)
+
+	nrow[ColumnsPS["CPU"]] = cpu
+	nrow[ColumnsPS["CpuUsageFloat64"]] = fmt.Sprintf("%3.2f", cpuUsageFloat64)
+
+	nrow[ColumnsPS["VM_RSS"]] = vmRSS
+	nrow[ColumnsPS["VmRSSBytes"]] = fmt.Sprintf("%d", avgVmRSS)
+
+	nrow[ColumnsPS["VM_SIZE"]] = vmSize
+	nrow[ColumnsPS["VmSizeBytes"]] = fmt.Sprintf("%d", avgVmSize)
+
+	return nrow, nil
 }

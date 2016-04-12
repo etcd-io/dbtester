@@ -59,6 +59,9 @@ message Request {
 	// ZookeeperMaxClientCnxns limits the number of concurrent connections
 	// (at the socket level) that a single client, identified by IP address.
 	int64 zookeeperMaxClientCnxns = 12;
+
+	// ZookeeperSnapCount is 100,000 by default.
+	int64 zookeeperSnapCount = 13;
 }
 
 message Response {

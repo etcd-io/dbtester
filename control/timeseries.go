@@ -19,6 +19,7 @@ import (
 	"encoding/csv"
 	"fmt"
 	"log"
+	"math"
 	"sort"
 	"sync"
 	"time"
@@ -69,15 +70,10 @@ func (sp *secondPoints) getTimeSeries() TimeSeries {
 	defer sp.mu.Unlock()
 
 	var (
-		first        = true
-		minTs, maxTs int64
+		minTs int64 = math.MaxInt64
+		maxTs int64 = -1
 	)
 	for k := range sp.tm {
-		if first {
-			minTs = k
-			maxTs = k
-			first = false
-		}
 		if minTs > k {
 			minTs = k
 		}

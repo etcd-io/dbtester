@@ -21,6 +21,8 @@ import (
 )
 
 type Config struct {
+	Titles []string `yaml:"titles"`
+
 	Step1 []struct {
 		DataPathList      []string `yaml:"data_path_list"`
 		DataBenchmarkPath string   `yaml:"data_benchmark_path"`
@@ -37,7 +39,6 @@ type Config struct {
 
 	Step3 []struct {
 		DataPath string `yaml:"data_path"`
-		Title    string `yaml:"title"`
 		PlotList []struct {
 			Lines []struct {
 				Column string `yaml:"column"`
@@ -52,7 +53,6 @@ type Config struct {
 	Step4 struct {
 		Preface string `yaml:"preface"`
 		Results []struct {
-			Title  string `yaml:"title"`
 			Images []struct {
 				ImageTitle string `yaml:"image_title"`
 				ImagePath  string `yaml:"image_path"`

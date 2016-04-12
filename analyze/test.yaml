@@ -40,10 +40,13 @@ step2:
         name: zookeeper_3.4.8
     output_path: bench-20160330/bench-02-all-aggregated.csv
 
+titles:
+    - Write 300K keys, 1 client, key 64 bytes, value 256 bytes
+    - Write 3M keys, 1K clients, key 64 bytes, value 256 bytes
+
 # plot graphs
 step3:
   - data_path: bench-20160330/bench-01-all-aggregated.csv
-    title: Write 300K keys, 1 client, key 64 bytes, value 256 bytes
 
     plot_list:
     - lines:
@@ -91,7 +94,6 @@ step3:
         - bench-20160330/bench-01-avg-memory.png
 
   - data_path: bench-20160330/bench-02-all-aggregated.csv
-    title: Write 3M keys, 1K clients, key 64 bytes, value 256 bytes
 
     plot_list:
     - lines:
@@ -149,8 +151,7 @@ step4:
       - Java(TM) SE Runtime Environment (build 1.8.0_74-b02)
       - Java HotSpot(TM) 64-Bit Server VM (build 25.74-b02, mixed mode)
   results:
-    - title: Write 300K keys, 1 client, key 64 bytes, value 256 bytes
-      images:
+    - images:
         - image_title: bench-01-avg-latency-ms
           image_path: bench-20160330/bench-01-avg-latency-ms.png
           image_type: local
@@ -163,8 +164,7 @@ step4:
         - image_title: bench-01-avg-memory
           image_path: bench-20160330/bench-01-avg-memory.png
           image_type: local
-    - title: Write 3M keys, 1K clients, key 64 bytes, value 256 bytes
-      images:
+    - images:
         - image_title: bench-02-avg-latency-ms
           image_path: bench-20160330/bench-02-avg-latency-ms.png
           image_type: local

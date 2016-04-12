@@ -42,6 +42,7 @@ type Config struct {
 		MonitorLogPath  string `yaml:"monitor_log_path"`
 
 		ZookeeperMaxClientCnxns int64 `yaml:"zookeeper_max_client_connections"`
+		ZookeeperSnapCount      int64 `yaml:"zookeeper_snap_count"`
 	} `yaml:"step1"`
 
 	Step2 struct {
