@@ -243,6 +243,11 @@ func (t *transporterServer) Transfer(ctx context.Context, r *Request) (*Response
 				"--initial-cluster", clusterStr,
 				"--initial-cluster-state", "new",
 			}
+			if t.req.EtcdCompression != "" {
+				flags = append(flags,
+					"--experimental-compression", t.req.EtcdCompression,
+				)
+			}
 			flagString := strings.Join(flags, " ")
 
 			cmd := exec.Command(etcdBinaryPath, flags...)

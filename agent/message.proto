@@ -59,6 +59,9 @@ message Request {
 
 	// ZookeeperSnapCount is 100,000 by default.
 	int64 zookeeperSnapCount = 12;
+
+	// Etcdv3Compression specifies etcd compression algorithm.
+	string etcdCompression = 13;
 }
 
 message Response {

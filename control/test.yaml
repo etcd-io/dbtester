@@ -14,6 +14,8 @@ peer_ips:
 agent_port: 3500
 database_port: 2379
 
+etcd_compression: snappy
+
 # start database by sending RPC calls to agents
 step1:
     skip: false

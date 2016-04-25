@@ -24,49 +24,58 @@
 			"Rev": "8808370bf63524e115da1371ba42bce6739f3a6b"
 		},
 		{
+			"ImportPath": "github.com/cockroachdb/c-snappy",
+			"Rev": "5c6d0932e0adaffce4bfca7bdf2ac37f79952ccf"
+		},
+		{
 			"ImportPath": "github.com/coreos/etcd/auth/authpb",
-			"Comment": "v2.3.0-534-gf8673b5",
-			"Rev": "f8673b5f60477fa2123a1195267938b21c102fb0"
+			"Comment": "v2.3.0-541-g1c455b9",
+			"Rev": "1c455b9da65ee5bf4cd3aa9f2e1673c3dfbcb654"
 		},
 		{
 			"ImportPath": "github.com/coreos/etcd/client",
-			"Comment": "v2.3.0-534-gf8673b5",
-			"Rev": "f8673b5f60477fa2123a1195267938b21c102fb0"
+			"Comment": "v2.3.0-541-g1c455b9",
+			"Rev": "1c455b9da65ee5bf4cd3aa9f2e1673c3dfbcb654"
 		},
 		{
 			"ImportPath": "github.com/coreos/etcd/clientv3",
-			"Comment": "v2.3.0-534-gf8673b5",
-			"Rev": "f8673b5f60477fa2123a1195267938b21c102fb0"
+			"Comment": "v2.3.0-541-g1c455b9",
+			"Rev": "1c455b9da65ee5bf4cd3aa9f2e1673c3dfbcb654"
 		},
 		{
 			"ImportPath": "github.com/coreos/etcd/etcdserver/api/v3rpc/rpctypes",
-			"Comment": "v2.3.0-534-gf8673b5",
-			"Rev": "f8673b5f60477fa2123a1195267938b21c102fb0"
+			"Comment": "v2.3.0-541-g1c455b9",
+			"Rev": "1c455b9da65ee5bf4cd3aa9f2e1673c3dfbcb654"
 		},
 		{
 			"ImportPath": "github.com/coreos/etcd/etcdserver/etcdserverpb",
-			"Comment": "v2.3.0-534-gf8673b5",
-			"Rev": "f8673b5f60477fa2123a1195267938b21c102fb0"
+			"Comment": "v2.3.0-541-g1c455b9",
+			"Rev": "1c455b9da65ee5bf4cd3aa9f2e1673c3dfbcb654"
+		},
+		{
+			"ImportPath": "github.com/coreos/etcd/pkg/compress",
+			"Comment": "v2.3.0-541-g1c455b9",
+			"Rev": "1c455b9da65ee5bf4cd3aa9f2e1673c3dfbcb654"
 		},
 		{
 			"ImportPath": "github.com/coreos/etcd/pkg/pathutil",
-			"Comment": "v2.3.0-534-gf8673b5",
-			"Rev": "f8673b5f60477fa2123a1195267938b21c102fb0"
+			"Comment": "v2.3.0-541-g1c455b9",
+			"Rev": "1c455b9da65ee5bf4cd3aa9f2e1673c3dfbcb654"
 		},
 		{
 			"ImportPath": "github.com/coreos/etcd/pkg/tlsutil",
-			"Comment": "v2.3.0-534-gf8673b5",
-			"Rev": "f8673b5f60477fa2123a1195267938b21c102fb0"
+			"Comment": "v2.3.0-541-g1c455b9",
+			"Rev": "1c455b9da65ee5bf4cd3aa9f2e1673c3dfbcb654"
 		},
 		{
 			"ImportPath": "github.com/coreos/etcd/pkg/types",
-			"Comment": "v2.3.0-534-gf8673b5",
-			"Rev": "f8673b5f60477fa2123a1195267938b21c102fb0"
+			"Comment": "v2.3.0-541-g1c455b9",
+			"Rev": "1c455b9da65ee5bf4cd3aa9f2e1673c3dfbcb654"
 		},
 		{
 			"ImportPath": "github.com/coreos/etcd/storage/storagepb",
-			"Comment": "v2.3.0-534-gf8673b5",
-			"Rev": "f8673b5f60477fa2123a1195267938b21c102fb0"
+			"Comment": "v2.3.0-541-g1c455b9",
+			"Rev": "1c455b9da65ee5bf4cd3aa9f2e1673c3dfbcb654"
 		},
 		{
 			"ImportPath": "github.com/cpuguy83/go-md2man/md2man",
@@ -88,18 +97,18 @@
 		},
 		{
 			"ImportPath": "github.com/gogo/protobuf/gogoproto",
-			"Comment": "v0.1-118-ge8904f5",
-			"Rev": "e8904f58e872a473a5b91bc9bf3377d223555263"
+			"Comment": "v0.2-11-g4f262e4",
+			"Rev": "4f262e4b0f3a6cea646e15798109335551e21756"
 		},
 		{
 			"ImportPath": "github.com/gogo/protobuf/proto",
-			"Comment": "v0.1-118-ge8904f5",
-			"Rev": "e8904f58e872a473a5b91bc9bf3377d223555263"
+			"Comment": "v0.2-11-g4f262e4",
+			"Rev": "4f262e4b0f3a6cea646e15798109335551e21756"
 		},
 		{
 			"ImportPath": "github.com/gogo/protobuf/protoc-gen-gogo/descriptor",
-			"Comment": "v0.1-118-ge8904f5",
-			"Rev": "e8904f58e872a473a5b91bc9bf3377d223555263"
+			"Comment": "v0.2-11-g4f262e4",
+			"Rev": "4f262e4b0f3a6cea646e15798109335551e21756"
 		},
 		{
 			"ImportPath": "github.com/golang/freetype",
@@ -119,6 +128,10 @@
 		{
 			"ImportPath": "github.com/golang/protobuf/proto",
 			"Rev": "6aaa8d47701fa6cf07e914ec01fde3d4a1fe79c3"
+		},
+		{
+			"ImportPath": "github.com/golang/snappy",
+			"Rev": "ec642410cd033af63620b66a91ccbd3c69c2c59a"
 		},
 		{
 			"ImportPath": "github.com/gonum/floats",
@@ -255,6 +268,11 @@
 		{
 			"ImportPath": "github.com/ugorji/go/codec",
 			"Rev": "f1f1a805ed361a0e078bb537e4ea78cd37dcf065"
+		},
+		{
+			"ImportPath": "github.com/youtube/vitess/go/cgzip",
+			"Comment": "v2.0.0-beta.2-23-gfb1f128",
+			"Rev": "fb1f128bd85463f6d5512105d9a8ac0a688bf24e"
 		},
 		{
 			"ImportPath": "golang.org/x/image/draw",

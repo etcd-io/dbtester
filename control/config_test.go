@@ -39,6 +39,9 @@ func TestReadConfig(t *testing.T) {
 	if c.DatabasePort != 2379 {
 		t.Fatalf("unexpected %d", c.DatabasePort)
 	}
+	if c.EtcdCompression != "snappy" {
+		t.Fatalf("unexpected %q", c.EtcdCompression)
+	}
 	if c.GoogleCloudProjectName != "etcd-development" {
 		t.Fatalf("unexpected %s", c.GoogleCloudProjectName)
 	}

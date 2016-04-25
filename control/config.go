@@ -37,6 +37,9 @@ type Config struct {
 	AgentEndpoints    []string
 	DatabaseEndpoints []string
 
+	// cgzip, cgzip-lv2, gzip, snappy, snappy-cpp
+	EtcdCompression string `yaml:"etcd_compression"`
+
 	Step1 struct {
 		Skip bool `yaml:"skip"`
 
