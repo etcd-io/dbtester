@@ -1,5 +1,5 @@
 database: etcdv3
-test_name: 01-etcdv3-nocompression
+test_name: 01-etcdv3-cgzip
 
 google_cloud_project_name: etcd-development
 google_cloud_storage_key_path: /home/gyuho/gcloud-key.json
@@ -7,14 +7,13 @@ google_cloud_storage_bucket_name: dbtester-results
 google_cloud_storage_sub_directory: 2016042501
 
 peer_ips:
-    - 10.240.0.17
-    - 10.240.0.18
-    - 10.240.0.19
+    - 10.240.0.25
+    - 10.240.0.26
+    - 10.240.0.27
 
 agent_port: 3500
 database_port: 2379
 
-# no compression
 etcd_compression: cgzip
 
 # start database by sending RPC calls to agents

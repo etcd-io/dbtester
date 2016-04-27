@@ -18,6 +18,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/coreos/etcd/etcdserver/api/v3rpc/rpctypes"
 	pb "github.com/coreos/etcd/etcdserver/etcdserverpb"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -198,6 +199,9 @@ func (l *lessor) KeepAliveOnce(ctx context.Context, id LeaseID) (*LeaseKeepAlive
 	for {
 		resp, err := l.keepAliveOnce(cctx, id)
 		if err == nil {
+			if resp.TTL == 0 {
+				err = rpctypes.ErrLeaseNotFound
+			}
 			return resp, err
 		}
 		if isHalted(ctx, err) {
@@ -250,7 +254,10 @@ func (l *lessor) keepAliveCtxCloser(id LeaseID, ctx context.Context, donec <-cha
 }
 
 func (l *lessor) keepAliveOnce(ctx context.Context, id LeaseID) (*LeaseKeepAliveResponse, error) {
-	stream, err := l.getRemote().LeaseKeepAlive(ctx)
+	cctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+
+	stream, err := l.getRemote().LeaseKeepAlive(cctx)
 	if err != nil {
 		return nil, err
 	}
@@ -348,6 +355,8 @@ func (l *lessor) sendKeepAliveLoop(stream pb.Lease_LeaseKeepAliveClient) {
 	for {
 		select {
 		case <-time.After(500 * time.Millisecond):
+		case <-stream.Context().Done():
+			return
 		case <-l.donec:
 			return
 		case <-l.stopCtx.Done():
@@ -388,32 +397,38 @@ func (l *lessor) getKeepAliveStream() pb.Lease_LeaseKeepAliveClient {
 }
 
 func (l *lessor) switchRemoteAndStream(prevErr error) error {
-	l.mu.Lock()
-	conn := l.conn
-	l.mu.Unlock()
+	for {
+		l.mu.Lock()
+		conn := l.conn
+		l.mu.Unlock()
 
-	var (
-		err     error
-		newConn *grpc.ClientConn
-	)
+		var (
+			err     error
+			newConn *grpc.ClientConn
+		)
 
-	if prevErr != nil {
-		conn.Close()
-		newConn, err = l.c.retryConnection(conn, prevErr)
-		if err != nil {
-			return err
+		if prevErr != nil {
+			conn.Close()
+			newConn, err = l.c.retryConnection(conn, prevErr)
+			if err != nil {
+				return err
+			}
 		}
+
+		l.mu.Lock()
+		if newConn != nil {
+			l.conn = newConn
+		}
+
+		l.remote = pb.NewLeaseClient(l.conn)
+		l.mu.Unlock()
+
+		prevErr = l.newStream()
+		if prevErr != nil {
+			continue
+		}
+		return nil
 	}
-
-	l.mu.Lock()
-	if newConn != nil {
-		l.conn = newConn
-	}
-
-	l.remote = pb.NewLeaseClient(l.conn)
-	l.mu.Unlock()
-
-	return l.newStream()
 }
 
 func (l *lessor) newStream() error {

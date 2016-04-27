@@ -1,0 +1,42 @@
+database: etcdv3
+test_name: 02-etcdv3-nocompression
+
+google_cloud_project_name: etcd-development
+google_cloud_storage_key_path: /home/gyuho/gcloud-key.json
+google_cloud_storage_bucket_name: dbtester-results
+google_cloud_storage_sub_directory: 2016042502
+
+peer_ips:
+    - 10.240.0.21
+    - 10.240.0.22
+    - 10.240.0.23
+
+agent_port: 3500
+database_port: 2379
+
+# no compression
+etcd_compression: ""
+
+# start database by sending RPC calls to agents
+step1:
+    skip: false
+    zookeeper_max_client_connections: 5000
+    zookeeper_snap_count: 100000
+
+# start benchmark
+step2:
+    skip: false
+    bench_type: write
+    local_read: true
+    result_path: timeseries.csv
+    connections: 100
+    clients: 1000
+    key_size: 48
+    value_size: 500
+    total_requests: 1000000
+    etcdv3_compaction_cycle: 0
+
+# after benchmark
+step3:
+    skip: false
+    result_path: result.log

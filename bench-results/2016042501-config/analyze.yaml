@@ -1,11 +1,6 @@
 
 titles:
-  - Write 2M keys, 1000-client, 100-conn, 8-byte key, 256-byte value (etcd v3, no compression)
-  - Write 2M keys, 1000-client, 100-conn, 8-byte key, 256-byte value (etcd v3, cgzip)
-  - Write 2M keys, 1000-client, 100-conn, 8-byte key, 256-byte value (etcd v3, cgzip-lv)
-  - Write 2M keys, 1000-client, 100-conn, 8-byte key, 256-byte value (etcd v3, gzip)
-  - Write 2M keys, 1000-client, 100-conn, 8-byte key, 256-byte value (etcd v3, snappy)
-  - Write 2M keys, 1000-client, 100-conn, 8-byte key, 256-byte value (etcd v3, snappy-cpp)
+  - Write 2M keys, 1000-client, 100-conn, 8-byte key, 256-byte value (etcd v3)
 
 step1:
   - data_path_list:

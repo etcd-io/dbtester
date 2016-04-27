@@ -141,6 +141,10 @@ func init() {
 var _ context.Context
 var _ grpc.ClientConn
 
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion2
+
 // Client API for Transporter service
 
 type TransporterClient interface {
@@ -174,16 +178,22 @@ func RegisterTransporterServer(s *grpc.Server, srv TransporterServer) {
 	s.RegisterService(&_Transporter_serviceDesc, srv)
 }
 
-func _Transporter_Transfer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
+func _Transporter_Transfer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Request)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
-	out, err := srv.(TransporterServer).Transfer(ctx, in)
-	if err != nil {
-		return nil, err
+	if interceptor == nil {
+		return srv.(TransporterServer).Transfer(ctx, in)
 	}
-	return out, nil
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/agent.Transporter/Transfer",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransporterServer).Transfer(ctx, req.(*Request))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 var _Transporter_serviceDesc = grpc.ServiceDesc{

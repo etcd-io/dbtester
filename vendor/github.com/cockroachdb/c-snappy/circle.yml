@@ -1,8 +1,0 @@
-dependencies:
-  pre:
-    - ./install-clang-3.6.sh
-
-machine:
-  environment:
-    CC:  /usr/lib/llvm-3.6/bin/clang
-    CXX: /usr/lib/llvm-3.6/bin/clang++

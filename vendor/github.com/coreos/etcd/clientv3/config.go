@@ -20,7 +20,6 @@ import (
 	"io/ioutil"
 	"time"
 
-	"github.com/coreos/etcd/pkg/compress"
 	"github.com/coreos/etcd/pkg/tlsutil"
 	"github.com/ghodss/yaml"
 	"google.golang.org/grpc"
@@ -44,8 +43,6 @@ type Config struct {
 
 	// Logger is the logger used by client library.
 	Logger Logger
-
-	CompressType compress.Type
 }
 
 type yamlConfig struct {

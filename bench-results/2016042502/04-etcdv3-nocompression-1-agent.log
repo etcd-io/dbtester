@@ -1,0 +1,20 @@
+{"level":"info","msg":"gRPC serving :3500","time":"2016-04-25T13:29:07Z"}
+{"level":"info","msg":"Working directory: /home/gyuho","time":"2016-04-25T13:30:37Z"}
+{"level":"info","msg":"etcd data directory: /home/gyuho/data.etcd","time":"2016-04-25T13:30:37Z"}
+{"level":"info","msg":"Consul data directory: /home/gyuho/data.consul","time":"2016-04-25T13:30:37Z"}
+{"level":"info","msg":"Zookeeper working directory: /home/gyuho/zookeeper","time":"2016-04-25T13:30:37Z"}
+{"level":"info","msg":"Zookeeper data directory: /home/gyuho/zookeeper/data.zk","time":"2016-04-25T13:30:37Z"}
+{"level":"info","msg":"Database log path: /home/gyuho/database.log","time":"2016-04-25T13:30:37Z"}
+{"level":"info","msg":"Monitor result path: /home/gyuho/monitor.csv","time":"2016-04-25T13:30:37Z"}
+{"level":"info","msg":"Starting: /home/gyuho/go/bin/etcd --name etcd-1 --data-dir /home/gyuho/data.etcd --listen-client-urls http://10.240.0.21:2379 --advertise-client-urls http://10.240.0.21:2379 --listen-peer-urls http://10.240.0.21:2380 --initial-advertise-peer-urls http://10.240.0.21:2380 --initial-cluster-token etcd_token --initial-cluster etcd-1=http://10.240.0.21:2380,etcd-2=http://10.240.0.22:2380,etcd-3=http://10.240.0.23:2380 --initial-cluster-state new","time":"2016-04-25T13:30:37Z"}
+{"level":"info","msg":"Started: /home/gyuho/go/bin/etcd [PID: 18261]","time":"2016-04-25T13:30:37Z"}
+{"level":"info","msg":"Transfer success!","time":"2016-04-25T13:30:37Z"}
+{"level":"info","msg":"etcdv3 monitor saved at /home/gyuho/monitor.csv","time":"2016-04-25T13:30:37Z"}
+{"level":"info","msg":"Stopping etcdv3 [PID: 18261]","time":"2016-04-25T13:49:16Z"}
+{"level":"info","msg":"Stopped: /home/gyuho/go/bin/etcd [PID: 18261]","time":"2016-04-25T13:49:16Z"}
+{"level":"info","msg":"Transfer success!","time":"2016-04-25T13:49:16Z"}
+{"level":"info","msg":"Monitoring stopped. Uploading data to cloud storage...","time":"2016-04-25T13:49:16Z"}
+{"level":"info","msg":"Uploading /home/gyuho/database.log to 2016042502/04-etcdv3-nocompression-1-database.log","time":"2016-04-25T13:49:16Z"}
+{"level":"info","msg":"/home/gyuho/go/bin/etcd cmd.Wait returned signal: terminated","time":"2016-04-25T13:49:16Z"}
+{"level":"info","msg":"Uploading /home/gyuho/monitor.csv to 2016042502/04-etcdv3-nocompression-1-monitor.csv","time":"2016-04-25T13:49:17Z"}
+{"level":"info","msg":"Uploading /home/gyuho/agent.log to 2016042502/04-etcdv3-nocompression-1-agent.log","time":"2016-04-25T13:49:17Z"}
