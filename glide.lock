@@ -1,5 +1,5 @@
 hash: 899cf0cc8fe75956e38ad46350724245f8d593c906f41981c573229c262a946e
-updated: 2016-06-13T12:29:17.463934496-07:00
+updated: 2016-06-17T16:32:21.379557428-07:00
 imports:
 - name: bitbucket.org/zombiezen/gopdf
   version: 1c63dc69751bc45441c2ce1f56b631c55294b4d5
@@ -12,7 +12,7 @@ imports:
 - name: github.com/cloudfoundry-incubator/candiedyaml
   version: 99c3df83b51532e3615f851d8c2dbb638f5313bf
 - name: github.com/coreos/etcd
-  version: 70a2add2b06c5ff0ca3da702d21fade5aa607631
+  version: b03c832bed4cd0c7856ffb5b4ec52df5073be3f2
   subpackages:
   - client
   - clientv3
@@ -24,21 +24,27 @@ imports:
   - mvcc/mvccpb
   - pkg/tlsutil
 - name: github.com/coreos/go-systemd
-  version: 6dc8b843c670f2027cc26b164935635840a40526
+  version: a52323565816dee4d2f8dc5fdf1299f48757b848
   subpackages:
   - journal
 - name: github.com/coreos/pkg
-  version: 938dc0af5bf1b9907f3be6fefe4d2592a5658030
+  version: 62adab7e2fbd7e45230489364764b5193f32f45a
   subpackages:
   - capnslog
 - name: github.com/dustin/go-humanize
   version: 499693e27ee0d14ffab67c31ad065fdb3d34ea75
 - name: github.com/fatih/color
   version: 87d4004f2ab62d0d255e0a38f1680aa534549fe3
+- name: github.com/gengo/grpc-gateway
+  version: 04d03d2c0176f9060cc3da4945a71abc759648bc
+  subpackages:
+  - runtime
+  - utilities
+  - runtime/internal
 - name: github.com/ghodss/yaml
   version: aa0c862057666179de291b67d9f093d12b5a8473
 - name: github.com/gogo/protobuf
-  version: 318371cbef6bab80e8d1c69b470fffa79eebfb54
+  version: 2752d97bbd91927dd1c43296dbf8700e50e2708c
   subpackages:
   - gogoproto
   - proto
@@ -49,17 +55,18 @@ imports:
   - truetype
   - raster
 - name: github.com/golang/protobuf
-  version: 8616e8ee5e20a1704615e6c8d7afcdac06087a67
+  version: 0c1f6d65b5a189c2250d10e71a5506f06f9fa0a0
   subpackages:
   - proto
+  - jsonpb
 - name: github.com/gonum/floats
-  version: 3818baedee3067cb265df0d4aab6d72ae2fdc1fa
+  version: 50d9894483e545bcbe75c58b35efb70d75da07e4
 - name: github.com/gonum/internal
-  version: 1e4f90128ceb812ff6e569376595abafc132d921
+  version: 4e496e1db44c5a089f08f50a32a1471670a1a63d
   subpackages:
   - asm
 - name: github.com/gonum/plot
-  version: b38524e6f2eed2730c065e23991def5c048cad75
+  version: 986a404a76fa599aed8ce476ec816c82fd9c9c4e
   subpackages:
   - plotter
   - plotutil
@@ -78,7 +85,7 @@ imports:
   subpackages:
   - ps
 - name: github.com/hashicorp/consul
-  version: 6d35960361f10a74eb1454bedef24ab7f87a636e
+  version: af332d6d771c55f4ac69d74dd702b7a3917bb9a0
   subpackages:
   - api
 - name: github.com/hashicorp/go-cleanhttp
@@ -104,11 +111,11 @@ imports:
 - name: github.com/olekukonko/tablewriter
   version: 8d0265a48283795806b872b4728c67bf5c777f20
 - name: github.com/samuel/go-zookeeper
-  version: 4b20de542e40ed2b89d65ae195fc20a330919b92
+  version: e64db453f3512cade908163702045e0f31137843
   subpackages:
   - zk
 - name: github.com/spf13/cobra
-  version: 1238ba19d24b0b9ceee2094e1cb31947d45c3e86
+  version: bc81c21bd0d8be5ba2d6630a505d79d4467566e7
 - name: github.com/spf13/pflag
   version: 367864438f1b1a3c7db4da06a2f55b144e6784e0
 - name: github.com/ugorji/go
@@ -125,7 +132,7 @@ imports:
   - math/f64
   - tiff/lzw
 - name: golang.org/x/net
-  version: 3f122ce3dbbe488b7e6a8bdb26f41edec852a40b
+  version: d7bf3545bb0dacf009c535b3d3fbf53ac0a339ab
   subpackages:
   - context
   - http2
@@ -164,7 +171,7 @@ imports:
   - internal/datastore
   - internal/remote_api
 - name: google.golang.org/cloud
-  version: 4a23f97e60c9a14de1269e78812e59ca94033d85
+  version: 581cbbbaf53b821281c5df8f4bb9fa69c2d5f49c
   subpackages:
   - storage
   - compute/metadata
@@ -172,7 +179,7 @@ imports:
   - internal/opts
   - internal/transport
 - name: google.golang.org/grpc
-  version: 88aeffff979aa77aa502cb011423d0a08fa12c5a
+  version: e78224b060cf3215247b7be455f80ea22e469b66
   subpackages:
   - codes
   - credentials

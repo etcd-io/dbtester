@@ -143,7 +143,7 @@ var _ grpc.ClientConn
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
-const _ = grpc.SupportPackageIsVersion2
+const _ = grpc.SupportPackageIsVersion3
 
 // Client API for Transporter service
 
@@ -205,7 +205,8 @@ var _Transporter_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Transporter_Transfer_Handler,
 		},
 	},
-	Streams: []grpc.StreamDesc{},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: fileDescriptorMessage,
 }
 
 func (m *Request) Marshal() (data []byte, err error) {
