@@ -18,14 +18,13 @@ import (
 	"crypto/tls"
 	"errors"
 	"fmt"
-	"io/ioutil"
-	"log"
 	"net"
 	"net/url"
 	"strings"
 	"time"
 
 	"github.com/coreos/etcd/etcdserver/api/v3rpc/rpctypes"
+	prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
 
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -88,6 +87,7 @@ func NewFromConfigFile(path string) (*Client, error) {
 // Close shuts down the client's etcd connections.
 func (c *Client) Close() error {
 	c.cancel()
+	c.Watcher.Close()
 	return toErr(c.ctx, c.conn.Close())
 }
 
@@ -151,14 +151,14 @@ func (cred authTokenCredential) GetRequestMetadata(ctx context.Context, s ...str
 	}, nil
 }
 
-func parseEndpoint(endpoint string) (proto string, host string, scheme bool) {
+func parseEndpoint(endpoint string) (proto string, host string, scheme string) {
 	proto = "tcp"
 	host = endpoint
 	url, uerr := url.Parse(endpoint)
 	if uerr != nil || !strings.Contains(endpoint, "://") {
 		return
 	}
-	scheme = true
+	scheme = url.Scheme
 
 	// strip scheme:// prefix since grpc dials by host
 	host = url.Host
@@ -172,9 +172,9 @@ func parseEndpoint(endpoint string) (proto string, host string, scheme bool) {
 	return
 }
 
-func (c *Client) processCreds(protocol string) (creds *credentials.TransportCredentials) {
+func (c *Client) processCreds(scheme string) (creds *credentials.TransportCredentials) {
 	creds = c.creds
-	switch protocol {
+	switch scheme {
 	case "unix":
 	case "http":
 		creds = nil
@@ -213,8 +213,8 @@ func (c *Client) dialSetupOpts(endpoint string, dopts ...grpc.DialOption) (opts 
 	opts = append(opts, grpc.WithDialer(f))
 
 	creds := c.creds
-	if proto, _, scheme := parseEndpoint(endpoint); scheme {
-		creds = c.processCreds(proto)
+	if _, _, scheme := parseEndpoint(endpoint); len(scheme) != 0 {
+		creds = c.processCreds(scheme)
 	}
 	if creds != nil {
 		opts = append(opts, grpc.WithTransportCredentials(*creds))
@@ -247,6 +247,10 @@ func (c *Client) dial(endpoint string, dopts ...grpc.DialOption) (*grpc.ClientCo
 		}
 		opts = append(opts, grpc.WithPerRPCCredentials(authTokenCredential{token: resp.Token}))
 	}
+
+	// add metrics options
+	opts = append(opts, grpc.WithUnaryInterceptor(prometheus.UnaryClientInterceptor))
+	opts = append(opts, grpc.WithStreamInterceptor(prometheus.StreamClientInterceptor))
 
 	conn, err := grpc.Dial(host, opts...)
 	if err != nil {
@@ -317,12 +321,6 @@ func newClient(cfg *Config) (*Client, error) {
 	client.Watcher = NewWatcher(client)
 	client.Auth = NewAuth(client)
 	client.Maintenance = NewMaintenance(client)
-	if cfg.Logger != nil {
-		logger.Set(cfg.Logger)
-	} else {
-		// disable client side grpc by default
-		logger.Set(log.New(ioutil.Discard, "", 0))
-	}
 
 	go client.autoSync()
 	return client, nil
