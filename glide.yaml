@@ -9,6 +9,7 @@ import:
   subpackages:
   - compute/metadata
   - internal
+  - storage
 - package: github.com/ajstarks/svgo
   version: 672fe547df4e49efc6db67a74391368bcb149b37
 - package: github.com/cheggaaa/pb
@@ -165,12 +166,6 @@ import:
   - internal/log
   - internal/modules
   - internal/remote_api
-- package: google.golang.org/cloud
-  version: 12aa462581208c155e498dc13e14cabe6da24dc3
-  subpackages:
-  - internal
-  - internal/transport
-  - storage
 - package: google.golang.org/grpc
   version: 231b4cfea0e79843053a33f5fe90bd4d84b23cd3
   subpackages:

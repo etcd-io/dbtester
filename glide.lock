@@ -1,5 +1,5 @@
-hash: 1fdae15de84bd36c00be69c38a6471bd77375bb6200160c7c4b4acbeea1f4778
-updated: 2016-09-24T11:38:22.859090033-07:00
+hash: cdada879a2c891efea6501e51aed40e8e83e63818ea4f8c0694b1c640ad971d1
+updated: 2016-10-31T20:35:20.250976779-07:00
 imports:
 - name: bitbucket.org/zombiezen/gopdf
   version: 1c63dc69751bc45441c2ce1f56b631c55294b4d5
@@ -10,6 +10,7 @@ imports:
   subpackages:
   - compute/metadata
   - internal
+  - storage
 - name: github.com/ajstarks/svgo
   version: 672fe547df4e49efc6db67a74391368bcb149b37
 - name: github.com/cheggaaa/pb
@@ -170,12 +171,6 @@ imports:
   - internal/urlfetch
   - socket
   - urlfetch
-- name: google.golang.org/cloud
-  version: 12aa462581208c155e498dc13e14cabe6da24dc3
-  subpackages:
-  - internal
-  - internal/transport
-  - storage
 - name: google.golang.org/grpc
   version: 231b4cfea0e79843053a33f5fe90bd4d84b23cd3
   subpackages:

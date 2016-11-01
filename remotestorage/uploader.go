@@ -15,16 +15,16 @@
 package remotestorage
 
 import (
+	"context"
 	"fmt"
 	"io/ioutil"
 	"path/filepath"
 	"strings"
 
-	"golang.org/x/net/context"
+	"cloud.google.com/go/storage"
 	"golang.org/x/oauth2/google"
 	"golang.org/x/oauth2/jwt"
-	"google.golang.org/cloud"
-	"google.golang.org/cloud/storage"
+	"google.golang.org/api/option"
 )
 
 type Uploader interface {
@@ -62,7 +62,7 @@ func (g *GoogleCloudStorage) UploadFile(bucket, src, dst string, opts ...OpOptio
 	ret.applyOpts(opts)
 
 	ctx := context.Background()
-	admin, err := storage.NewAdminClient(ctx, g.Project, cloud.WithTokenSource(g.Config.TokenSource(ctx)))
+	admin, err := storage.NewAdminClient(ctx, g.Project, option.WithTokenSource(g.Config.TokenSource(ctx)))
 	if err != nil {
 		return err
 	}
@@ -75,7 +75,7 @@ func (g *GoogleCloudStorage) UploadFile(bucket, src, dst string, opts ...OpOptio
 	}
 
 	sctx := context.Background()
-	client, err := storage.NewClient(sctx, cloud.WithTokenSource(g.Config.TokenSource(sctx)))
+	client, err := storage.NewClient(sctx, option.WithTokenSource(g.Config.TokenSource(sctx)))
 	if err != nil {
 		return err
 	}
@@ -118,7 +118,7 @@ func (g *GoogleCloudStorage) UploadDir(bucket, src, dst string, opts ...OpOption
 	ret.applyOpts(opts)
 
 	ctx := context.Background()
-	admin, err := storage.NewAdminClient(ctx, g.Project, cloud.WithTokenSource(g.Config.TokenSource(ctx)))
+	admin, err := storage.NewAdminClient(ctx, g.Project, option.WithTokenSource(g.Config.TokenSource(ctx)))
 	if err != nil {
 		return err
 	}
@@ -131,7 +131,7 @@ func (g *GoogleCloudStorage) UploadDir(bucket, src, dst string, opts ...OpOption
 	}
 
 	sctx := context.Background()
-	client, err := storage.NewClient(sctx, cloud.WithTokenSource(g.Config.TokenSource(sctx)))
+	client, err := storage.NewClient(sctx, option.WithTokenSource(g.Config.TokenSource(sctx)))
 	if err != nil {
 		return err
 	}
