@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
+set -e
+
+if ! [[ "$0" =~ "scripts/test.sh" ]]; then
+    echo "must be run from repository root"
+    exit 255
+fi
 
 IGNORE_PKGS="(vendor)"
 TESTS=`find . -name \*_test.go | while read a; do dirname $a; done | sort | uniq | egrep -v "$IGNORE_PKGS"`
@@ -22,4 +28,3 @@ if [ -n "${vetRes}" ]; then
 fi
 
 echo "Success";
-
