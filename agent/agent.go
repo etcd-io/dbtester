@@ -16,6 +16,7 @@ package agent
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"net"
 	"os"
@@ -31,7 +32,6 @@ import (
 	"github.com/coreos/pkg/capnslog"
 	"github.com/gyuho/psn/process"
 	"github.com/spf13/cobra"
-	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 )
 
