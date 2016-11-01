@@ -1,86 +1,0 @@
-nohup: ignoring input
-
-2016/04/19 04:40:31 Step 1: starting databases...
-2016/04/19 04:40:31 [0] Start Consul at 10.240.0.7:3500
-2016/04/19 04:40:31 [0] Response from 10.240.0.7:3500 (success:true )
-2016/04/19 04:40:32 [1] Start Consul at 10.240.0.13:3500
-2016/04/19 04:40:32 [1] Response from 10.240.0.13:3500 (success:true )
-2016/04/19 04:40:33 [2] Start Consul at 10.240.0.14:3500
-2016/04/19 04:40:33 [2] Response from 10.240.0.14:3500 (success:true )
-
-2016/04/19 04:40:39 Step 2: starting tests...
- 0 / 200000 B                        !   0.00%2016/04/19 04:40:39 finalize has started
- 938 / 200000 Bm                 !   0.47% 42s 3050 / 200000 Bm                !   1.52% 25s 4970 / 200000 Bm                !   2.48% 23s 7407 / 200000 Bm                !   3.70% 20s 9725 / 200000 Bm                !   4.86% 19s 11785 / 200000 Bm               !   5.89% 19s 13802 / 200000 Bom              !   6.90% 18s 16106 / 200000 Bom              !   8.05% 18s 18282 / 200000 Bom              !   9.14% 17s 20458 / 200000 Bom              !  10.23% 17s 22586 / 200000 Bom              !  11.29% 17s 24497 / 200000 Bom              !  12.25% 17s 26090 / 200000 Boom             !  13.04% 17s 28142 / 200000 Boom             !  14.07% 17s 30108 / 200000 Boom             !  15.05% 16s 32085 / 200000 Boom             !  16.04% 16s 33936 / 200000 Boom             !  16.97% 16s 35369 / 200000 Boom             !  17.68% 16s 36956 / 200000 Boom             !  18.48% 16s 38647 / 200000 Booom            !  19.32% 16s 40424 / 200000 Booom            !  20.21% 16s 42090 / 200000 Booom            !  21.05% 16s 43687 / 200000 Booom            !  21.84% 16s 45546 / 200000 Booom            !  22.77% 16s 46973 / 200000 Booom            !  23.49% 16s 48444 / 200000 Booom            !  24.22% 16s 50221 / 200000 Boooom           !  25.11% 16s 51498 / 200000 Boooom           !  25.75% 16s 53610 / 200000 Boooom           !  26.80% 15s 54954 / 200000 Boooom           !  27.48% 15s 56426 / 200000 Boooom           !  28.21% 15s 58081 / 200000 Boooom           !  29.04% 15s 59373 / 200000 Boooom           !  29.69% 15s 61320 / 200000 Boooom           !  30.66% 15s 62754 / 200000 Booooom          !  31.38% 15s 64298 / 200000 Booooom          !  32.15% 15s 65747 / 200000 Booooom          !  32.87% 15s 67719 / 200000 Booooom          !  33.86% 14s 69409 / 200000 Booooom          !  34.70% 14s 71515 / 200000 Booooom          !  35.76% 14s 72938 / 200000 Booooom          !  36.47% 14s 74850 / 200000 Booooom          !  37.42% 14s 76205 / 200000 Boooooom         !  38.10% 13s 77930 / 200000 Boooooom         !  38.97% 13s 79516 / 200000 Boooooom         !  39.76% 13s 81410 / 200000 Boooooom         !  40.70% 13s 82992 / 200000 Boooooom         !  41.50% 13s 85129 / 200000 Boooooom         !  42.56% 12s 86634 / 200000 Boooooom         !  43.32% 12s 88429 / 200000 Booooooom        !  44.21% 12s 90149 / 200000 Booooooom        !  45.07% 12s 91746 / 200000 Booooooom        !  45.87% 12s 93555 / 200000 Booooooom        !  46.78% 12s 95274 / 200000 Booooooom        !  47.64% 11s 97130 / 200000 Booooooom        !  48.56% 11s 98649 / 200000 Booooooom        !  49.32% 11s 100388 / 200000 Booooooom       !  50.19% 11s 102354 / 200000 Booooooom       !  51.18% 11s 104005 / 200000 Booooooom       !  52.00% 10s 105770 / 200000 Booooooom       !  52.88% 10s 106986 / 200000 Boooooooom      !  53.49% 10s 108875 / 200000 Boooooooom      !  54.44% 10s 110888 / 200000 Boooooooom      !  55.44% 10s 112482 / 200000 Boooooooom       !  56.24% 9s 114291 / 200000 Booooooooom      !  57.15% 9s 116022 / 200000 Booooooooom      !  58.01% 9s 117590 / 200000 Booooooooom      !  58.80% 9s 119530 / 200000 Booooooooom      !  59.77% 9s 121258 / 200000 Booooooooom      !  60.63% 8s 123529 / 200000 Booooooooom      !  61.76% 8s 125803 / 200000 Boooooooooom     !  62.90% 8s 127594 / 200000 Boooooooooom     !  63.80% 8s 129818 / 200000 Boooooooooom     !  64.91% 7s 131699 / 200000 Boooooooooom     !  65.85% 7s 133311 / 200000 Boooooooooom     !  66.66% 7s 135329 / 200000 Boooooooooom     !  67.66% 7s 137213 / 200000 Boooooooooom     !  68.61% 7s 139043 / 200000 Booooooooooom    !  69.52% 6s 141159 / 200000 Booooooooooom    !  70.58% 6s 143437 / 200000 Booooooooooom    !  71.72% 6s 145133 / 200000 Booooooooooom    !  72.57% 6s 146997 / 200000 Booooooooooom    !  73.50% 5s 149010 / 200000 Booooooooooom    !  74.50% 5s 151570 / 200000 Boooooooooooom   !  75.78% 5s 153042 / 200000 Boooooooooooom   !  76.52% 5s 155209 / 200000 Boooooooooooom   !  77.60% 4s 157737 / 200000 Boooooooooooom   !  78.87% 4s 159433 / 200000 Boooooooooooom   !  79.72% 4s 160593 / 200000 Boooooooooooom   !  80.30% 4s 162404 / 200000 Boooooooooooom   !  81.20% 4s 164666 / 200000 Booooooooooooom  !  82.33% 3s 166974 / 200000 Booooooooooooom  !  83.49% 3s 168368 / 200000 Booooooooooooom  !  84.18% 3s 170400 / 200000 Booooooooooooom  !  85.20% 3s 172769 / 200000 Booooooooooooom  !  86.38% 2s 174670 / 200000 Booooooooooooom  !  87.33% 2s 175857 / 200000 Boooooooooooooom !  87.93% 2s 177899 / 200000 Boooooooooooooom !  88.95% 2s 179931 / 200000 Boooooooooooooom !  89.97% 2s 182061 / 200000 Boooooooooooooom !  91.03% 1s 183470 / 200000 Boooooooooooooom !  91.73% 1s 185226 / 200000 Boooooooooooooom !  92.61% 1s 187329 / 200000 Boooooooooooooom !  93.66% 1s 189560 / 200000 Boooooooooooooooo!  94.78% 1s 191407 / 200000 Booooooooooooooooo!  95.70% 0 192813 / 200000 Booooooooooooooooo!  96.41% 0 194999 / 200000 Booooooooooooooooo!  97.50% 0 196987 / 200000 Booooooooooooooooo!  98.49% 0 198816 / 200000 Booooooooooooooooo!  99.41% 0 200000 / 200000 Booooooooooooooo! 100.00% 21s
-
-Summary:
-  Total:	21.9060 secs.
-  Slowest:	0.2165 secs.
-  Fastest:	0.0316 secs.
-  Average:	0.1093 secs.
-  Stddev:	0.0244 secs.
-  Requests/sec:	9129.9167
-
-Response time histogram:
-  0.032 [1]	|
-  0.050 [12]	|
-  0.069 [409]	|
-  0.087 [32324]	|∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
-  0.106 [75093]	|∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
-  0.124 [44964]	|∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
-  0.143 [23809]	|∎∎∎∎∎∎∎∎∎∎∎∎
-  0.161 [15415]	|∎∎∎∎∎∎∎∎
-  0.180 [5989]	|∎∎∎
-  0.198 [1331]	|
-  0.217 [653]	|
-
-Latency distribution:
-  10% in 0.0821 secs.
-  25% in 0.0921 secs.
-  50% in 0.1035 secs.
-  75% in 0.1218 secs.
-  90% in 0.1467 secs.
-  95% in 0.1591 secs.
-  99% in 0.1795 secs.
-unix_ts,avg_latency_ms,throughput
-1461040839,104.854313,4714
-1461040840,90.243022,11264
-1461040841,96.644916,9992
-1461040842,110.008647,9275
-1461040843,118.798399,8254
-1461040844,124.471485,7935
-1461040845,126.187199,7837
-1461040846,128.315248,8118
-1461040847,112.247594,8493
-1461040848,117.696030,8953
-1461040849,117.845136,8391
-1461040850,112.617550,8921
-1461040851,120.267054,8295
-1461040852,114.620082,8810
-1461040853,99.097322,10163
-1461040854,105.497102,9090
-1461040855,100.460286,10304
-1461040856,96.319345,10198
-1461040857,111.442226,8885
-1461040858,107.371406,9514
-1461040859,105.719678,9501
-1461040860,103.058306,9578
-1461040861,103.311630,3515
-
-2016/04/19 04:41:01 time series saved... Uploading to Google cloud storage...
-2016/04/19 04:41:01 Uploading timeseries.csv to 2016041801/06-consul-timeseries.csv
-UploadFile:
-
-timeseries.csv
---->
-2016041801/06-consul-timeseries.csv
-
-
-UploadFile Done!
-
-2016/04/19 04:41:02 Uploading result.log to 2016041801/06-consul-result.log
-UploadFile:
-
-result.log
---->
-2016041801/06-consul-result.log
-

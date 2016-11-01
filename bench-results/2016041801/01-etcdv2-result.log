@@ -1,74 +1,0 @@
-nohup: ignoring input
-
-2016/04/19 03:34:40 Step 1: starting databases...
-2016/04/19 03:34:40 [0] Start etcdv2 at 10.240.0.14:3500
-2016/04/19 03:34:40 [0] Response from 10.240.0.14:3500 (success:true )
-2016/04/19 03:34:41 [1] Start etcdv2 at 10.240.0.7:3500
-2016/04/19 03:34:41 [1] Response from 10.240.0.7:3500 (success:true )
-2016/04/19 03:34:42 [2] Start etcdv2 at 10.240.0.13:3500
-2016/04/19 03:34:42 [2] Response from 10.240.0.13:3500 (success:true )
-
-2016/04/19 03:34:48 Step 2: starting tests...
- 0 / 200000 B                        !   0.00%2016/04/19 03:34:48 finalize has started
- 3529 / 200000 Bm                !   1.76% 11s 10229 / 200000 Bm                !   5.11% 7s 16778 / 200000 Bom               !   8.39% 6s 23128 / 200000 Bom               !  11.56% 6s 29600 / 200000 Boom              !  14.80% 5s 34697 / 200000 Boom              !  17.35% 5s 40393 / 200000 Booom             !  20.20% 5s 46603 / 200000 Booom             !  23.30% 5s 51089 / 200000 Boooom            !  25.54% 5s 57538 / 200000 Boooom            !  28.77% 5s 61742 / 200000 Booooom           !  30.87% 4s 66202 / 200000 Booooom           !  33.10% 4s 71101 / 200000 Boooooom          !  35.55% 4s 74693 / 200000 Boooooom          !  37.35% 4s 80057 / 200000 Boooooom          !  40.03% 4s 84730 / 200000 Booooooom         !  42.37% 4s 88976 / 200000 Booooooom         !  44.49% 4s 92761 / 200000 Booooooom         !  46.38% 4s 98904 / 200000 Boooooooom        !  49.45% 3s 101634 / 200000 Boooooooom       !  50.82% 3s 106238 / 200000 Boooooooom       !  53.12% 3s 111501 / 200000 Boooooooom       !  55.75% 3s 112577 / 200000 Booooooooom      !  56.29% 3s 117263 / 200000 Booooooooom      !  58.63% 3s 122286 / 200000 Booooooooom      !  61.14% 3s 123334 / 200000 Booooooooom      !  61.67% 3s 129224 / 200000 Boooooooooom     !  64.61% 2s 132133 / 200000 Boooooooooom     !  66.07% 2s 135506 / 200000 Boooooooooom     !  67.75% 2s 138230 / 200000 Booooooooooom    !  69.11% 2s 142328 / 200000 Booooooooooom    !  71.16% 2s 145299 / 200000 Booooooooooom    !  72.65% 2s 147816 / 200000 Booooooooooom    !  73.91% 2s 151591 / 200000 Boooooooooooom   !  75.80% 2s 153014 / 200000 Boooooooooooom   !  76.51% 2s 157415 / 200000 Boooooooooooom   !  78.71% 1s 162463 / 200000 Boooooooooooom   !  81.23% 1s 163252 / 200000 Booooooooooooom  !  81.63% 1s 167020 / 200000 Booooooooooooom  !  83.51% 1s 168928 / 200000 Booooooooooooom  !  84.46% 1s 172549 / 200000 Booooooooooooom  !  86.27% 1s 175450 / 200000 Boooooooooooooom !  87.72% 1s 177770 / 200000 Boooooooooooooom !  88.89% 1s 182472 / 200000 Booooooooooooooom !  91.24% 0 183455 / 200000 Booooooooooooooom !  91.73% 0 185771 / 200000 Booooooooooooooom !  92.89% 0 190871 / 200000 Booooooooooooooooo!  95.44% 0 193021 / 200000 Booooooooooooooooo!  96.51% 0 195230 / 200000 Booooooooooooooooo!  97.61% 0 200000 / 200000 Boooooooooooooooo! 100.00% 9s
-
-Summary:
-  Total:	9.9680 secs.
-  Slowest:	0.4099 secs.
-  Fastest:	0.0065 secs.
-  Average:	0.0488 secs.
-  Stddev:	0.0523 secs.
-  Requests/sec:	20059.9965
-
-Response time histogram:
-  0.006 [1]	|
-  0.047 [154245]	|∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
-  0.087 [20257]	|∎∎∎∎∎
-  0.127 [8227]	|∎∎
-  0.168 [7939]	|∎∎
-  0.208 [3991]	|∎
-  0.249 [2144]	|
-  0.289 [703]	|
-  0.329 [1724]	|
-  0.370 [521]	|
-  0.410 [207]	|
-
-Latency distribution:
-  10% in 0.0189 secs.
-  25% in 0.0230 secs.
-  50% in 0.0303 secs.
-  75% in 0.0437 secs.
-  90% in 0.1069 secs.
-  95% in 0.1623 secs.
-  99% in 0.2985 secs.
-unix_ts,avg_latency_ms,throughput
-1461036888,29.435323,21917
-1461036889,33.434770,28634
-1461036890,43.245332,22450
-1461036891,41.837349,23861
-1461036892,51.699100,18555
-1461036893,54.754776,17937
-1461036894,59.641930,16634
-1461036895,62.197416,15381
-1461036896,74.010353,14424
-1461036897,60.923414,13593
-1461036898,60.716332,6573
-
-2016/04/19 03:34:58 time series saved... Uploading to Google cloud storage...
-2016/04/19 03:34:58 Uploading timeseries.csv to 2016041801/01-etcdv2-timeseries.csv
-UploadFile:
-
-timeseries.csv
---->
-2016041801/01-etcdv2-timeseries.csv
-
-
-UploadFile Done!
-
-2016/04/19 03:34:59 Uploading result.log to 2016041801/01-etcdv2-result.log
-UploadFile:
-
-result.log
---->
-2016041801/01-etcdv2-result.log
-

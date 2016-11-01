@@ -1,174 +1,0 @@
-nohup: ignoring input
-
-2016/04/16 16:59:00 Step 1: starting databases...
-2016/04/16 16:59:00 [0] Start etcdv3 at 10.240.0.20:3500
-2016/04/16 16:59:00 [0] Response from 10.240.0.20:3500 (success:true )
-2016/04/16 16:59:01 [1] Start etcdv3 at 10.240.0.21:3500
-2016/04/16 16:59:01 [1] Response from 10.240.0.21:3500 (success:true )
-2016/04/16 16:59:02 [2] Start etcdv3 at 10.240.0.22:3500
-2016/04/16 16:59:02 [2] Response from 10.240.0.22:3500 (success:true )
-
-2016/04/16 16:59:08 Step 2: starting tests...
- 0 / 2000000 B                       !   0.00%2016/04/16 16:59:08 finalize has started
- 4223 / 2000000 Bm             !   0.21% 1m39s 11759 / 2000000 Bm             !   0.59% 1m9s 19043 / 2000000 Bm             !   0.95% 1m3s 26795 / 2000000 Bm              !   1.34% 59s 33459 / 2000000 Bm              !   1.67% 59s 40457 / 2000000 Bm              !   2.02% 58s 47156 / 2000000 Bm              !   2.36% 58s 54098 / 2000000 Bm              !   2.70% 58s 60221 / 2000000 Bm              !   3.01% 58s 66391 / 2000000 Bm              !   3.32% 58s 72202 / 2000000 Bm              !   3.61% 59s 78149 / 2000000 Bm              !   3.91% 59s 84150 / 2000000 Bm              !   4.21% 59s 89906 / 2000000 Bm              !   4.50% 59s 95580 / 2000000 Bm             !   4.78% 1m0s 101327 / 2000000 Bm            !   5.07% 1m0s 107426 / 2000000 Bm            !   5.37% 1m0s 112663 / 2000000 Bm            !   5.63% 1m0s 118878 / 2000000 Bm            !   5.94% 1m0s 124715 / 2000000 Bm            !   6.24% 1m0s 130002 / 2000000 Bm            !   6.50% 1m0s 135567 / 2000000 Bm            !   6.78% 1m0s 141231 / 2000000 Bm            !   7.06% 1m0s 146420 / 2000000 Bm            !   7.32% 1m1s 152050 / 2000000 Bm            !   7.60% 1m1s 158216 / 2000000 Bom           !   7.91% 1m0s 163699 / 2000000 Bom           !   8.18% 1m0s 169010 / 2000000 Bom           !   8.45% 1m0s 173600 / 2000000 Bom           !   8.68% 1m1s 179141 / 2000000 Bom           !   8.96% 1m1s 183837 / 2000000 Bom           !   9.19% 1m1s 189327 / 2000000 Bom           !   9.47% 1m1s 195672 / 2000000 Bom           !   9.78% 1m1s 201741 / 2000000 Bom           !  10.09% 1m0s 205687 / 2000000 Bom           !  10.28% 1m1s 211389 / 2000000 Bom           !  10.57% 1m1s 216546 / 2000000 Bom           !  10.83% 1m1s 221611 / 2000000 Bom           !  11.08% 1m1s 226844 / 2000000 Bom           !  11.34% 1m1s 232168 / 2000000 Bom           !  11.61% 1m1s 237934 / 2000000 Bom           !  11.90% 1m0s 243559 / 2000000 Bom           !  12.18% 1m0s 248954 / 2000000 Bom           !  12.45% 1m0s 254991 / 2000000 Bom           !  12.75% 1m0s 259830 / 2000000 Bom           !  12.99% 1m0s 265393 / 2000000 Bom           !  13.27% 1m0s 270193 / 2000000 Bom           !  13.51% 1m0s 276437 / 2000000 Bom           !  13.82% 1m0s 281920 / 2000000 Bom            !  14.10% 59s 287184 / 2000000 Boom           !  14.36% 59s 293222 / 2000000 Boom           !  14.66% 59s 298170 / 2000000 Boom           !  14.91% 59s 304021 / 2000000 Boom           !  15.20% 59s 309316 / 2000000 Boom           !  15.47% 59s 314045 / 2000000 Boom           !  15.70% 59s 319573 / 2000000 Boom           !  15.98% 59s 325216 / 2000000 Boom           !  16.26% 58s 330717 / 2000000 Boom           !  16.54% 58s 335352 / 2000000 Boom           !  16.77% 58s 339832 / 2000000 Boom           !  16.99% 58s 345320 / 2000000 Boom           !  17.27% 58s 350386 / 2000000 Boom           !  17.52% 58s 355242 / 2000000 Boom           !  17.76% 58s 360502 / 2000000 Boom           !  18.03% 58s 365724 / 2000000 Boom           !  18.29% 58s 371075 / 2000000 Boom           !  18.55% 58s 375769 / 2000000 Boom           !  18.79% 58s 380943 / 2000000 Boom           !  19.05% 57s 386365 / 2000000 Boom           !  19.32% 57s 391802 / 2000000 Boom           !  19.59% 57s 397173 / 2000000 Boom           !  19.86% 57s 402501 / 2000000 Boom           !  20.13% 57s 408314 / 2000000 Boom           !  20.42% 57s 413724 / 2000000 Boom           !  20.69% 56s 419127 / 2000000 Boom           !  20.96% 56s 424147 / 2000000 Boom           !  21.21% 56s 429735 / 2000000 Booom          !  21.49% 56s 434832 / 2000000 Booom          !  21.74% 56s 440219 / 2000000 Booom          !  22.01% 56s 445511 / 2000000 Booom          !  22.28% 56s 450655 / 2000000 Booom          !  22.53% 55s 455882 / 2000000 Booom          !  22.79% 55s 461459 / 2000000 Booom          !  23.07% 55s 467187 / 2000000 Booom          !  23.36% 55s 472097 / 2000000 Booom          !  23.60% 55s 476933 / 2000000 Booom          !  23.85% 55s 482267 / 2000000 Booom          !  24.11% 54s 487537 / 2000000 Booom          !  24.38% 54s 492757 / 2000000 Booom          !  24.64% 54s 497354 / 2000000 Booom          !  24.87% 54s 502815 / 2000000 Booom          !  25.14% 54s 508427 / 2000000 Booom          !  25.42% 54s 513835 / 2000000 Booom          !  25.69% 53s 519128 / 2000000 Booom          !  25.96% 53s 524318 / 2000000 Booom          !  26.22% 53s 529930 / 2000000 Booom          !  26.50% 53s 535079 / 2000000 Booom          !  26.75% 53s 540223 / 2000000 Booom          !  27.01% 53s 544987 / 2000000 Booom          !  27.25% 53s 551131 / 2000000 Booom          !  27.56% 52s 556514 / 2000000 Booom          !  27.83% 52s 561218 / 2000000 Booom          !  28.06% 52s 566316 / 2000000 Booom          !  28.32% 52s 571968 / 2000000 Boooom         !  28.60% 52s 577370 / 2000000 Boooom         !  28.87% 51s 583671 / 2000000 Boooom         !  29.18% 51s 588814 / 2000000 Boooom         !  29.44% 51s 593447 / 2000000 Boooom         !  29.67% 51s 598308 / 2000000 Boooom         !  29.92% 51s 603688 / 2000000 Boooom         !  30.18% 51s 609082 / 2000000 Boooom         !  30.45% 50s 614512 / 2000000 Boooom         !  30.73% 50s 618519 / 2000000 Boooom         !  30.93% 50s 623998 / 2000000 Boooom         !  31.20% 50s 629905 / 2000000 Boooom         !  31.50% 50s 634884 / 2000000 Boooom         !  31.74% 50s 639469 / 2000000 Boooom         !  31.97% 49s 644712 / 2000000 Boooom         !  32.24% 49s 651410 / 2000000 Boooom         !  32.57% 49s 656065 / 2000000 Boooom         !  32.80% 49s 661413 / 2000000 Boooom         !  33.07% 49s 666410 / 2000000 Boooom         !  33.32% 48s 673506 / 2000000 Boooom         !  33.68% 48s 678410 / 2000000 Boooom         !  33.92% 48s 684026 / 2000000 Boooom         !  34.20% 48s 688952 / 2000000 Boooom         !  34.45% 48s 696091 / 2000000 Boooom         !  34.80% 47s 700557 / 2000000 Boooom         !  35.03% 47s 704764 / 2000000 Boooom         !  35.24% 47s 711208 / 2000000 Boooom         !  35.56% 47s 716356 / 2000000 Booooom        !  35.82% 47s 721463 / 2000000 Booooom        !  36.07% 46s 726744 / 2000000 Booooom        !  36.34% 46s 733160 / 2000000 Booooom        !  36.66% 46s 737897 / 2000000 Booooom        !  36.89% 46s 742876 / 2000000 Booooom        !  37.14% 46s 749064 / 2000000 Booooom        !  37.45% 45s 753338 / 2000000 Booooom        !  37.67% 45s 758516 / 2000000 Booooom        !  37.93% 45s 764974 / 2000000 Booooom        !  38.25% 45s 769729 / 2000000 Booooom        !  38.49% 45s 775027 / 2000000 Booooom        !  38.75% 45s 781393 / 2000000 Booooom        !  39.07% 44s 786363 / 2000000 Booooom        !  39.32% 44s 791867 / 2000000 Booooom        !  39.59% 44s 798075 / 2000000 Booooom        !  39.90% 44s 802049 / 2000000 Booooom        !  40.10% 44s 808487 / 2000000 Booooom        !  40.42% 43s 813476 / 2000000 Booooom        !  40.67% 43s 817746 / 2000000 Booooom        !  40.89% 43s 824823 / 2000000 Booooom        !  41.24% 43s 829193 / 2000000 Booooom        !  41.46% 43s 834746 / 2000000 Booooom        !  41.74% 42s 840045 / 2000000 Booooom        !  42.00% 42s 844526 / 2000000 Booooom        !  42.23% 42s 851516 / 2000000 Booooom        !  42.58% 42s 855664 / 2000000 Booooom        !  42.78% 42s 861618 / 2000000 Boooooom       !  43.08% 41s 865682 / 2000000 Boooooom       !  43.28% 41s 870468 / 2000000 Boooooom       !  43.52% 41s 876974 / 2000000 Boooooom       !  43.85% 41s 881035 / 2000000 Boooooom       !  44.05% 41s 887966 / 2000000 Boooooom       !  44.40% 40s 892242 / 2000000 Boooooom       !  44.61% 40s 897957 / 2000000 Boooooom       !  44.90% 40s 903722 / 2000000 Boooooom       !  45.19% 40s 907439 / 2000000 Boooooom       !  45.37% 40s 914792 / 2000000 Boooooom       !  45.74% 39s 918441 / 2000000 Boooooom       !  45.92% 39s 925667 / 2000000 Boooooom       !  46.28% 39s 929634 / 2000000 Boooooom       !  46.48% 39s 936056 / 2000000 Boooooom       !  46.80% 39s 940768 / 2000000 Boooooom       !  47.04% 39s 945884 / 2000000 Boooooom       !  47.29% 38s 951714 / 2000000 Boooooom       !  47.59% 38s 955837 / 2000000 Boooooom       !  47.79% 38s 961711 / 2000000 Boooooom       !  48.09% 38s 965952 / 2000000 Boooooom       !  48.30% 38s 972272 / 2000000 Boooooom       !  48.61% 37s 975932 / 2000000 Boooooom       !  48.80% 37s 982574 / 2000000 Boooooom       !  49.13% 37s 985883 / 2000000 Boooooom       !  49.29% 37s 993111 / 2000000 Boooooom       !  49.66% 37s 996280 / 2000000 Boooooom       !  49.81% 37s 1003645 / 2000000 Boooooom      !  50.18% 36s 1006149 / 2000000 Boooooom      !  50.31% 36s 1013822 / 2000000 Boooooom      !  50.69% 36s 1016334 / 2000000 Boooooom      !  50.82% 36s 1023750 / 2000000 Boooooom      !  51.19% 36s 1026538 / 2000000 Boooooom      !  51.33% 36s 1033233 / 2000000 Boooooom      !  51.66% 35s 1037167 / 2000000 Boooooom      !  51.86% 35s 1044282 / 2000000 Boooooom      !  52.21% 35s 1047939 / 2000000 Boooooom      !  52.40% 35s 1054269 / 2000000 Boooooom      !  52.71% 35s 1058534 / 2000000 Boooooom      !  52.93% 34s 1062514 / 2000000 Boooooom      !  53.13% 34s 1069619 / 2000000 Boooooom      !  53.48% 34s 1071346 / 2000000 Boooooom      !  53.57% 34s 1079002 / 2000000 Booooooom     !  53.95% 34s 1082616 / 2000000 Booooooom     !  54.13% 34s 1087088 / 2000000 Booooooom     !  54.35% 34s 1092058 / 2000000 Booooooom     !  54.60% 33s 1094931 / 2000000 Booooooom     !  54.75% 33s 1102350 / 2000000 Booooooom     !  55.12% 33s 1106279 / 2000000 Booooooom     !  55.31% 33s 1110366 / 2000000 Booooooom     !  55.52% 33s 1114454 / 2000000 Booooooom     !  55.72% 33s 1118902 / 2000000 Booooooom     !  55.95% 33s 1125664 / 2000000 Booooooom     !  56.28% 32s 1129714 / 2000000 Booooooom     !  56.49% 32s 1133685 / 2000000 Booooooom     !  56.68% 32s 1137294 / 2000000 Booooooom     !  56.86% 32s 1143079 / 2000000 Booooooom     !  57.15% 32s 1148535 / 2000000 Booooooom     !  57.43% 31s 1151895 / 2000000 Booooooom     !  57.59% 31s 1155762 / 2000000 Booooooom     !  57.79% 31s 1160315 / 2000000 Booooooom     !  58.02% 31s 1167063 / 2000000 Booooooom     !  58.35% 31s 1171080 / 2000000 Booooooom     !  58.55% 31s 1174633 / 2000000 Booooooom     !  58.73% 31s 1180798 / 2000000 Booooooom     !  59.04% 30s 1184361 / 2000000 Booooooom     !  59.22% 30s 1190210 / 2000000 Booooooom     !  59.51% 30s 1193740 / 2000000 Booooooom     !  59.69% 30s 1197394 / 2000000 Booooooom     !  59.87% 30s 1205277 / 2000000 Booooooom     !  60.26% 30s 1208151 / 2000000 Booooooom     !  60.41% 29s 1212619 / 2000000 Booooooom     !  60.63% 29s 1219543 / 2000000 Booooooom     !  60.98% 29s 1220832 / 2000000 Booooooom     !  61.04% 29s 1228475 / 2000000 Booooooom     !  61.42% 29s 1232423 / 2000000 Boooooooom    !  61.62% 29s 1239505 / 2000000 Boooooooom    !  61.98% 28s 1245280 / 2000000 Boooooooom    !  62.26% 28s 1250242 / 2000000 Boooooooom    !  62.51% 28s 1258056 / 2000000 Boooooooom    !  62.90% 28s 1259720 / 2000000 Boooooooom    !  62.99% 28s 1266647 / 2000000 Boooooooom    !  63.33% 27s 1270444 / 2000000 Boooooooom    !  63.52% 27s 1274249 / 2000000 Boooooooom    !  63.71% 27s 1282384 / 2000000 Boooooooom    !  64.12% 27s 1285443 / 2000000 Boooooooom    !  64.27% 27s 1290251 / 2000000 Boooooooom    !  64.51% 26s 1296144 / 2000000 Boooooooom    !  64.81% 26s 1300459 / 2000000 Boooooooom    !  65.02% 26s 1305451 / 2000000 Boooooooom    !  65.27% 26s 1309410 / 2000000 Boooooooom    !  65.47% 26s 1314333 / 2000000 Boooooooom    !  65.72% 26s 1320530 / 2000000 Boooooooom    !  66.03% 25s 1323733 / 2000000 Boooooooom    !  66.19% 25s 1328422 / 2000000 Boooooooom    !  66.42% 25s 1335129 / 2000000 Boooooooom    !  66.76% 25s 1338483 / 2000000 Boooooooom    !  66.92% 25s 1342637 / 2000000 Boooooooom    !  67.13% 25s 1349114 / 2000000 Boooooooom    !  67.46% 24s 1352564 / 2000000 Boooooooom    !  67.63% 24s 1357469 / 2000000 Boooooooom    !  67.87% 24s 1362738 / 2000000 Boooooooom    !  68.14% 24s 1367772 / 2000000 Boooooooom    !  68.39% 24s 1371686 / 2000000 Boooooooom    !  68.58% 23s 1376044 / 2000000 Boooooooom    !  68.80% 23s 1382066 / 2000000 Boooooooom    !  69.10% 23s 1386190 / 2000000 Booooooooom   !  69.31% 23s 1390001 / 2000000 Booooooooom   !  69.50% 23s 1396741 / 2000000 Booooooooom   !  69.84% 23s 1401102 / 2000000 Booooooooom   !  70.06% 22s 1403819 / 2000000 Booooooooom   !  70.19% 22s 1410850 / 2000000 Booooooooom   !  70.54% 22s 1415936 / 2000000 Booooooooom   !  70.80% 22s 1417330 / 2000000 Booooooooom   !  70.87% 22s 1424812 / 2000000 Booooooooom   !  71.24% 22s 1431188 / 2000000 Booooooooom   !  71.56% 21s 1434369 / 2000000 Booooooooom   !  71.72% 21s 1442549 / 2000000 Booooooooom   !  72.13% 21s 1445884 / 2000000 Booooooooom   !  72.29% 21s 1451799 / 2000000 Booooooooom   !  72.59% 20s 1459242 / 2000000 Booooooooom   !  72.96% 20s 1461744 / 2000000 Booooooooom   !  73.09% 20s 1468570 / 2000000 Booooooooom   !  73.43% 20s 1474145 / 2000000 Booooooooom   !  73.71% 20s 1478657 / 2000000 Booooooooom   !  73.93% 19s 1485523 / 2000000 Booooooooom   !  74.28% 19s 1488772 / 2000000 Booooooooom   !  74.44% 19s 1494453 / 2000000 Booooooooom   !  74.72% 19s 1500655 / 2000000 Booooooooom   !  75.03% 19s 1503415 / 2000000 Booooooooom   !  75.17% 19s 1510091 / 2000000 Booooooooom   !  75.50% 18s 1515659 / 2000000 Booooooooom   !  75.78% 18s 1518153 / 2000000 Booooooooom   !  75.91% 18s 1524825 / 2000000 Booooooooom   !  76.24% 18s 1530952 / 2000000 Booooooooom   !  76.55% 17s 1533290 / 2000000 Booooooooom   !  76.66% 17s 1540502 / 2000000 Boooooooooom  !  77.03% 17s 1546038 / 2000000 Boooooooooom  !  77.30% 17s 1547996 / 2000000 Boooooooooom  !  77.40% 17s 1555859 / 2000000 Boooooooooom  !  77.79% 17s 1561623 / 2000000 Boooooooooom  !  78.08% 16s 1563737 / 2000000 Boooooooooom  !  78.19% 16s 1571469 / 2000000 Boooooooooom  !  78.57% 16s 1576871 / 2000000 Boooooooooom  !  78.84% 16s 1579129 / 2000000 Boooooooooom  !  78.96% 16s 1586436 / 2000000 Boooooooooom  !  79.32% 15s 1592566 / 2000000 Boooooooooom  !  79.63% 15s 1594331 / 2000000 Boooooooooom  !  79.72% 15s 1601987 / 2000000 Boooooooooom  !  80.10% 15s 1608507 / 2000000 Boooooooooom  !  80.43% 14s 1610401 / 2000000 Boooooooooom  !  80.52% 14s 1617698 / 2000000 Boooooooooom  !  80.88% 14s 1624477 / 2000000 Boooooooooom  !  81.22% 14s 1626853 / 2000000 Boooooooooom  !  81.34% 14s 1633202 / 2000000 Boooooooooom  !  81.66% 14s 1640162 / 2000000 Boooooooooom  !  82.01% 13s 1642190 / 2000000 Boooooooooom  !  82.11% 13s 1648798 / 2000000 Boooooooooom  !  82.44% 13s 1655656 / 2000000 Boooooooooom  !  82.78% 13s 1657259 / 2000000 Boooooooooom  !  82.86% 13s 1663381 / 2000000 Boooooooooom  !  83.17% 12s 1670041 / 2000000 Boooooooooom  !  83.50% 12s 1672324 / 2000000 Boooooooooom  !  83.62% 12s 1678463 / 2000000 Boooooooooom  !  83.92% 12s 1684348 / 2000000 Boooooooooom  !  84.22% 12s 1688230 / 2000000 Boooooooooom  !  84.41% 11s 1692853 / 2000000 Booooooooooom !  84.64% 11s 1698715 / 2000000 Booooooooooom !  84.94% 11s 1704182 / 2000000 Booooooooooom !  85.21% 11s 1706415 / 2000000 Booooooooooom !  85.32% 11s 1713160 / 2000000 Booooooooooom !  85.66% 11s 1717919 / 2000000 Booooooooooom !  85.90% 10s 1721412 / 2000000 Booooooooooom !  86.07% 10s 1726540 / 2000000 Booooooooooom !  86.33% 10s 1733567 / 2000000 Booooooooooom !  86.68% 10s 1737344 / 2000000 Booooooooooom !  86.87% 10s 1739225 / 2000000 Booooooooooom !  86.96% 10s 1746586 / 2000000 Boooooooooooom !  87.33% 9s 1752052 / 2000000 Boooooooooooom !  87.60% 9s 1755212 / 2000000 Boooooooooooom !  87.76% 9s 1758607 / 2000000 Boooooooooooom !  87.93% 9s 1766115 / 2000000 Boooooooooooom !  88.31% 9s 1770333 / 2000000 Boooooooooooom !  88.52% 8s 1772388 / 2000000 Boooooooooooom !  88.62% 8s 1777914 / 2000000 Boooooooooooom !  88.90% 8s 1785575 / 2000000 Boooooooooooom !  89.28% 8s 1789059 / 2000000 Boooooooooooom !  89.45% 8s 1790332 / 2000000 Boooooooooooom !  89.52% 8s 1798043 / 2000000 Boooooooooooom !  89.90% 7s 1805560 / 2000000 Boooooooooooom !  90.28% 7s 1807174 / 2000000 Boooooooooooom !  90.36% 7s 1814435 / 2000000 Boooooooooooom !  90.72% 7s 1822238 / 2000000 Boooooooooooom !  91.11% 6s 1825001 / 2000000 Boooooooooooom !  91.25% 6s 1830675 / 2000000 Boooooooooooom !  91.53% 6s 1838191 / 2000000 Boooooooooooom !  91.91% 6s 1842888 / 2000000 Boooooooooooom !  92.14% 6s 1845787 / 2000000 Boooooooooooom !  92.29% 5s 1851858 / 2000000 Boooooooooooom !  92.59% 5s 1859477 / 2000000 Boooooooooooooo!  92.97% 5s 1860811 / 2000000 Boooooooooooooo!  93.04% 5s 1864033 / 2000000 Boooooooooooooo!  93.20% 5s 1870584 / 2000000 Boooooooooooooo!  93.53% 4s 1878434 / 2000000 Boooooooooooooo!  93.92% 4s 1879538 / 2000000 Boooooooooooooo!  93.98% 4s 1882925 / 2000000 Boooooooooooooo!  94.15% 4s 1889020 / 2000000 Boooooooooooooo!  94.45% 4s 1896966 / 2000000 Boooooooooooooo!  94.85% 3s 1898360 / 2000000 Boooooooooooooo!  94.92% 3s 1902659 / 2000000 Boooooooooooooo!  95.13% 3s 1907785 / 2000000 Boooooooooooooo!  95.39% 3s 1915110 / 2000000 Boooooooooooooo!  95.76% 3s 1916537 / 2000000 Boooooooooooooo!  95.83% 3s 1922477 / 2000000 Boooooooooooooo!  96.12% 3s 1926583 / 2000000 Boooooooooooooo!  96.33% 2s 1933545 / 2000000 Boooooooooooooo!  96.68% 2s 1934497 / 2000000 Boooooooooooooo!  96.72% 2s 1941314 / 2000000 Boooooooooooooo!  97.07% 2s 1944475 / 2000000 Boooooooooooooo!  97.22% 2s 1951701 / 2000000 Boooooooooooooo!  97.59% 1s 1952915 / 2000000 Boooooooooooooo!  97.65% 1s 1959541 / 2000000 Boooooooooooooo!  97.98% 1s 1962955 / 2000000 Boooooooooooooo!  98.15% 1s 1969157 / 2000000 Boooooooooooooo!  98.46% 1s 1971583 / 2000000 Boooooooooooooo!  98.58% 1s 1977331 / 2000000 Booooooooooooooo!  98.87% 0 1983221 / 2000000 Booooooooooooooo!  99.16% 0 1987237 / 2000000 Booooooooooooooo!  99.36% 0 1990459 / 2000000 Booooooooooooooo!  99.52% 0 1995561 / 2000000 Booooooooooooooo!  99.78% 0 2000000 / 2000000 Booooooooooo! 100.00% 1m17s
-
-Summary:
-  Total:	77.6753 secs.
-  Slowest:	0.3640 secs.
-  Fastest:	0.0042 secs.
-  Average:	0.0385 secs.
-  Stddev:	0.0359 secs.
-  Requests/sec:	25748.2009
-
-Response time histogram:
-  0.004 [1]	|
-  0.040 [1575097]	|∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
-  0.076 [209054]	|∎∎∎∎∎
-  0.112 [97310]	|∎∎
-  0.148 [56509]	|∎
-  0.184 [36761]	|
-  0.220 [20416]	|
-  0.256 [3140]	|
-  0.292 [1360]	|
-  0.328 [219]	|
-  0.364 [133]	|
-
-Latency distribution:
-  10% in 0.0170 secs.
-  25% in 0.0207 secs.
-  50% in 0.0258 secs.
-  75% in 0.0356 secs.
-  90% in 0.0811 secs.
-  95% in 0.1227 secs.
-  99% in 0.1927 secs.
-unix_ts,avg_latency_ms,throughput
-1460825948,27.015085,30706
-1460825949,29.786188,33022
-1460825950,33.830973,29502
-1460825951,33.975765,28833
-1460825952,36.751855,27163
-1460825953,35.949901,27399
-1460825954,36.727513,27229
-1460825955,38.478635,25955
-1460825956,35.788100,27009
-1460825957,36.344488,27818
-1460825958,37.092989,26827
-1460825959,38.162243,25534
-1460825960,39.018315,25199
-1460825961,37.100488,27326
-1460825962,36.744331,26031
-1460825963,38.051332,25967
-1460825964,36.858115,26962
-1460825965,38.391139,26182
-1460825966,38.191586,25610
-1460825967,37.974196,26836
-1460825968,36.670303,26914
-1460825969,37.764611,26073
-1460825970,39.266983,24227
-1460825971,36.678260,27627
-1460825972,35.746056,28408
-1460825973,38.561878,25709
-1460825974,34.621190,28652
-1460825975,39.837958,24496
-1460825976,35.549992,28380
-1460825977,35.961444,27054
-1460825978,37.192364,26723
-1460825979,38.845894,25873
-1460825980,38.392903,26052
-1460825981,36.159286,26244
-1460825982,36.668868,26390
-1460825983,38.640572,27140
-1460825984,41.960521,24020
-1460825985,36.430734,27280
-1460825986,40.399595,24047
-1460825987,41.716566,23280
-1460825988,42.492624,23665
-1460825989,40.278729,23540
-1460825990,42.067168,24175
-1460825991,43.251158,24325
-1460825992,43.142822,22900
-1460825993,44.337895,22327
-1460825994,37.507021,26705
-1460825995,36.581863,27135
-1460825996,42.809866,23120
-1460825997,38.646548,24667
-1460825998,44.596823,23209
-1460825999,38.796388,25271
-1460826000,40.863775,23218
-1460826001,44.977099,23526
-1460826002,41.422219,23706
-1460826003,33.286646,26995
-1460826004,35.807299,28572
-1460826005,40.016022,25528
-1460826006,42.166507,24477
-1460826007,36.826099,23675
-1460826008,37.939176,28742
-1460826009,41.584034,24483
-1460826010,36.019719,24794
-1460826011,39.735338,27241
-1460826012,43.814341,22986
-1460826013,37.034541,25989
-1460826014,42.977494,21571
-1460826015,43.244126,25324
-1460826016,37.096929,25169
-1460826017,46.150345,22939
-1460826018,31.847393,31090
-1460826019,44.057444,20936
-1460826020,46.818881,22664
-1460826021,39.152882,25633
-1460826022,40.629119,21889
-1460826023,48.703208,22632
-1460826024,39.508992,24785
-1460826025,43.391944,18698
-
-2016/04/16 17:00:26 time series saved... Uploading to Google cloud storage...
-2016/04/16 17:00:26 Uploading 04-etcdv3-go1.6-timeseries.csv to 2016041601/04-etcdv3-go1.6-timeseries.csv
-UploadFile:
-
-04-etcdv3-go1.6-timeseries.csv
---->
-2016041601/04-etcdv3-go1.6-timeseries.csv
-
-
-UploadFile Done!
-
-2016/04/16 17:00:27 Uploading 04-etcdv3-go1.6-result.log to 2016041601/04-etcdv3-go1.6-result.log
-2016/04/16 17:00:27 googleapi: Error 429: The project exceeded the rate limit for creating and deleting buckets., rateLimitExceeded
-2016/04/16 17:00:27 googleapi: Error 429: The project exceeded the rate limit for creating and deleting buckets., rateLimitExceeded
-2016/04/16 17:00:28 googleapi: Error 429: The project exceeded the rate limit for creating and deleting buckets., rateLimitExceeded
-2016/04/16 17:00:28 googleapi: Error 429: The project exceeded the rate limit for creating and deleting buckets., rateLimitExceeded
-2016/04/16 17:00:28 googleapi: Error 429: The project exceeded the rate limit for creating and deleting buckets., rateLimitExceeded
-2016/04/16 17:00:29 googleapi: Error 429: The project exceeded the rate limit for creating and deleting buckets., rateLimitExceeded
-2016/04/16 17:00:29 googleapi: Error 429: The project exceeded the rate limit for creating and deleting buckets., rateLimitExceeded
-UploadFile:
-
-04-etcdv3-go1.6-result.log
---->
-2016041601/04-etcdv3-go1.6-result.log
-
-2016/04/16 17:00:30 ioutil.ReadFile(04-etcdv3-go1.6-result.log) open 04-etcdv3-go1.6-result.log: no such file or directory
-2016/04/16 17:00:30 googleapi: Error 429: The project exceeded the rate limit for creating and deleting buckets., rateLimitExceeded
-2016/04/16 17:00:30 googleapi: Error 429: The project exceeded the rate limit for creating and deleting buckets., rateLimitExceeded
-2016/04/16 17:00:30 googleapi: Error 429: The project exceeded the rate limit for creating and deleting buckets., rateLimitExceeded
-2016/04/16 17:00:30 googleapi: Error 429: The project exceeded the rate limit for creating and deleting buckets., rateLimitExceeded
-2016/04/16 17:00:30 googleapi: Error 429: The project exceeded the rate limit for creating and deleting buckets., rateLimitExceeded
-2016/04/16 17:00:30 googleapi: Error 429: The project exceeded the rate limit for creating and deleting buckets., rateLimitExceeded
-2016/04/16 17:00:31 googleapi: Error 429: The project exceeded the rate limit for creating and deleting buckets., rateLimitExceeded
-2016/04/16 17:00:31 Expected Write Total: 2000000
-Endpoint      : http://10.240.0.20:2379
-Number of Keys: 2000000
-
-Endpoint      : http://10.240.0.21:2379
-Number of Keys: 2000000
-
-Endpoint      : http://10.240.0.22:2379
-Number of Keys: 2000000
-
-
-2016/04/16 17:00:36 Step 3: stopping databases...
-2016/04/16 17:00:36 [0] Stop etcdv3 at 10.240.0.20:3500
-2016/04/16 17:00:36 [0] Response from 10.240.0.20:3500 (success:true )
-2016/04/16 17:00:37 [1] Stop etcdv3 at 10.240.0.21:3500
-2016/04/16 17:00:37 [1] Response from 10.240.0.21:3500 (success:true )
-2016/04/16 17:00:38 [2] Stop etcdv3 at 10.240.0.22:3500
-2016/04/16 17:00:38 [2] Response from 10.240.0.22:3500 (success:true )

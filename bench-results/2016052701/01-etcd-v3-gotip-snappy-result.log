@@ -1,148 +1,0 @@
-nohup: ignoring input
-
-2016/05/28 00:23:13 Step 1: starting databases...
-2016/05/28 00:23:13 [0] Start etcdv3 at 10.240.0.25:3500
-2016/05/28 00:23:13 [0] Response from 10.240.0.25:3500 (success:true )
-2016/05/28 00:23:14 [1] Start etcdv3 at 10.240.0.26:3500
-2016/05/28 00:23:14 [1] Response from 10.240.0.26:3500 (success:true )
-2016/05/28 00:23:15 [2] Start etcdv3 at 10.240.0.27:3500
-2016/05/28 00:23:15 [2] Response from 10.240.0.27:3500 (success:true )
-
-2016/05/28 00:23:21 Step 2: starting tests...
- 0 / 200 B                                             !   0.00%2016/05/28 00:23:21 finalize has started
- 2 / 200 Bm                                        !   1.00% 19s 4 / 200 Bm                                        !   2.00% 19s 6 / 200 Bom                                       !   3.00% 19s 7 / 200 Bom                                       !   3.50% 22s 10 / 200 Bom                                      !   5.00% 19s 11 / 200 Boom                                     !   5.50% 20s 13 / 200 Boom                                     !   6.50% 20s 16 / 200 Booom                                    !   8.00% 18s 18 / 200 Booom                                    !   9.00% 18s 20 / 200 Booom                                    !  10.00% 18s 22 / 200 Boooom                                   !  11.00% 17s 24 / 200 Boooom                                   !  12.00% 17s 27 / 200 Booooom                                  !  13.50% 16s 29 / 200 Booooom                                  !  14.50% 16s 31 / 200 Boooooom                                 !  15.50% 16s 34 / 200 Boooooom                                 !  17.00% 15s 36 / 200 Booooooom                                !  18.00% 15s 38 / 200 Booooooom                                !  19.00% 15s 40 / 200 Booooooom                                !  20.00% 15s 43 / 200 Boooooooom                               !  21.50% 14s 45 / 200 Boooooooom                               !  22.50% 14s 48 / 200 Booooooooom                              !  24.00% 13s 50 / 200 Booooooooom                              !  25.00% 13s 52 / 200 Boooooooooom                             !  26.00% 13s 55 / 200 Boooooooooom                             !  27.50% 13s 57 / 200 Booooooooooom                            !  28.50% 13s 59 / 200 Booooooooooom                            !  29.50% 12s 62 / 200 Boooooooooooom                           !  31.00% 12s 64 / 200 Boooooooooooom                           !  32.00% 12s 66 / 200 Booooooooooooom                          !  33.00% 12s 69 / 200 Booooooooooooom                          !  34.50% 11s 71 / 200 Boooooooooooooom                         !  35.50% 11s 74 / 200 Boooooooooooooom                         !  37.00% 11s 76 / 200 Booooooooooooooom                        !  38.00% 11s 78 / 200 Booooooooooooooom                        !  39.00% 10s 80 / 200 Booooooooooooooom                        !  40.00% 10s 82 / 200 Boooooooooooooooom                       !  41.00% 10s 84 / 200 Boooooooooooooooom                       !  42.00% 10s 86 / 200 Booooooooooooooooom                      !  43.00% 10s 89 / 200 Boooooooooooooooooom                      !  44.50% 9s 91 / 200 Boooooooooooooooooom                      !  45.50% 9s 94 / 200 Booooooooooooooooooom                     !  47.00% 9s 96 / 200 Booooooooooooooooooom                     !  48.00% 9s 98 / 200 Boooooooooooooooooooom                    !  49.00% 9s 99 / 200 Boooooooooooooooooooom                    !  49.50% 9s 100 / 200 Booooooooooooooooooom                   !  50.00% 10s 101 / 200 Booooooooooooooooooom                   !  50.50% 10s 102 / 200 Booooooooooooooooooom                   !  51.00% 10s 103 / 200 Boooooooooooooooooooom                  !  51.50% 11s 104 / 200 Boooooooooooooooooooom                  !  52.00% 12s 105 / 200 Boooooooooooooooooooom                  !  52.50% 12s 106 / 200 Boooooooooooooooooooom                  !  53.00% 12s 107 / 200 Boooooooooooooooooooom                  !  53.50% 13s 108 / 200 Booooooooooooooooooooom                 !  54.00% 13s 109 / 200 Booooooooooooooooooooom                 !  54.50% 13s 110 / 200 Booooooooooooooooooooom                 !  55.00% 14s 111 / 200 Booooooooooooooooooooom                 !  55.50% 14s 112 / 200 Booooooooooooooooooooom                 !  56.00% 14s 113 / 200 Boooooooooooooooooooooom                !  56.50% 14s 114 / 200 Boooooooooooooooooooooom                !  57.00% 15s 115 / 200 Boooooooooooooooooooooom                !  57.50% 15s 116 / 200 Boooooooooooooooooooooom                !  58.00% 15s 117 / 200 Boooooooooooooooooooooom                !  58.50% 15s 118 / 200 Booooooooooooooooooooooom               !  59.00% 16s 119 / 200 Booooooooooooooooooooooom               !  59.50% 16s 120 / 200 Booooooooooooooooooooooom               !  60.00% 16s 121 / 200 Booooooooooooooooooooooom               !  60.50% 16s 122 / 200 Booooooooooooooooooooooom               !  61.00% 16s 123 / 200 Booooooooooooooooooooooom               !  61.50% 16s 124 / 200 Boooooooooooooooooooooooom              !  62.00% 16s 125 / 200 Boooooooooooooooooooooooom              !  62.50% 16s 126 / 200 Boooooooooooooooooooooooom              !  63.00% 17s 127 / 200 Boooooooooooooooooooooooom              !  63.50% 17s 128 / 200 Boooooooooooooooooooooooom              !  64.00% 17s 129 / 200 Booooooooooooooooooooooooom             !  64.50% 17s 130 / 200 Booooooooooooooooooooooooom             !  65.00% 17s 131 / 200 Booooooooooooooooooooooooom             !  65.50% 17s 132 / 200 Booooooooooooooooooooooooom             !  66.00% 17s 133 / 200 Booooooooooooooooooooooooom             !  66.50% 17s 134 / 200 Boooooooooooooooooooooooooom            !  67.00% 17s 135 / 200 Boooooooooooooooooooooooooom            !  67.50% 17s 136 / 200 Boooooooooooooooooooooooooom            !  68.00% 17s 137 / 200 Boooooooooooooooooooooooooom            !  68.50% 17s 138 / 200 Boooooooooooooooooooooooooom            !  69.00% 17s 139 / 200 Booooooooooooooooooooooooooom           !  69.50% 16s 140 / 200 Booooooooooooooooooooooooooom           !  70.00% 16s 141 / 200 Booooooooooooooooooooooooooom           !  70.50% 16s 142 / 200 Booooooooooooooooooooooooooom           !  71.00% 16s 143 / 200 Booooooooooooooooooooooooooom           !  71.50% 16s 144 / 200 Boooooooooooooooooooooooooooom          !  72.00% 16s 145 / 200 Boooooooooooooooooooooooooooom          !  72.50% 16s 146 / 200 Boooooooooooooooooooooooooooom          !  73.00% 16s 147 / 200 Boooooooooooooooooooooooooooom          !  73.50% 16s 148 / 200 Boooooooooooooooooooooooooooom          !  74.00% 15s 149 / 200 Booooooooooooooooooooooooooooom         !  74.50% 15s 150 / 200 Booooooooooooooooooooooooooooom         !  75.00% 15s 151 / 200 Booooooooooooooooooooooooooooom         !  75.50% 15s 152 / 200 Booooooooooooooooooooooooooooom         !  76.00% 15s 153 / 200 Booooooooooooooooooooooooooooom         !  76.50% 15s 154 / 200 Boooooooooooooooooooooooooooooom        !  77.00% 14s 155 / 200 Boooooooooooooooooooooooooooooom        !  77.50% 14s 156 / 200 Boooooooooooooooooooooooooooooom        !  78.00% 14s 157 / 200 Boooooooooooooooooooooooooooooom        !  78.50% 14s 158 / 200 Boooooooooooooooooooooooooooooom        !  79.00% 13s 159 / 200 Booooooooooooooooooooooooooooooom       !  79.50% 13s 160 / 200 Booooooooooooooooooooooooooooooom       !  80.00% 13s 161 / 200 Booooooooooooooooooooooooooooooom       !  80.50% 13s 162 / 200 Booooooooooooooooooooooooooooooom       !  81.00% 13s 163 / 200 Booooooooooooooooooooooooooooooom       !  81.50% 12s 164 / 200 Booooooooooooooooooooooooooooooom       !  82.00% 12s 165 / 200 Boooooooooooooooooooooooooooooooom      !  82.50% 12s 166 / 200 Boooooooooooooooooooooooooooooooom      !  83.00% 11s 167 / 200 Boooooooooooooooooooooooooooooooom      !  83.50% 11s 168 / 200 Boooooooooooooooooooooooooooooooom      !  84.00% 11s 169 / 200 Boooooooooooooooooooooooooooooooom      !  84.50% 11s 170 / 200 Booooooooooooooooooooooooooooooooom     !  85.00% 10s 171 / 200 Booooooooooooooooooooooooooooooooom     !  85.50% 10s 172 / 200 Booooooooooooooooooooooooooooooooom     !  86.00% 10s 173 / 200 Boooooooooooooooooooooooooooooooooom     !  86.50% 9s 174 / 200 Boooooooooooooooooooooooooooooooooom     !  87.00% 9s 175 / 200 Boooooooooooooooooooooooooooooooooom     !  87.50% 9s 176 / 200 Booooooooooooooooooooooooooooooooooom    !  88.00% 8s 177 / 200 Booooooooooooooooooooooooooooooooooom    !  88.50% 8s 178 / 200 Booooooooooooooooooooooooooooooooooom    !  89.00% 8s 179 / 200 Booooooooooooooooooooooooooooooooooom    !  89.50% 7s 180 / 200 Booooooooooooooooooooooooooooooooooom    !  90.00% 7s 181 / 200 Boooooooooooooooooooooooooooooooooooom   !  90.50% 7s 182 / 200 Boooooooooooooooooooooooooooooooooooom   !  91.00% 6s 183 / 200 Boooooooooooooooooooooooooooooooooooom   !  91.50% 6s 184 / 200 Boooooooooooooooooooooooooooooooooooom   !  92.00% 6s 185 / 200 Boooooooooooooooooooooooooooooooooooom   !  92.50% 5s 186 / 200 Booooooooooooooooooooooooooooooooooooom  !  93.00% 5s 187 / 200 Booooooooooooooooooooooooooooooooooooom  !  93.50% 5s 188 / 200 Booooooooooooooooooooooooooooooooooooom  !  94.00% 4s 189 / 200 Booooooooooooooooooooooooooooooooooooom  !  94.50% 4s 190 / 200 Booooooooooooooooooooooooooooooooooooom  !  95.00% 4s 191 / 200 Boooooooooooooooooooooooooooooooooooooom !  95.50% 3s 192 / 200 Boooooooooooooooooooooooooooooooooooooom !  96.00% 3s 193 / 200 Boooooooooooooooooooooooooooooooooooooom !  96.50% 2s 194 / 200 Boooooooooooooooooooooooooooooooooooooom !  97.00% 2s 195 / 200 Boooooooooooooooooooooooooooooooooooooom !  97.50% 2s 196 / 200 Boooooooooooooooooooooooooooooooooooooooo!  98.00% 1s 197 / 200 Boooooooooooooooooooooooooooooooooooooooo!  98.50% 1s 198 / 200 Boooooooooooooooooooooooooooooooooooooooo!  99.00% 0s 199 / 200 Boooooooooooooooooooooooooooooooooooooooo!  99.50% 0s 200 / 200 Booooooooooooooooooooooooooooooooooooo! 100.00% 1m23s
-
-Summary:
-  Total:	83.4151 secs.
-  Slowest:	0.8204 secs.
-  Fastest:	0.0622 secs.
-  Average:	0.4171 secs.
-  Stddev:	0.3264 secs.
-  Requests/sec:	2.3976
-
-Response time histogram:
-  0.062 [1]	|
-  0.138 [94]	|∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
-  0.214 [3]	|∎
-  0.290 [0]	|
-  0.365 [1]	|
-  0.441 [0]	|
-  0.517 [0]	|
-  0.593 [0]	|
-  0.669 [20]	|∎∎∎∎∎∎∎∎
-  0.745 [30]	|∎∎∎∎∎∎∎∎∎∎∎∎
-  0.820 [51]	|∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
-
-Latency distribution:
-  10% in 0.0689 secs.
-  25% in 0.0901 secs.
-  50% in 0.6663 secs.
-  75% in 0.7983 secs.
-  90% in 0.8011 secs.
-  95% in 0.8031 secs.
-  99% in 0.8197 secs.
-unix_ts,avg_latency_ms,throughput
-1464395001,88.620413,2
-1464395002,102.682660,10
-1464395003,90.653996,10
-1464395004,90.797737,12
-1464395005,85.220737,11
-1464395006,84.130577,12
-1464395007,86.716056,12
-1464395008,88.890971,11
-1464395009,89.833216,11
-1464395010,115.310938,8
-1464395011,805.121332,1
-1464395012,668.785360,1
-1464395013,734.216844,2
-1464395014,800.986342,1
-1464395015,668.905770,1
-1464395016,734.786539,2
-1464395017,800.476406,1
-1464395018,667.821833,1
-1464395019,735.243455,2
-1464395020,800.898998,1
-1464395021,734.482907,2
-1464395022,668.827449,1
-1464395023,799.249936,1
-1464395024,735.229565,2
-1464395025,668.269219,1
-1464395026,820.364779,1
-1464395027,734.702937,2
-1464395028,668.841141,1
-1464395029,735.115345,2
-1464395030,799.167156,1
-1464395031,668.419547,1
-1464395032,735.777299,2
-1464395033,798.284376,1
-1464395034,669.187278,1
-1464395035,734.154455,2
-1464395036,819.736752,1
-1464395037,669.884785,1
-1464395038,736.233803,2
-1464395039,798.727823,1
-1464395040,666.978280,1
-1464395041,736.993819,2
-1464395042,800.546351,1
-1464395043,669.761130,1
-1464395044,734.668803,2
-1464395045,804.712593,1
-1464395046,733.056791,2
-1464395047,669.281544,1
-1464395048,799.438253,1
-1464395049,734.306454,2
-1464395050,667.911651,1
-1464395051,800.540729,1
-1464395052,735.619507,2
-1464395053,666.749177,1
-1464395054,734.605575,2
-1464395055,804.187999,1
-1464395056,670.870405,1
-1464395057,734.665739,2
-1464395058,799.533662,1
-1464395059,669.228824,1
-1464395060,734.678706,2
-1464395061,801.354677,1
-1464395062,669.448749,1
-1464395063,735.166132,2
-1464395064,801.835704,1
-1464395065,668.789378,1
-1464395066,736.950206,2
-1464395067,802.229698,1
-1464395068,667.029155,1
-1464395069,735.160717,2
-1464395070,803.845208,1
-1464395071,734.394322,2
-1464395072,668.554199,1
-1464395073,801.117615,1
-1464395074,736.116147,2
-1464395075,668.149922,1
-1464395076,797.936538,1
-1464395077,734.738580,2
-1464395078,669.304318,1
-1464395079,733.917363,2
-1464395080,800.582464,1
-1464395081,670.687004,1
-1464395082,735.079037,2
-1464395083,799.129532,1
-1464395084,670.476752,1
-1464395085,803.103564,1
-
-2016/05/28 00:24:45 time series saved... Uploading to Google cloud storage...
-2016/05/28 00:24:45 Uploading timeseries.csv to 2016052701/01-etcd-v3-gotip-snappy-timeseries.csv
-UploadFile:
-
-timeseries.csv
---->
-2016052701/01-etcd-v3-gotip-snappy-timeseries.csv
-
-
-UploadFile Done!
-
-2016/05/28 00:24:46 Uploading result.log to 2016052701/01-etcd-v3-gotip-snappy-result.log
-UploadFile:
-
-result.log
---->
-2016052701/01-etcd-v3-gotip-snappy-result.log
-

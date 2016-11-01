@@ -1,72 +1,0 @@
-nohup: ignoring input
-
-2016/05/03 23:24:32 Step 1: starting databases...
-2016/05/03 23:24:32 [0] Start etcdv2 at 10.240.0.21:3500
-2016/05/03 23:24:32 [0] Response from 10.240.0.21:3500 (success:true )
-2016/05/03 23:24:33 [1] Start etcdv2 at 10.240.0.22:3500
-2016/05/03 23:24:33 [1] Response from 10.240.0.22:3500 (success:true )
-2016/05/03 23:24:34 [2] Start etcdv2 at 10.240.0.23:3500
-2016/05/03 23:24:34 [2] Response from 10.240.0.23:3500 (success:true )
-
-2016/05/03 23:24:40 Step 2: starting tests...
- 0 / 200000 B                                                                        !   0.00%2016/05/03 23:24:40 finalize has started
- 3219 / 200000 Bom                                                               !   1.61% 12s 11230 / 200000 Booom                                                             !   5.62% 6s 19301 / 200000 Boooooom                                                          !   9.65% 5s 27115 / 200000 Boooooooom                                                        !  13.56% 5s 34981 / 200000 Booooooooooom                                                     !  17.49% 4s 41344 / 200000 Booooooooooooom                                                   !  20.67% 4s 49216 / 200000 Booooooooooooooom                                                 !  24.61% 4s 56100 / 200000 Boooooooooooooooooom                                              !  28.05% 4s 61427 / 200000 Booooooooooooooooooom                                             !  30.71% 4s 67824 / 200000 Boooooooooooooooooooooom                                          !  33.91% 3s 73154 / 200000 Booooooooooooooooooooooom                                         !  36.58% 3s 80086 / 200000 Boooooooooooooooooooooooooom                                      !  40.04% 3s 84974 / 200000 Booooooooooooooooooooooooooom                                     !  42.49% 3s 90932 / 200000 Booooooooooooooooooooooooooooom                                   !  45.47% 3s 94665 / 200000 Boooooooooooooooooooooooooooooom                                  !  47.33% 3s 99721 / 200000 Boooooooooooooooooooooooooooooooom                                !  49.86% 3s 103292 / 200000 Booooooooooooooooooooooooooooooooom                              !  51.65% 3s 110766 / 200000 Booooooooooooooooooooooooooooooooooom                            !  55.38% 2s 112365 / 200000 Booooooooooooooooooooooooooooooooooom                            !  56.18% 2s 117777 / 200000 Booooooooooooooooooooooooooooooooooooom                          !  58.89% 2s 121720 / 200000 Boooooooooooooooooooooooooooooooooooooom                         !  60.86% 2s 124663 / 200000 Booooooooooooooooooooooooooooooooooooooom                        !  62.33% 2s 131803 / 200000 Boooooooooooooooooooooooooooooooooooooooooom                     !  65.90% 2s 132326 / 200000 Boooooooooooooooooooooooooooooooooooooooooom                     !  66.16% 2s 136828 / 200000 Booooooooooooooooooooooooooooooooooooooooooom                    !  68.41% 2s 141818 / 200000 Booooooooooooooooooooooooooooooooooooooooooooom                  !  70.91% 2s 144061 / 200000 Boooooooooooooooooooooooooooooooooooooooooooooom                 !  72.03% 2s 147830 / 200000 Booooooooooooooooooooooooooooooooooooooooooooooom                !  73.92% 1s 152291 / 200000 Boooooooooooooooooooooooooooooooooooooooooooooooom               !  76.15% 1s 154921 / 200000 Booooooooooooooooooooooooooooooooooooooooooooooooom              !  77.46% 1s 159596 / 200000 Booooooooooooooooooooooooooooooooooooooooooooooooooom            !  79.80% 1s 162578 / 200000 Boooooooooooooooooooooooooooooooooooooooooooooooooooom           !  81.29% 1s 165117 / 200000 Boooooooooooooooooooooooooooooooooooooooooooooooooooom           !  82.56% 1s 171233 / 200000 Boooooooooooooooooooooooooooooooooooooooooooooooooooooom         !  85.62% 1s 173331 / 200000 Booooooooooooooooooooooooooooooooooooooooooooooooooooooom        !  86.67% 1s 176128 / 200000 Boooooooooooooooooooooooooooooooooooooooooooooooooooooooom       !  88.06% 0s 182929 / 200000 Boooooooooooooooooooooooooooooooooooooooooooooooooooooooooom     !  91.46% 0s 182984 / 200000 Boooooooooooooooooooooooooooooooooooooooooooooooooooooooooom     !  91.49% 0s 187644 / 200000 Boooooooooooooooooooooooooooooooooooooooooooooooooooooooooooom   !  93.82% 0s 192140 / 200000 Booooooooooooooooooooooooooooooooooooooooooooooooooooooooooooom  !  96.07% 0s 193428 / 200000 Booooooooooooooooooooooooooooooooooooooooooooooooooooooooooooom  !  96.71% 0s 197177 / 200000 Boooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo!  98.59% 0s 200000 / 200000 Boooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo! 100.00% 8s
-
-Summary:
-  Total:	8.6152 secs.
-  Slowest:	0.3914 secs.
-  Fastest:	0.0056 secs.
-  Average:	0.0421 secs.
-  Stddev:	0.0481 secs.
-  Requests/sec:	23214.6812
-
-Response time histogram:
-  0.006 [1]	|
-  0.044 [162581]	|∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
-  0.083 [15685]	|∎∎∎
-  0.121 [7612]	|∎
-  0.160 [5480]	|∎
-  0.199 [3104]	|
-  0.237 [2729]	|
-  0.276 [1159]	|
-  0.314 [1069]	|
-  0.353 [467]	|
-  0.391 [113]	|
-
-Latency distribution:
-  10% in 0.0165 secs.
-  25% in 0.0201 secs.
-  50% in 0.0257 secs.
-  75% in 0.0355 secs.
-  90% in 0.0918 secs.
-  95% in 0.1512 secs.
-  99% in 0.2635 secs.
-unix_ts,avg_latency_ms,throughput
-1462317880,25.300794,31654
-1462317881,30.074357,32672
-1462317882,33.690519,27432
-1462317883,43.321510,24028
-1462317884,50.735374,19510
-1462317885,52.521208,17997
-1462317886,51.207480,19373
-1462317887,59.633870,17407
-1462317888,71.777136,9927
-
-2016/05/03 23:24:48 time series saved... Uploading to Google cloud storage...
-2016/05/03 23:24:48 Uploading timeseries.csv to 2016050301/02-etcdv2-timeseries.csv
-UploadFile:
-
-timeseries.csv
---->
-2016050301/02-etcdv2-timeseries.csv
-
-
-UploadFile Done!
-
-2016/05/03 23:24:49 Uploading result.log to 2016050301/02-etcdv2-result.log
-UploadFile:
-
-result.log
---->
-2016050301/02-etcdv2-result.log
-
