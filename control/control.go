@@ -85,7 +85,7 @@ func CommandFunc(cmd *cobra.Command, args []string) error {
 
 	println()
 	if !cfg.Step1.Skip {
-		logger.Info("step 1: starting databases...")
+		plog.Info("step 1: starting databases...")
 		if err = step1(cfg); err != nil {
 			return err
 		}
@@ -94,7 +94,7 @@ func CommandFunc(cmd *cobra.Command, args []string) error {
 	if !cfg.Step2.Skip {
 		println()
 		time.Sleep(5 * time.Second)
-		logger.Info("step 2: starting tests...")
+		plog.Info("step 2: starting tests...")
 		if err = step2(cfg); err != nil {
 			return err
 		}
@@ -103,7 +103,7 @@ func CommandFunc(cmd *cobra.Command, args []string) error {
 	if !cfg.Step3.Skip {
 		println()
 		time.Sleep(5 * time.Second)
-		logger.Info("step 3: stopping databases...")
+		plog.Info("step 3: stopping databases...")
 		if err = step3(cfg); err != nil {
 			return err
 		}
@@ -199,7 +199,7 @@ func step2(cfg Config) error {
 		}
 
 		for k, v := range totalKeysFunc(cfg.DatabaseEndpoints) {
-			logger.Infof("expected write total results [expected_total: %d | database: %q | endpoint: %q | number_of_keys: %d]", cfg.Step2.TotalRequests, cfg.Database, k, v)
+			plog.Infof("expected write total results [expected_total: %d | database: %q | endpoint: %q | number_of_keys: %d]", cfg.Step2.TotalRequests, cfg.Database, k, v)
 		}
 
 	case "read":
@@ -207,7 +207,7 @@ func step2(cfg Config) error {
 
 		switch cfg.Database {
 		case "etcdv2":
-			logger.Infof("write started [request: PUT | key: %q | database: %q]", key, "etcdv2")
+			plog.Infof("write started [request: PUT | key: %q | database: %q]", key, "etcdv2")
 			var err error
 			for i := 0; i < 7; i++ {
 				clients := mustCreateClientsEtcdv2(cfg.DatabaseEndpoints, cfg.Step2.Connections)
@@ -215,16 +215,16 @@ func step2(cfg Config) error {
 				if err != nil {
 					continue
 				}
-				logger.Infof("write done [request: PUT | key: %q | database: %q]", key, "etcdv2")
+				plog.Infof("write done [request: PUT | key: %q | database: %q]", key, "etcdv2")
 				break
 			}
 			if err != nil {
-				logger.Errorf("write error [request: PUT | key: %q | database: %q]", key, "etcdv2")
+				plog.Errorf("write error [request: PUT | key: %q | database: %q]", key, "etcdv2")
 				os.Exit(1)
 			}
 
 		case "etcdv3":
-			logger.Infof("write started [request: PUT | key: %q | database: %q]", key, "etcdv3")
+			plog.Infof("write started [request: PUT | key: %q | database: %q]", key, "etcdv3")
 			var err error
 			for i := 0; i < 7; i++ {
 				clients := mustCreateClientsEtcdv3(cfg.DatabaseEndpoints, etcdv3ClientCfg{
@@ -236,16 +236,16 @@ func step2(cfg Config) error {
 				if err != nil {
 					continue
 				}
-				logger.Infof("write done [request: PUT | key: %q | database: %q]", key, "etcdv3")
+				plog.Infof("write done [request: PUT | key: %q | database: %q]", key, "etcdv3")
 				break
 			}
 			if err != nil {
-				logger.Errorf("write error [request: PUT | key: %q | database: %q]", key, "etcdv3")
+				plog.Errorf("write error [request: PUT | key: %q | database: %q]", key, "etcdv3")
 				os.Exit(1)
 			}
 
 		case "zk", "zookeeper":
-			logger.Infof("write started [request: PUT | key: %q | database: %q]", key, "zookeeper")
+			plog.Infof("write started [request: PUT | key: %q | database: %q]", key, "zookeeper")
 			var err error
 			for i := 0; i < 7; i++ {
 				conns := mustCreateConnsZk(cfg.DatabaseEndpoints, cfg.Step2.Connections)
@@ -256,16 +256,16 @@ func step2(cfg Config) error {
 				for j := range conns {
 					conns[j].Close()
 				}
-				logger.Infof("write done [request: PUT | key: %q | database: %q]", key, "zookeeper")
+				plog.Infof("write done [request: PUT | key: %q | database: %q]", key, "zookeeper")
 				break
 			}
 			if err != nil {
-				logger.Errorf("write error [request: PUT | key: %q | database: %q]", key, "zookeeper")
+				plog.Errorf("write error [request: PUT | key: %q | database: %q]", key, "zookeeper")
 				os.Exit(1)
 			}
 
 		case "consul":
-			logger.Infof("write started [request: PUT | key: %q | database: %q]", key, "consul")
+			plog.Infof("write started [request: PUT | key: %q | database: %q]", key, "consul")
 			var err error
 			for i := 0; i < 7; i++ {
 				clients := mustCreateConnsConsul(cfg.DatabaseEndpoints, cfg.Step2.Connections)
@@ -273,11 +273,11 @@ func step2(cfg Config) error {
 				if err != nil {
 					continue
 				}
-				logger.Infof("write done [request: PUT | key: %q | database: %q]", key, "consul")
+				plog.Infof("write done [request: PUT | key: %q | database: %q]", key, "consul")
 				break
 			}
 			if err != nil {
-				logger.Errorf("write done [request: PUT | key: %q | database: %q]", key, "consul")
+				plog.Errorf("write done [request: PUT | key: %q | database: %q]", key, "consul")
 				os.Exit(1)
 			}
 		}
@@ -352,11 +352,11 @@ func sendReq(ep string, req agent.Request, i int) error {
 	req.ServerIndex = uint32(i)
 	req.ZookeeperMyID = uint32(i + 1)
 
-	logger.Infof("sending message [index: %d | operation: %q | database: %q | endpoint: %q]", i, req.Operation.String(), req.Database.String(), ep)
+	plog.Infof("sending message [index: %d | operation: %q | database: %q | endpoint: %q]", i, req.Operation.String(), req.Database.String(), ep)
 
 	conn, err := grpc.Dial(ep, grpc.WithInsecure())
 	if err != nil {
-		logger.Errorf("grpc.Dial connecting error (%v) [index: %d | endpoint: %q]", err, i, ep)
+		plog.Errorf("grpc.Dial connecting error (%v) [index: %d | endpoint: %q]", err, i, ep)
 		return err
 	}
 
@@ -367,11 +367,11 @@ func sendReq(ep string, req agent.Request, i int) error {
 	resp, err := cli.Transfer(ctx, &req)
 	cancel()
 	if err != nil {
-		logger.Errorf("cli.Transfer error (%v) [index: %d | endpoint: %q]", err, i, ep)
+		plog.Errorf("cli.Transfer error (%v) [index: %d | endpoint: %q]", err, i, ep)
 		return err
 	}
 
-	logger.Infof("got response [index: %d | endpoint: %q | response: %+v]", i, ep, resp)
+	plog.Infof("got response [index: %d | endpoint: %q | response: %+v]", i, ep, resp)
 	return nil
 }
 
@@ -443,7 +443,7 @@ func newWriteHandlers(cfg Config) (rhs []ReqHandler, done func()) {
 		if cfg.Step2.SameKey {
 			key := sameKey(cfg.Step2.KeySize)
 			valueBts := randBytes(cfg.Step2.ValueSize)
-			logger.Infof("write started [request: PUT | key: %q | database: %q]", key, "zookeeper")
+			plog.Infof("write started [request: PUT | key: %q | database: %q]", key, "zookeeper")
 			var err error
 			for i := 0; i < 7; i++ {
 				conns := mustCreateConnsZk(cfg.DatabaseEndpoints, cfg.Step2.Connections)
@@ -454,11 +454,11 @@ func newWriteHandlers(cfg Config) (rhs []ReqHandler, done func()) {
 				for j := range conns {
 					conns[j].Close()
 				}
-				logger.Infof("write done [request: PUT | key: %q | database: %q]", key, "zookeeper")
+				plog.Infof("write done [request: PUT | key: %q | database: %q]", key, "zookeeper")
 				break
 			}
 			if err != nil {
-				logger.Errorf("write error [request: PUT | key: %q | database: %q]", key, "zookeeper")
+				plog.Errorf("write error [request: PUT | key: %q | database: %q]", key, "zookeeper")
 				os.Exit(1)
 			}
 		}
@@ -515,13 +515,12 @@ func generateReads(cfg Config, key string, requests chan request) {
 	}
 }
 
-
 func generateWrites(cfg Config, vals values, requests chan request) {
 	defer close(requests)
 
 	for i := 0; i < cfg.Step2.TotalRequests; i++ {
 		if cfg.Database == "etcdv3" && cfg.Step2.Etcdv3CompactionCycle > 0 && i%cfg.Step2.Etcdv3CompactionCycle == 0 {
-			logger.Infof("starting compaction [index: %d | database: %q]", i, "etcdv3")
+			plog.Infof("starting compaction [index: %d | database: %q]", i, "etcdv3")
 			wg.Add(1)
 			go func() {
 				defer wg.Done()

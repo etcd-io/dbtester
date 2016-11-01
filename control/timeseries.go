@@ -18,7 +18,6 @@ import (
 	"bytes"
 	"encoding/csv"
 	"fmt"
-	"log"
 	"math"
 	"sort"
 	"sync"
@@ -60,7 +59,7 @@ func (sp *secondPoints) Add(ts time.Time, lat time.Duration) {
 		sp.tm[tk] = secondPoint{totalLatency: lat, count: 1}
 	} else {
 		v.totalLatency += lat
-		v.count += 1
+		v.count++
 		sp.tm[tk] = v
 	}
 }
@@ -112,7 +111,7 @@ func (ts TimeSeries) String() string {
 	buf := new(bytes.Buffer)
 	wr := csv.NewWriter(buf)
 	if err := wr.Write([]string{"unix_ts", "avg_latency_ms", "throughput"}); err != nil {
-		log.Fatal(err)
+		plog.Fatal(err)
 	}
 	rows := [][]string{}
 	for i := range ts {
@@ -124,11 +123,11 @@ func (ts TimeSeries) String() string {
 		rows = append(rows, row)
 	}
 	if err := wr.WriteAll(rows); err != nil {
-		log.Fatal(err)
+		plog.Fatal(err)
 	}
 	wr.Flush()
 	if err := wr.Error(); err != nil {
-		log.Fatal(err)
+		plog.Fatal(err)
 	}
 	return buf.String()
 }

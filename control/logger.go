@@ -16,4 +16,4 @@ package control
 
 import "github.com/coreos/pkg/capnslog"
 
-var logger = capnslog.NewPackageLogger("github.com/coreos/dbtester", "control")
+var plog = capnslog.NewPackageLogger("github.com/coreos/dbtester", "control")

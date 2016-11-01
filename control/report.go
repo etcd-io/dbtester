@@ -16,7 +16,6 @@ package control
 
 import (
 	"fmt"
-	"log"
 	"math"
 	"path/filepath"
 	"sort"
@@ -78,7 +77,7 @@ func wrapReport(f func()) <-chan struct{} {
 }
 
 func (r *report) finalize() {
-	log.Printf("finalize has started")
+	plog.Printf("finalize has started")
 	st := time.Now()
 	for res := range r.results {
 		if res.errStr != "" {
@@ -156,13 +155,13 @@ func (r *report) printSecondSample() {
 		fmt.Println(txt)
 
 		if err := toFile(txt, cfg.Step2.ResultPath); err != nil {
-			log.Fatal(err)
+			plog.Fatal(err)
 		}
 
-		log.Println("time series saved... Uploading to Google cloud storage...")
+		plog.Println("time series saved... Uploading to Google cloud storage...")
 		u, err := remotestorage.NewGoogleCloudStorage([]byte(cfg.GoogleCloudStorageKey), cfg.GoogleCloudProjectName)
 		if err != nil {
-			log.Fatal(err)
+			plog.Fatal(err)
 		}
 
 		srcCSVResultPath := cfg.Step2.ResultPath
@@ -171,12 +170,12 @@ func (r *report) printSecondSample() {
 			dstCSVResultPath = fmt.Sprintf("%s-%s", cfg.TestName, dstCSVResultPath)
 		}
 		dstCSVResultPath = filepath.Join(cfg.GoogleCloudStorageSubDirectory, dstCSVResultPath)
-		log.Printf("Uploading %s to %s", srcCSVResultPath, dstCSVResultPath)
+		plog.Printf("Uploading %s to %s", srcCSVResultPath, dstCSVResultPath)
 
 		var uerr error
 		for k := 0; k < 15; k++ {
 			if uerr = u.UploadFile(cfg.GoogleCloudStorageBucketName, srcCSVResultPath, dstCSVResultPath); uerr != nil {
-				log.Println(uerr)
+				plog.Println(uerr)
 				time.Sleep(2 * time.Second)
 				continue
 			}
@@ -187,7 +186,7 @@ func (r *report) printSecondSample() {
 	{
 		u, err := remotestorage.NewGoogleCloudStorage([]byte(cfg.GoogleCloudStorageKey), cfg.GoogleCloudProjectName)
 		if err != nil {
-			log.Fatal(err)
+			plog.Fatal(err)
 		}
 
 		srcCSVResultPath := cfg.Step3.ResultPath
@@ -196,12 +195,12 @@ func (r *report) printSecondSample() {
 			dstCSVResultPath = fmt.Sprintf("%s-%s", cfg.TestName, dstCSVResultPath)
 		}
 		dstCSVResultPath = filepath.Join(cfg.GoogleCloudStorageSubDirectory, dstCSVResultPath)
-		log.Printf("Uploading %s to %s", srcCSVResultPath, dstCSVResultPath)
+		plog.Printf("Uploading %s to %s", srcCSVResultPath, dstCSVResultPath)
 
 		var uerr error
 		for k := 0; k < 15; k++ {
 			if uerr = u.UploadFile(cfg.GoogleCloudStorageBucketName, srcCSVResultPath, dstCSVResultPath); uerr != nil {
-				log.Println(uerr)
+				plog.Println(uerr)
 				time.Sleep(2 * time.Second)
 				continue
 			}
