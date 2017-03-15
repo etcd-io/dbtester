@@ -23,6 +23,7 @@ import (
 	"time"
 
 	"github.com/coreos/dbtester/dbtesterpb"
+
 	"github.com/coreos/etcd/clientv3"
 	"github.com/coreos/etcd/pkg/report"
 	consulapi "github.com/hashicorp/consul/api"
@@ -173,14 +174,16 @@ func (cfg *Config) Stress(databaseID string) error {
 		plog.Println("checking total keys on", gcfg.DatabaseEndpoints)
 		var totalKeysFunc func([]string) map[string]int64
 		switch gcfg.DatabaseID {
-		case "etcdv2":
+		case "etcd__v2_3":
 			totalKeysFunc = getTotalKeysEtcdv2
-		case "etcdv3", "etcdtip":
+		case "etcd__v3_1", "etcd__v3_2", "etcd__tip":
 			totalKeysFunc = getTotalKeysEtcdv3
-		case "zookeeper", "zetcd":
+		case "zookeeper__r3_4_9", "zookeeper__r3_5_2_alpha", "zetcd__beta":
 			totalKeysFunc = getTotalKeysZk
-		case "consul", "cetcd":
+		case "consul__v0_7_5", "consul__v0_8_0", "cetcd__beta":
 			totalKeysFunc = getTotalKeysConsul
+		default:
+			plog.Panicf("%q is unknown database ID", gcfg.DatabaseID)
 		}
 		for k, v := range totalKeysFunc(gcfg.DatabaseEndpoints) {
 			plog.Infof("expected write total results [expected_total: %d | database: %q | endpoint: %q | number_of_keys: %d]",
@@ -191,7 +194,7 @@ func (cfg *Config) Stress(databaseID string) error {
 		key, value := sameKey(gcfg.ConfigClientMachineBenchmarkOptions.KeySizeBytes), vals.strings[0]
 
 		switch gcfg.DatabaseID {
-		case "etcdv2":
+		case "etcd__v2_3":
 			plog.Infof("write started [request: PUT | key: %q | database: %q]", key, gcfg.DatabaseID)
 			var err error
 			for i := 0; i < 7; i++ {
@@ -208,7 +211,7 @@ func (cfg *Config) Stress(databaseID string) error {
 				os.Exit(1)
 			}
 
-		case "etcdv3", "etcdtip":
+		case "etcd__v3_1", "etcd__v3_2", "etcd__tip":
 			plog.Infof("write started [request: PUT | key: %q | database: %q]", key, gcfg.DatabaseID)
 			var err error
 			for i := 0; i < 7; i++ {
@@ -228,7 +231,7 @@ func (cfg *Config) Stress(databaseID string) error {
 				os.Exit(1)
 			}
 
-		case "zookeeper", "zetcd":
+		case "zookeeper__r3_4_9", "zookeeper__r3_5_2_alpha", "zetcd__beta":
 			plog.Infof("write started [request: PUT | key: %q | database: %q]", key, gcfg.DatabaseID)
 			var err error
 			for i := 0; i < 7; i++ {
@@ -248,7 +251,7 @@ func (cfg *Config) Stress(databaseID string) error {
 				os.Exit(1)
 			}
 
-		case "consul", "cetcd":
+		case "consul__v0_7_5", "consul__v0_8_0", "cetcd__beta":
 			plog.Infof("write started [request: PUT | key: %q | database: %q]", key, gcfg.DatabaseID)
 			var err error
 			for i := 0; i < 7; i++ {
@@ -264,6 +267,9 @@ func (cfg *Config) Stress(databaseID string) error {
 				plog.Errorf("write done [request: PUT | key: %q | database: %q]", key, gcfg.DatabaseID)
 				os.Exit(1)
 			}
+
+		default:
+			plog.Panicf("%q is unknown database ID", gcfg.DatabaseID)
 		}
 
 		h, done := newReadHandlers(gcfg)
@@ -276,11 +282,11 @@ func (cfg *Config) Stress(databaseID string) error {
 		plog.Infof("writing key for read-oneshot [key: %q | database: %q]", key, gcfg.DatabaseID)
 		var err error
 		switch gcfg.DatabaseID {
-		case "etcdv2":
+		case "etcd__v2_3":
 			clients := mustCreateClientsEtcdv2(gcfg.DatabaseEndpoints, 1)
 			_, err = clients[0].Set(context.Background(), key, value, nil)
 
-		case "etcdv3", "etcdtip":
+		case "etcd__v3_1", "etcd__v3_2", "etcd__tip":
 			clients := mustCreateClientsEtcdv3(gcfg.DatabaseEndpoints, etcdv3ClientCfg{
 				totalConns:   1,
 				totalClients: 1,
@@ -288,14 +294,17 @@ func (cfg *Config) Stress(databaseID string) error {
 			_, err = clients[0].Do(context.Background(), clientv3.OpPut(key, value))
 			clients[0].Close()
 
-		case "zookeeper", "zetcd":
+		case "zookeeper__r3_4_9", "zookeeper__r3_5_2_alpha", "zetcd__beta":
 			conns := mustCreateConnsZk(gcfg.DatabaseEndpoints, 1)
 			_, err = conns[0].Create("/"+key, vals.bytes[0], zkCreateFlags, zkCreateACL)
 			conns[0].Close()
 
-		case "consul", "cetcd":
+		case "consul__v0_7_5", "consul__v0_8_0", "cetcd__beta":
 			clients := mustCreateConnsConsul(gcfg.DatabaseEndpoints, 1)
 			_, err = clients[0].Put(&consulapi.KVPair{Key: key, Value: vals.bytes[0]}, nil)
+
+		default:
+			plog.Panicf("%q is unknown database ID", gcfg.DatabaseID)
 		}
 		if err != nil {
 			plog.Errorf("write error on read-oneshot (%v)", err)
@@ -314,12 +323,12 @@ func (cfg *Config) Stress(databaseID string) error {
 func newReadHandlers(gcfg dbtesterpb.ConfigClientMachineAgentControl) (rhs []ReqHandler, done func()) {
 	rhs = make([]ReqHandler, gcfg.ConfigClientMachineBenchmarkOptions.ClientNumber)
 	switch gcfg.DatabaseID {
-	case "etcdv2":
+	case "etcd__v2_3":
 		conns := mustCreateClientsEtcdv2(gcfg.DatabaseEndpoints, gcfg.ConfigClientMachineBenchmarkOptions.ConnectionNumber)
 		for i := range conns {
 			rhs[i] = newGetEtcd2(conns[i])
 		}
-	case "etcdv3", "etcdtip":
+	case "etcd__v3_1", "etcd__v3_2", "etcd__tip":
 		clients := mustCreateClientsEtcdv3(gcfg.DatabaseEndpoints, etcdv3ClientCfg{
 			totalConns:   gcfg.ConfigClientMachineBenchmarkOptions.ConnectionNumber,
 			totalClients: gcfg.ConfigClientMachineBenchmarkOptions.ClientNumber,
@@ -332,7 +341,7 @@ func newReadHandlers(gcfg dbtesterpb.ConfigClientMachineAgentControl) (rhs []Req
 				clients[i].Close()
 			}
 		}
-	case "zookeeper", "zetcd":
+	case "zookeeper__r3_4_9", "zookeeper__r3_5_2_alpha", "zetcd__beta":
 		conns := mustCreateConnsZk(gcfg.DatabaseEndpoints, gcfg.ConfigClientMachineBenchmarkOptions.ConnectionNumber)
 		for i := range conns {
 			rhs[i] = newGetZK(conns[i])
@@ -342,11 +351,13 @@ func newReadHandlers(gcfg dbtesterpb.ConfigClientMachineAgentControl) (rhs []Req
 				conns[i].Close()
 			}
 		}
-	case "consul", "cetcd":
+	case "consul__v0_7_5", "consul__v0_8_0", "cetcd__beta":
 		conns := mustCreateConnsConsul(gcfg.DatabaseEndpoints, gcfg.ConfigClientMachineBenchmarkOptions.ConnectionNumber)
 		for i := range conns {
 			rhs[i] = newGetConsul(conns[i])
 		}
+	default:
+		plog.Panicf("%q is unknown database ID", gcfg.DatabaseID)
 	}
 	return rhs, done
 }
@@ -354,12 +365,12 @@ func newReadHandlers(gcfg dbtesterpb.ConfigClientMachineAgentControl) (rhs []Req
 func newWriteHandlers(gcfg dbtesterpb.ConfigClientMachineAgentControl) (rhs []ReqHandler, done func()) {
 	rhs = make([]ReqHandler, gcfg.ConfigClientMachineBenchmarkOptions.ClientNumber)
 	switch gcfg.DatabaseID {
-	case "etcdv2":
+	case "etcd__v2_3":
 		conns := mustCreateClientsEtcdv2(gcfg.DatabaseEndpoints, gcfg.ConfigClientMachineBenchmarkOptions.ConnectionNumber)
 		for i := range conns {
 			rhs[i] = newPutEtcd2(conns[i])
 		}
-	case "etcdv3", "etcdtip":
+	case "etcd__v3_1", "etcd__v3_2", "etcd__tip":
 		etcdClients := mustCreateClientsEtcdv3(gcfg.DatabaseEndpoints, etcdv3ClientCfg{
 			totalConns:   gcfg.ConfigClientMachineBenchmarkOptions.ConnectionNumber,
 			totalClients: gcfg.ConfigClientMachineBenchmarkOptions.ClientNumber,
@@ -372,7 +383,7 @@ func newWriteHandlers(gcfg dbtesterpb.ConfigClientMachineAgentControl) (rhs []Re
 				etcdClients[i].Close()
 			}
 		}
-	case "zookeeper", "zetcd":
+	case "zookeeper__r3_4_9", "zookeeper__r3_5_2_alpha", "zetcd__beta":
 		if gcfg.ConfigClientMachineBenchmarkOptions.SameKey {
 			key := sameKey(gcfg.ConfigClientMachineBenchmarkOptions.KeySizeBytes)
 			valueBts := randBytes(gcfg.ConfigClientMachineBenchmarkOptions.ValueSizeBytes)
@@ -409,11 +420,13 @@ func newWriteHandlers(gcfg dbtesterpb.ConfigClientMachineAgentControl) (rhs []Re
 				conns[i].Close()
 			}
 		}
-	case "consul", "cetcd":
+	case "consul__v0_7_5", "consul__v0_8_0", "cetcd__beta":
 		conns := mustCreateConnsConsul(gcfg.DatabaseEndpoints, gcfg.ConfigClientMachineBenchmarkOptions.ConnectionNumber)
 		for i := range conns {
 			rhs[i] = newPutConsul(conns[i])
 		}
+	default:
+		plog.Panicf("%q is unknown database ID", gcfg.DatabaseID)
 	}
 
 	for k := range rhs {
@@ -427,14 +440,14 @@ func newWriteHandlers(gcfg dbtesterpb.ConfigClientMachineAgentControl) (rhs []Re
 func newReadOneshotHandlers(gcfg dbtesterpb.ConfigClientMachineAgentControl) []ReqHandler {
 	rhs := make([]ReqHandler, gcfg.ConfigClientMachineBenchmarkOptions.ClientNumber)
 	switch gcfg.DatabaseID {
-	case "etcdv2":
+	case "etcd__v2_3":
 		for i := range rhs {
 			rhs[i] = func(ctx context.Context, req *request) error {
 				conns := mustCreateClientsEtcdv2(gcfg.DatabaseEndpoints, 1)
 				return newGetEtcd2(conns[0])(ctx, req)
 			}
 		}
-	case "etcdv3", "etcdtip":
+	case "etcd__v3_1", "etcd__v3_2", "etcd__tip":
 		for i := range rhs {
 			rhs[i] = func(ctx context.Context, req *request) error {
 				conns := mustCreateClientsEtcdv3(gcfg.DatabaseEndpoints, etcdv3ClientCfg{
@@ -445,7 +458,7 @@ func newReadOneshotHandlers(gcfg dbtesterpb.ConfigClientMachineAgentControl) []R
 				return newGetEtcd3(conns[0])(ctx, req)
 			}
 		}
-	case "zookeeper", "zetcd":
+	case "zookeeper__r3_4_9", "zookeeper__r3_5_2_alpha", "zetcd__beta":
 		for i := range rhs {
 			rhs[i] = func(ctx context.Context, req *request) error {
 				conns := mustCreateConnsZk(gcfg.DatabaseEndpoints, gcfg.ConfigClientMachineBenchmarkOptions.ConnectionNumber)
@@ -453,13 +466,15 @@ func newReadOneshotHandlers(gcfg dbtesterpb.ConfigClientMachineAgentControl) []R
 				return newGetZK(conns[0])(ctx, req)
 			}
 		}
-	case "consul", "cetcd":
+	case "consul__v0_7_5", "consul__v0_8_0", "cetcd__beta":
 		for i := range rhs {
 			rhs[i] = func(ctx context.Context, req *request) error {
 				conns := mustCreateConnsConsul(gcfg.DatabaseEndpoints, 1)
 				return newGetConsul(conns[0])(ctx, req)
 			}
 		}
+	default:
+		plog.Panicf("%q is unknown database ID", gcfg.DatabaseID)
 	}
 	return rhs
 }
@@ -481,30 +496,32 @@ func generateReads(gcfg dbtesterpb.ConfigClientMachineAgentControl, key string, 
 		}
 
 		switch gcfg.DatabaseID {
-		case "etcdv2":
+		case "etcd__v2_3":
 			// serializable read by default
 			inflightReqs <- request{etcdv2Op: etcdv2Op{key: key}}
 
-		case "etcdv3", "etcdtip":
+		case "etcd__v3_1", "etcd__v3_2", "etcd__tip":
 			opts := []clientv3.OpOption{clientv3.WithRange("")}
 			if gcfg.ConfigClientMachineBenchmarkOptions.StaleRead {
 				opts = append(opts, clientv3.WithSerializable())
 			}
 			inflightReqs <- request{etcdv3Op: clientv3.OpGet(key, opts...)}
 
-		case "zookeeper", "zetcd":
+		case "zookeeper__r3_4_9", "zookeeper__r3_5_2_alpha", "zetcd__beta":
 			op := zkOp{key: key}
 			if gcfg.ConfigClientMachineBenchmarkOptions.StaleRead {
 				op.staleRead = true
 			}
 			inflightReqs <- request{zkOp: op}
 
-		case "consul", "cetcd":
+		case "consul__v0_7_5", "consul__v0_8_0", "cetcd__beta":
 			op := consulOp{key: key}
 			if gcfg.ConfigClientMachineBenchmarkOptions.StaleRead {
 				op.staleRead = true
 			}
 			inflightReqs <- request{consulOp: op}
+		default:
+			plog.Panicf("%q is unknown database ID", gcfg.DatabaseID)
 		}
 	}
 }
@@ -538,14 +555,16 @@ func generateWrites(gcfg dbtesterpb.ConfigClientMachineAgentControl, startIdx in
 		}
 
 		switch gcfg.DatabaseID {
-		case "etcdv2":
+		case "etcd__v2_3":
 			inflightReqs <- request{etcdv2Op: etcdv2Op{key: k, value: vs}}
-		case "etcdv3", "etcdtip":
+		case "etcd__v3_1", "etcd__v3_2", "etcd__tip":
 			inflightReqs <- request{etcdv3Op: clientv3.OpPut(k, vs)}
-		case "zookeeper", "zetcd":
+		case "zookeeper__r3_4_9", "zookeeper__r3_5_2_alpha", "zetcd__beta":
 			inflightReqs <- request{zkOp: zkOp{key: "/" + k, value: v}}
-		case "consul", "cetcd":
+		case "consul__v0_7_5", "consul__v0_8_0", "cetcd__beta":
 			inflightReqs <- request{consulOp: consulOp{key: k, value: v}}
+		default:
+			plog.Panicf("%q is unknown database ID", gcfg.DatabaseID)
 		}
 	}
 }
