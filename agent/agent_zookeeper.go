@@ -189,6 +189,9 @@ func startZookeeper(fs *flags, t *transporterServer) error {
 			flagString += fmt.Sprintf("-Xmx%s", t.req.Flag_Zookeeper_R3_4_9.JavaXmx)
 		}
 		// -Djute.maxbuffer=33554432 -Xms50G -Xmx50G
+		if len(flagString) > 0 {
+			flagString += " "
+		}
 		flagString += JavaClassPathZookeeperr349
 
 	case dbtesterpb.DatabaseID_zookeeper__r3_5_2_alpha:
@@ -211,6 +214,9 @@ func startZookeeper(fs *flags, t *transporterServer) error {
 			flagString += fmt.Sprintf("-Xmx%s", t.req.Flag_Zookeeper_R3_5_2Alpha.JavaXmx)
 		}
 		// -Djute.maxbuffer=33554432 -Xms50G -Xmx50G
+		if len(flagString) > 0 {
+			flagString += " "
+		}
 		flagString += JavaClassPathZookeeperr352alpha
 
 	default:
