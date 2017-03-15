@@ -167,41 +167,39 @@ func startZookeeper(fs *flags, t *transporterServer) error {
 		return err
 	}
 
-	args := []string{shell}
 	var flagString string
 	switch t.req.DatabaseID {
 	case dbtesterpb.DatabaseID_zookeeper__r3_4_9:
-		flagString = JavaClassPathZookeeperr349
+		if t.req.Flag_Zookeeper_R3_4_9.JavaDJuteMaxBuffer != 0 {
+			flagString += fmt.Sprintf(" -Djute.maxbuffer=%d", t.req.Flag_Zookeeper_R3_4_9.JavaDJuteMaxBuffer)
+		}
+		if t.req.Flag_Zookeeper_R3_4_9.JavaDJuteMaxBuffer != 0 {
+			flagString += fmt.Sprintf(" -Xms%s", t.req.Flag_Zookeeper_R3_4_9.JavaXms)
+		}
+		if t.req.Flag_Zookeeper_R3_4_9.JavaDJuteMaxBuffer != 0 {
+			flagString += fmt.Sprintf(" -Xmx%s", t.req.Flag_Zookeeper_R3_4_9.JavaXmx)
+		}
 		// -Djute.maxbuffer=33554432 -Xms50G -Xmx50G
-		if t.req.Flag_Zookeeper_R3_4_9.JavaDJuteMaxBuffer != 0 {
-			args = append(args, fmt.Sprintf("-Djute.maxbuffer=%d", t.req.Flag_Zookeeper_R3_4_9.JavaDJuteMaxBuffer))
-		}
-		if t.req.Flag_Zookeeper_R3_4_9.JavaDJuteMaxBuffer != 0 {
-			args = append(args, fmt.Sprintf("-Xms%s", t.req.Flag_Zookeeper_R3_4_9.JavaXms))
-		}
-		if t.req.Flag_Zookeeper_R3_4_9.JavaDJuteMaxBuffer != 0 {
-			args = append(args, fmt.Sprintf("-Xmx%s", t.req.Flag_Zookeeper_R3_4_9.JavaXmx))
-		}
+		flagString += JavaClassPathZookeeperr349
 
 	case dbtesterpb.DatabaseID_zookeeper__r3_5_2_alpha:
-		flagString = JavaClassPathZookeeperr352alpha
+		if t.req.Flag_Zookeeper_R3_5_2Alpha.JavaDJuteMaxBuffer != 0 {
+			flagString += fmt.Sprintf(" -Djute.maxbuffer=%d", t.req.Flag_Zookeeper_R3_5_2Alpha.JavaDJuteMaxBuffer)
+		}
+		if t.req.Flag_Zookeeper_R3_5_2Alpha.JavaDJuteMaxBuffer != 0 {
+			flagString += fmt.Sprintf(" -Xms%s", t.req.Flag_Zookeeper_R3_5_2Alpha.JavaXms)
+		}
+		if t.req.Flag_Zookeeper_R3_5_2Alpha.JavaDJuteMaxBuffer != 0 {
+			flagString += fmt.Sprintf(" -Xmx%s", t.req.Flag_Zookeeper_R3_5_2Alpha.JavaXmx)
+		}
 		// -Djute.maxbuffer=33554432 -Xms50G -Xmx50G
-		if t.req.Flag_Zookeeper_R3_5_2Alpha.JavaDJuteMaxBuffer != 0 {
-			args = append(args, fmt.Sprintf("-Djute.maxbuffer=%d", t.req.Flag_Zookeeper_R3_5_2Alpha.JavaDJuteMaxBuffer))
-		}
-		if t.req.Flag_Zookeeper_R3_5_2Alpha.JavaDJuteMaxBuffer != 0 {
-			args = append(args, fmt.Sprintf("-Xms%s", t.req.Flag_Zookeeper_R3_5_2Alpha.JavaXms))
-		}
-		if t.req.Flag_Zookeeper_R3_5_2Alpha.JavaDJuteMaxBuffer != 0 {
-			args = append(args, fmt.Sprintf("-Xmx%s", t.req.Flag_Zookeeper_R3_5_2Alpha.JavaXmx))
-		}
+		flagString += JavaClassPathZookeeperr352alpha
 
 	default:
 		return fmt.Errorf("database ID %q is not supported", t.req.DatabaseID)
 	}
 
-	args = append(args, "-c", fs.javaExec+" "+flagString+" "+fs.zkConfig)
-
+	args := []string{shell, "-c", fs.javaExec + " " + flagString + " " + fs.zkConfig}
 	cmd := exec.Command(args[0], args[1:]...)
 	cmd.Stdout = t.databaseLogFile
 	cmd.Stderr = t.databaseLogFile
