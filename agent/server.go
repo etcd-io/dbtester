@@ -133,7 +133,12 @@ func (t *transporterServer) Transfer(ctx context.Context, req *dbtesterpb.Reques
 	switch req.Operation {
 	case dbtesterpb.Operation_Start:
 		switch t.req.DatabaseID {
-		case dbtesterpb.DatabaseID_etcd__v2_3, dbtesterpb.DatabaseID_etcd__tip, dbtesterpb.DatabaseID_zetcd__beta, dbtesterpb.DatabaseID_cetcd__beta:
+		case dbtesterpb.DatabaseID_etcd__v2_3,
+			dbtesterpb.DatabaseID_etcd__v3_1,
+			dbtesterpb.DatabaseID_etcd__v3_2,
+			dbtesterpb.DatabaseID_etcd__tip,
+			dbtesterpb.DatabaseID_zetcd__beta,
+			dbtesterpb.DatabaseID_cetcd__beta:
 			if err := startEtcd(&globalFlags, t); err != nil {
 				plog.Errorf("startEtcd error %v", err)
 				return nil, err
@@ -166,12 +171,14 @@ func (t *transporterServer) Transfer(ctx context.Context, req *dbtesterpb.Reques
 					plog.Infof("exiting %q", t.proxyCmd.Path)
 				}()
 			}
-		case dbtesterpb.DatabaseID_zookeeper__r3_4_9:
+		case dbtesterpb.DatabaseID_zookeeper__r3_4_9,
+			dbtesterpb.DatabaseID_zookeeper__r3_5_2_alpha:
 			if err := startZookeeper(&globalFlags, t); err != nil {
 				plog.Errorf("startZookeeper error %v", err)
 				return nil, err
 			}
-		case dbtesterpb.DatabaseID_consul__v0_7_5:
+		case dbtesterpb.DatabaseID_consul__v0_7_5,
+			dbtesterpb.DatabaseID_consul__v0_8_0:
 			if err := startConsul(&globalFlags, t); err != nil {
 				plog.Errorf("startConsul error %v", err)
 				return nil, err
