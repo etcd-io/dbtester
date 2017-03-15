@@ -171,19 +171,19 @@ func startZookeeper(fs *flags, t *transporterServer) error {
 	switch t.req.DatabaseID {
 	case dbtesterpb.DatabaseID_zookeeper__r3_4_9:
 		if t.req.Flag_Zookeeper_R3_4_9.JavaDJuteMaxBuffer != 0 {
-			if len(flagString) != "" {
+			if len(flagString) > 0 {
 				flagString += " "
 			}
 			flagString += fmt.Sprintf("-Djute.maxbuffer=%d", t.req.Flag_Zookeeper_R3_4_9.JavaDJuteMaxBuffer)
 		}
 		if t.req.Flag_Zookeeper_R3_4_9.JavaDJuteMaxBuffer != 0 {
-			if len(flagString) != "" {
+			if len(flagString) > 0 {
 				flagString += " "
 			}
 			flagString += fmt.Sprintf("-Xms%s", t.req.Flag_Zookeeper_R3_4_9.JavaXms)
 		}
 		if t.req.Flag_Zookeeper_R3_4_9.JavaDJuteMaxBuffer != 0 {
-			if len(flagString) != "" {
+			if len(flagString) > 0 {
 				flagString += " "
 			}
 			flagString += fmt.Sprintf("-Xmx%s", t.req.Flag_Zookeeper_R3_4_9.JavaXmx)
@@ -193,19 +193,19 @@ func startZookeeper(fs *flags, t *transporterServer) error {
 
 	case dbtesterpb.DatabaseID_zookeeper__r3_5_2_alpha:
 		if t.req.Flag_Zookeeper_R3_5_2Alpha.JavaDJuteMaxBuffer != 0 {
-			if len(flagString) != "" {
+			if len(flagString) > 0 {
 				flagString += " "
 			}
 			flagString += fmt.Sprintf("-Djute.maxbuffer=%d", t.req.Flag_Zookeeper_R3_5_2Alpha.JavaDJuteMaxBuffer)
 		}
 		if t.req.Flag_Zookeeper_R3_5_2Alpha.JavaDJuteMaxBuffer != 0 {
-			if len(flagString) != "" {
+			if len(flagString) > 0 {
 				flagString += " "
 			}
 			flagString += fmt.Sprintf("-Xms%s", t.req.Flag_Zookeeper_R3_5_2Alpha.JavaXms)
 		}
 		if t.req.Flag_Zookeeper_R3_5_2Alpha.JavaDJuteMaxBuffer != 0 {
-			if len(flagString) != "" {
+			if len(flagString) > 0 {
 				flagString += " "
 			}
 			flagString += fmt.Sprintf("-Xmx%s", t.req.Flag_Zookeeper_R3_5_2Alpha.JavaXmx)
