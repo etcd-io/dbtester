@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-GO_VERSION=1.7.5
+GO_VERSION=1.8
 
 sudo rm -f /usr/local/go/bin/go && sudo rm -rf /usr/local/go && sudo rm -f /bin/go
 
@@ -10,7 +10,7 @@ DOWNLOAD_URL=${GOOGLE_URL}
 
 sudo curl -s ${DOWNLOAD_URL}/go$GO_VERSION.linux-amd64.tar.gz | sudo tar -v -C /usr/local/ -xz
 
-if grep -q GOPATH "$(echo $HOME)/.bashrc"; then 
+if grep -q GOPATH "$(echo $HOME)/.bashrc"; then
     echo "bashrc already has GOPATH";
 else
     echo "adding GOPATH to bashrc";
