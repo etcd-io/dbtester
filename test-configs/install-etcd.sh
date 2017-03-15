@@ -35,9 +35,6 @@ cd ${GOPATH}/src/${GIT_PATH}
 git reset --hard 5856c8bce9778a12d79038fdb1f3fba9416bd297
 
 ./build
-# FAILPOINTS=1 ./build
-
-# https://github.com/coreos/etcd/commits/master?after=N38ZsAMfnAqv4q7Ci2%2BQGTEfUvkrMTExOQ%3D%3D
 
 ${GOPATH}/src/${GIT_PATH}/bin/etcd --version
 ${GOPATH}/src/${GIT_PATH}/bin/etcdctl --version
