@@ -2,7 +2,7 @@ test_title: Write 1M keys, 256-byte key, 1KB value value, clients 1 to 1,000
 test_description: |
   - Google Cloud Compute Engine
   - 4 machines of 16 vCPUs + 60 GB Memory + 300 GB SSD (1 for client)
-  - Ubuntu 16.10
+  - Ubuntu 16.10 (GNU/Linux kernel 4.8.0-42-generic)
   - etcd tip (Go 1.8.0, git SHA 5856c8bce9778a12d79038fdb1f3fba9416bd297)
   - Zookeeper r3.5.2-alpha
     - Java 8
