@@ -16,7 +16,7 @@ package dbtester
 
 import (
 	"fmt"
-	"io/ioutil"
+	"os"
 	"path/filepath"
 	"strings"
 
@@ -57,7 +57,7 @@ type Config struct {
 
 // ReadConfig reads control configuration file.
 func ReadConfig(fpath string, analyze bool) (*Config, error) {
-	bts, err := ioutil.ReadFile(fpath)
+	bts, err := os.ReadFile(fpath)
 	if err != nil {
 		return nil, err
 	}
@@ -279,7 +279,7 @@ func ReadConfig(fpath string, analyze bool) (*Config, error) {
 	}
 
 	if cfg.ConfigClientMachineInitial.GoogleCloudStorageKeyPath != "" && !analyze {
-		bts, err = ioutil.ReadFile(cfg.ConfigClientMachineInitial.GoogleCloudStorageKeyPath)
+		bts, err = os.ReadFile(cfg.ConfigClientMachineInitial.GoogleCloudStorageKeyPath)
 		if err != nil {
 			return nil, err
 		}

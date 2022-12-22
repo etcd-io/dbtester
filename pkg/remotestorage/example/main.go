@@ -15,8 +15,8 @@
 package main
 
 import (
-	"io/ioutil"
 	"log"
+	"os"
 
 	"github.com/etcd-io/dbtester/pkg/remotestorage"
 
@@ -24,7 +24,7 @@ import (
 )
 
 func main() {
-	kbs, err := ioutil.ReadFile("key.json")
+	kbs, err := os.ReadFile("key.json")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -37,7 +37,7 @@ func main() {
 	}
 
 	// upload directories
-	// kbs, err := ioutil.ReadFile("key.json")
+	// kbs, err := os.ReadFile("key.json")
 	// if err != nil {
 	// 	log.Fatal(err)
 	// }

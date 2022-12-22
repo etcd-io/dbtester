@@ -17,7 +17,6 @@ package dbtester
 import (
 	"fmt"
 	"io"
-	"io/ioutil"
 	mrand "math/rand"
 	"net/http"
 	"os"
@@ -90,7 +89,7 @@ func exist(fpath string) bool {
 // and closes it. This prevents TCP/TLS connections from closing,
 // therefore available for reuse.
 func gracefulClose(resp *http.Response) {
-	io.Copy(ioutil.Discard, resp.Body)
+	io.Copy(io.Discard, resp.Body)
 	resp.Body.Close()
 }
 

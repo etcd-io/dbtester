@@ -17,7 +17,6 @@ package fileinspect
 import (
 	"bytes"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"testing"
@@ -45,7 +44,7 @@ func writeData(fpath string, data []byte) (n int, err error) {
 }
 
 func createData() (dir string, n int64, err error) {
-	dir, err = ioutil.TempDir(os.TempDir(), "fileinspect-write-test")
+	dir, err = os.MkdirTemp(os.TempDir(), "fileinspect-write-test")
 	if err != nil {
 		return
 	}
