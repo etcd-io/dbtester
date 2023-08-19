@@ -2,6 +2,7 @@
 
 # IDEs and editors
 /.idea
+*.iml
 /.vscode
 
 #System Files
