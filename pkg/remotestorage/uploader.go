@@ -17,7 +17,7 @@ package remotestorage
 import (
 	"context"
 	"fmt"
-	"io/ioutil"
+	"os"
 	"path/filepath"
 	"strings"
 
@@ -91,9 +91,9 @@ func (g *GoogleCloudStorage) UploadFile(bucket, src, dst string, opts ...OpOptio
 	}
 
 	g.lg.Info("uploading", zap.String("source", src), zap.String("destination", dst))
-	bts, err := ioutil.ReadFile(src)
+	bts, err := os.ReadFile(src)
 	if err != nil {
-		return fmt.Errorf("ioutil.ReadFile(%s) %v", src, err)
+		return fmt.Errorf("os.ReadFile(%s) %v", src, err)
 	}
 	if _, err := wc.Write(bts); err != nil {
 		return err
@@ -144,9 +144,9 @@ func (g *GoogleCloudStorage) UploadDir(bucket, src, dst string, opts ...OpOption
 			if ret.ContentType != "" {
 				wc.ContentType = ret.ContentType
 			}
-			bts, err := ioutil.ReadFile(fpath)
+			bts, err := os.ReadFile(fpath)
 			if err != nil {
-				errc <- fmt.Errorf("ioutil.ReadFile(%s) %v", fpath, err)
+				errc <- fmt.Errorf("os.ReadFile(%s) %v", fpath, err)
 				return
 			}
 			if _, err := wc.Write(bts); err != nil {
